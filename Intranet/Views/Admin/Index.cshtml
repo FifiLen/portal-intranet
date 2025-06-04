@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Intranet.Models.Pracownicy> // LUB @model IEnumerable<Intranet.Models.Pracownicies>
+
+@{
+    ViewData["Title"] = "Zarządzanie użytkownikami";
+}
+
+    <h1>@ViewData["Title"]</h1>
+    <p>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-person-plus"></i> Dodaj nowego
+        </a>
+    </p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().Email)</th> @* Lepsze dla nagłówków *@
+                <th>Imię i nazwisko</th> @* Można też użyć DisplayNameFor dla Imie/Nazwisko *@
+                <th>@Html.DisplayNameFor(model => model.First().Rola)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var u in Model) @* Teraz 'u' będzie silnie typowane jako Intranet.Models.Pracownicy *@
+        {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => u.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => u.Imie) @Html.DisplayFor(modelItem => u.Nazwisko)</td>
+                    <td>@Html.DisplayFor(modelItem => u.Rola)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@u.Id" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil"></i> Edytuj @* Dodanie tekstu dla lepszej dostępności *@
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@u.Id" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i> Usuń @* Dodanie tekstu dla lepszej dostępności *@
+                        </a>
+                    </td>
+                </tr>
+        }
+        </tbody>
+    </table>

@@ -1,0 +1,334 @@
+﻿
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0">Obsługa Klienta i Zwroty</h1>
+            <p class="text-muted">Zarządzaj zwrotami, wymianami i reklamacjami</p>
+        </div>
+        <div>
+            <button class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Nowy zwrot
+            </button>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-1">Zwroty dzisiaj</h6>
+                            <h3 class="mb-0">8</h3>
+                            <small class="text-muted">
+                                Wartość: 1,245 zł
+                            </small>
+                        </div>
+                        <div class="bg-primary bg-opacity-10 p-3 rounded">
+                            <i class="bi bi-arrow-return-left text-primary fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-1">Wymiany dzisiaj</h6>
+                            <h3 class="mb-0">5</h3>
+                            <small class="text-muted">
+                                Wartość: 890 zł
+                            </small>
+                        </div>
+                        <div class="bg-success bg-opacity-10 p-3 rounded">
+                            <i class="bi bi-arrow-left-right text-success fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-1">Reklamacje w toku</h6>
+                            <h3 class="mb-0">3</h3>
+                            <small class="text-danger">
+                                1 wymaga pilnej uwagi
+                            </small>
+                        </div>
+                        <div class="bg-warning bg-opacity-10 p-3 rounded">
+                            <i class="bi bi-exclamation-triangle text-warning fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-1">Satysfakcja klientów</h6>
+                            <h3 class="mb-0">94%</h3>
+                            <small class="text-success">
+                                <i class="bi bi-arrow-up"></i> +2% w tym tygodniu
+                            </small>
+                        </div>
+                        <div class="bg-info bg-opacity-10 p-3 rounded">
+                            <i class="bi bi-emoji-smile text-info fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0">Wyszukaj klienta/zamówienie</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="orderNumber" class="form-label">Numer zamówienia</label>
+                        <input type="text" class="form-control" id="orderNumber" placeholder="np. ORD-2305">
+                    </div>
+                    <div class="mb-3">
+                        <label for="customerEmail" class="form-label">Email klienta</label>
+                        <input type="email" class="form-control" id="customerEmail" placeholder="np. jan.kowalski@email.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="customerPhone" class="form-label">Telefon klienta</label>
+                        <input type="tel" class="form-control" id="customerPhone" placeholder="np. 123 456 789">
+                    </div>
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-search me-2"></i>Wyszukaj
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0">Szybki zwrot</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="returnType" class="form-label">Rodzaj</label>
+                        <select class="form-select" id="returnType">
+                            <option selected>Zwrot</option>
+                            <option>Wymiana</option>
+                            <option>Reklamacja</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="returnReason" class="form-label">Powód</label>
+                        <select class="form-select" id="returnReason">
+                            <option selected>Zmiana decyzji klienta</option>
+                            <option>Zły rozmiar</option>
+                            <option>Wada produktu</option>
+                            <option>Niezgodność z opisem</option>
+                            <option>Inny</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="returnItems" class="form-label">Produkty</label>
+                        <select class="form-select" id="returnItems" multiple size="3">
+                            <option>T-shirt bawełniany - Czarny, M - 99,00 zł</option>
+                            <option>Jeansy slim fit - Niebieski, 32/34 - 149,00 zł</option>
+                            <option>Kurtka przejściowa - Granatowy, L - 299,00 zł</option>
+                        </select>
+                        <div class="form-text">Przytrzymaj Ctrl aby wybrać wiele produktów</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="returnNotes" class="form-label">Uwagi</label>
+                        <textarea class="form-control" id="returnNotes" rows="2"></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-primary">Przetwórz zwrot</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Ostatnie zwroty i reklamacje</h5>
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-outline-secondary active">Wszystkie</button>
+                        <button type="button" class="btn btn-outline-secondary">Zwroty</button>
+                        <button type="button" class="btn btn-outline-secondary">Wymiany</button>
+                        <button type="button" class="btn btn-outline-secondary">Reklamacje</button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Klient</th>
+                                    <th>Data</th>
+                                    <th>Typ</th>
+                                    <th>Status</th>
+                                    <th>Wartość</th>
+                                    <th>Akcje</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>RET-1025</td>
+                                    <td>
+                                        <div>
+                                            <span class="d-block">Jan Nowak</span>
+                                            <small class="text-muted">jan.nowak@email.com</small>
+                                        </div>
+                                    </td>
+                                    <td>13.04.2023</td>
+                                    <td><span class="badge bg-primary">Zwrot</span></td>
+                                    <td><span class="badge bg-success">Zakończony</span></td>
+                                    <td>349,00 zł</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RET-1024</td>
+                                    <td>
+                                        <div>
+                                            <span class="d-block">Anna Wiśniewska</span>
+                                            <small class="text-muted">anna.w@email.com</small>
+                                        </div>
+                                    </td>
+                                    <td>13.04.2023</td>
+                                    <td><span class="badge bg-success">Wymiana</span></td>
+                                    <td><span class="badge bg-warning text-dark">W trakcie</span></td>
+                                    <td>199,00 zł</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RET-1023</td>
+                                    <td>
+                                        <div>
+                                            <span class="d-block">Piotr Kowalczyk</span>
+                                            <small class="text-muted">p.kowalczyk@email.com</small>
+                                        </div>
+                                    </td>
+                                    <td>12.04.2023</td>
+                                    <td><span class="badge bg-danger">Reklamacja</span></td>
+                                    <td><span class="badge bg-danger">Pilne</span></td>
+                                    <td>299,00 zł</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RET-1022</td>
+                                    <td>
+                                        <div>
+                                            <span class="d-block">Magdalena Lewandowska</span>
+                                            <small class="text-muted">m.lewandowska@email.com</small>
+                                        </div>
+                                    </td>
+                                    <td>12.04.2023</td>
+                                    <td><span class="badge bg-primary">Zwrot</span></td>
+                                    <td><span class="badge bg-success">Zakończony</span></td>
+                                    <td>149,00 zł</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RET-1021</td>
+                                    <td>
+                                        <div>
+                                            <span class="d-block">Tomasz Zieliński</span>
+                                            <small class="text-muted">t.zielinski@email.com</small>
+                                        </div>
+                                    </td>
+                                    <td>11.04.2023</td>
+                                    <td><span class="badge bg-success">Wymiana</span></td>
+                                    <td><span class="badge bg-success">Zakończony</span></td>
+                                    <td>249,00 zł</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RET-1020</td>
+                                    <td>
+                                        <div>
+                                            <span class="d-block">Karolina Dąbrowska</span>
+                                            <small class="text-muted">k.dabrowska@email.com</small>
+                                        </div>
+                                    </td>
+                                    <td>11.04.2023</td>
+                                    <td><span class="badge bg-danger">Reklamacja</span></td>
+                                    <td><span class="badge bg-warning text-dark">W trakcie</span></td>
+                                    <td>399,00 zł</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>RET-1019</td>
+                                    <td>
+                                        <div>
+                                            <span class="d-block">Michał Szymański</span>
+                                            <small class="text-muted">m.szymanski@email.com</small>
+                                        </div>
+                                    </td>
+                                    <td>10.04.2023</td>
+                                    <td><span class="badge bg-primary">Zwrot</span></td>
+                                    <td><span class="badge bg-success">Zakończony</span></td>
+                                    <td>179,00 zł</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-white py-3">
+                    <nav aria-label="Nawigacja po stronach">
+                        <ul class="pagination justify-content-center mb-0">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Poprzednia</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Następna</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

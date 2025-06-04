@@ -1,0 +1,171 @@
+﻿@* @page *@
+@* @model Portal.Pages.KoszykModel *@
+@* @{ *@
+@*     ViewData["Title"] = "Koszyk"; *@
+@* } *@
+
+@* <section class="py-5"> *@
+@*     <div class="container"> *@
+@*         <div class="row justify-content-center mb-4"> *@
+@*             <div class="col-lg-8 text-center"> *@
+@*                 <h2 class="fw-bold">Twój koszyk</h2> *@
+@*                 <p class="text-muted">Przejrzyj swoje produkty przed złożeniem zamówienia</p> *@
+@*             </div> *@
+@*         </div> *@
+
+@*         <div class="row g-5"> *@
+@*             <div class="col-lg-8"> *@
+@*                 <div class="card border-0 shadow-sm"> *@
+@*                     <div class="card-body p-4"> *@
+@*                         <h5 class="card-title mb-4">Produkty</h5> *@
+
+@*                         <div class="table-responsive"> *@
+@*                             <table class="table align-middle"> *@
+@*                                 <thead class="table-light"> *@
+@*                                     <tr> *@
+@*                                         <th style="width: 50%">Produkt</th> *@
+@*                                         <th style="width: 15%">Ilość</th> *@
+@*                                         <th style="width: 15%">Cena</th> *@
+@*                                         <th style="width: 15%">Suma</th> *@
+@*                                         <th style="width: 5%"></th> *@
+@*                                     </tr> *@
+@*                                 </thead> *@
+@*                                 <tbody> *@
+@*                                     <tr> *@
+@*                                         <td> *@
+@*                                             <div class="d-flex align-items-center"> *@
+@*                                                 <img src="/images/place-holder.jpg" alt="Produkt 1" class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;"> *@
+@*                                                 <div class="ms-3"> *@
+@*                                                     <h6 class="mb-1">T-shirt bawełniany</h6> *@
+@*                                                     <p class="text-muted small mb-0">Rozmiar: M</p> *@
+@*                                                     <p class="text-muted small mb-0">Kolor: Czarny</p> *@
+@*                                                 </div> *@
+@*                                             </div> *@
+@*                                         </td> *@
+@*                                         <td> *@
+@*                                             <div class="input-group input-group-sm"> *@
+@*                                                 <button class="btn btn-outline-secondary" type="button">-</button> *@
+@*                                                 <input type="number" class="form-control text-center" value="1" min="1"> *@
+@*                                                 <button class="btn btn-outline-secondary" type="button">+</button> *@
+@*                                             </div> *@
+@*                                         </td> *@
+@*                                         <td>99,00 zł</td> *@
+@*                                         <td>99,00 zł</td> *@
+@*                                         <td> *@
+@*                                             <button class="btn btn-sm btn-outline-danger"> *@
+@*                                                 <i class="bi bi-trash"></i> *@
+@*                                             </button> *@
+@*                                         </td> *@
+@*                                     </tr> *@
+
+@*                                     <tr> *@
+@*                                         <td> *@
+@*                                             <div class="d-flex align-items-center"> *@
+@*                                                 <img src="/images/place-holder.jpg" alt="Produkt 2" class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;"> *@
+@*                                                 <div class="ms-3"> *@
+@*                                                     <h6 class="mb-1">Jeansy slim fit</h6> *@
+@*                                                     <p class="text-muted small mb-0">Rozmiar: 32/34</p> *@
+@*                                                     <p class="text-muted small mb-0">Kolor: Niebieski</p> *@
+@*                                                 </div> *@
+@*                                             </div> *@
+@*                                         </td> *@
+@*                                         <td> *@
+@*                                             <div class="input-group input-group-sm"> *@
+@*                                                 <button class="btn btn-outline-secondary" type="button">-</button> *@
+@*                                                 <input type="number" class="form-control text-center" value="1" min="1"> *@
+@*                                                 <button class="btn btn-outline-secondary" type="button">+</button> *@
+@*                                             </div> *@
+@*                                         </td> *@
+@*                                         <td>149,00 zł</td> *@
+@*                                         <td>149,00 zł</td> *@
+@*                                         <td> *@
+@*                                             <button class="btn btn-sm btn-outline-danger"> *@
+@*                                                 <i class="bi bi-trash"></i> *@
+@*                                             </button> *@
+@*                                         </td> *@
+@*                                     </tr> *@
+@*                                 </tbody> *@
+@*                             </table> *@
+@*                         </div> *@
+
+@*                         <div class="d-flex justify-content-between mt-4"> *@
+@*                             <a href="#" class="btn btn-outline-secondary"> *@
+@*                                 <i class="bi bi-arrow-left me-2"></i>Kontynuuj zakupy *@
+@*                             </a> *@
+@*                             <button class="btn btn-outline-primary"> *@
+@*                                 <i class="bi bi-arrow-clockwise me-2"></i>Aktualizuj koszyk *@
+@*                             </button> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+
+@*                 <div class="card border-0 shadow-sm mt-4"> *@
+@*                     <div class="card-body p-4"> *@
+@*                         <h5 class="card-title mb-3">Kod rabatowy</h5> *@
+@*                         <div class="input-group"> *@
+@*                             <input type="text" class="form-control" placeholder="Wpisz kod rabatowy"> *@
+@*                             <button class="btn btn-primary" type="button">Zastosuj</button> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+@*             </div> *@
+
+@*             <div class="col-lg-4"> *@
+@*                 <div class="card border-0 shadow-sm"> *@
+@*                     <div class="card-body p-4"> *@
+@*                         <h5 class="card-title mb-4">Podsumowanie zamówienia</h5> *@
+
+@*                         <div class="d-flex justify-content-between mb-2"> *@
+@*                             <span>Wartość produktów</span> *@
+@*                             <span>248,00 zł</span> *@
+@*                         </div> *@
+
+@*                         <div class="d-flex justify-content-between mb-2 text-success"> *@
+@*                             <span>Rabat</span> *@
+@*                             <span>-20,00 zł</span> *@
+@*                         </div> *@
+
+@*                         <div class="d-flex justify-content-between mb-2"> *@
+@*                             <span>Dostawa</span> *@
+@*                             <span>15,00 zł</span> *@
+@*                         </div> *@
+
+@*                         <hr> *@
+
+@*                         <div class="d-flex justify-content-between mb-4"> *@
+@*                             <span class="fw-bold">Łącznie</span> *@
+@*                             <span class="fw-bold fs-5">243,00 zł</span> *@
+@*                         </div> *@
+
+@*                         <h6 class="mb-3">Wybierz sposób dostawy</h6> *@
+@*                         <div class="form-check mb-2"> *@
+@*                             <input class="form-check-input" type="radio" name="shippingOption" id="courier" checked> *@
+@*                             <label class="form-check-label d-flex justify-content-between" for="courier"> *@
+@*                                 <span>Kurier</span> *@
+@*                                 <span>15,00 zł</span> *@
+@*                             </label> *@
+@*                         </div> *@
+@*                         <div class="form-check mb-2"> *@
+@*                             <input class="form-check-input" type="radio" name="shippingOption" id="parcelLocker"> *@
+@*                             <label class="form-check-label d-flex justify-content-between" for="parcelLocker"> *@
+@*                                 <span>Paczkomat</span> *@
+@*                                 <span>12,00 zł</span> *@
+@*                             </label> *@
+@*                         </div> *@
+@*                         <div class="form-check mb-4"> *@
+@*                             <input class="form-check-input" type="radio" name="shippingOption" id="store"> *@
+@*                             <label class="form-check-label d-flex justify-content-between" for="store"> *@
+@*                                 <span>Odbiór w sklepie</span> *@
+@*                                 <span>0,00 zł</span> *@
+@*                             </label> *@
+@*                         </div> *@
+
+@*                         <div class="d-grid"> *@
+@*                             <a href="#" class="btn btn-primary btn-lg">Przejdź do zamówienia</a> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </section> *@

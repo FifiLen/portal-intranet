@@ -1,0 +1,88 @@
+﻿@model Intranet.Models.Zamowienie
+@using Intranet.Models
+@{
+    ViewData["Title"] = "Szczegóły Zamówienia #" + Model.Id;
+    Layout = "_Layout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Zamówienie</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.DataZlozenia)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.DataZlozenia.ToString("yyyy-MM-dd HH:mm:ss")
+        </dd>
+        <dt class="col-sm-3">
+            Klient
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ImieZamawiajacego) @Html.DisplayFor(model => model.NazwiskoZamawiajacego)
+            (@Html.DisplayFor(model => model.EmailZamawiajacego))
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.LacznaWartosc)
+        </dt>
+        <dd class="col-sm-9">
+            @Model.LacznaWartosc.ToString("C", new System.Globalization.CultureInfo("pl-PL"))
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-9">
+            <span class="badge
+                  @((Model.Status == StatusZamowienia.Nowe || Model.Status == StatusZamowienia.PrzyjeteDoRealizacji) ? "bg-info text-dark" :
+                     Model.Status == StatusZamowienia.WRealizacji ? "bg-warning text-dark" :
+                     Model.Status == StatusZamowienia.Wyslane ? "bg-primary" :
+                     Model.Status == StatusZamowienia.Zrealizowane ? "bg-success" :
+                     Model.Status == StatusZamowienia.Anulowane ? "bg-danger" : "bg-secondary")">
+                @Html.DisplayFor(model => model.Status)
+            </span>
+        </dd>
+    </dl>
+</div>
+
+@if (Model.PozycjeZamowien != null && Model.PozycjeZamowien.Any())
+{
+    <h4>Pozycje zamówienia</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produkt</th>
+                <th>Ilość</th>
+                <th>Cena jednostkowa</th>
+                <th>Suma</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pozycja in Model.PozycjeZamowien)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => pozycja.Produkt.Nazwa)</td>
+                    <td>@Html.DisplayFor(modelItem => pozycja.Ilosc)</td>
+                    <td class="text-end">@pozycja.CenaJednostkowa.ToString("C", new System.Globalization.CultureInfo("pl-PL"))</td>
+                    <td class="text-end">@((pozycja.Ilosc * pozycja.CenaJednostkowa).ToString("C", new System.Globalization.CultureInfo("pl-PL")))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Brak pozycji w tym zamówieniu.</p>
+}
+
+<div>
+     <a asp-action="Edit" asp-route-id="@Model.Id">Edytuj</a> 
+    <a asp-action="Index" class="btn btn-secondary mt-3">Powrót do listy</a>
+</div>

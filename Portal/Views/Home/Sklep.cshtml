@@ -1,0 +1,386 @@
+﻿@* @page *@
+@* @model Portal.Pages.SklepModel *@
+@* @{ *@
+@*     ViewData["Title"] = "Sklep"; *@
+@* } *@
+
+@* <section class="py-5"> *@
+@*     <div class="container"> *@
+@*         <div class="row mb-4"> *@
+@*             <div class="col-12"> *@
+@*                 <nav aria-label="breadcrumb"> *@
+@*                     <ol class="breadcrumb"> *@
+@*                         <li class="breadcrumb-item"><a href="/">Strona główna</a></li> *@
+@*                         <li class="breadcrumb-item active" aria-current="page">Sklep</li> *@
+@*                     </ol> *@
+@*                 </nav> *@
+@*                 <h1 class="fw-bold">Sklep</h1> *@
+@*             </div> *@
+@*         </div> *@
+
+@*         <div class="row g-4"> *@
+@*             <div class="col-lg-3"> *@
+@*                 <div class="card border-0 shadow-sm mb-4"> *@
+@*                     <div class="card-body"> *@
+@*                         <h5 class="card-title mb-3">Kategorie</h5> *@
+@*                         <div class="list-group list-group-flush"> *@
+@*                             <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active"> *@
+@*                                 Wszystkie *@
+@*                                 <span class="badge bg-primary rounded-pill">120</span> *@
+@*                             </a> *@
+@*                             <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"> *@
+@*                                 Dla kobiet *@
+@*                                 <span class="badge bg-light text-dark rounded-pill">64</span> *@
+@*                             </a> *@
+@*                             <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"> *@
+@*                                 Dla mężczyzn *@
+@*                                 <span class="badge bg-light text-dark rounded-pill">42</span> *@
+@*                             </a> *@
+@*                             <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"> *@
+@*                                 Dla dzieci *@
+@*                                 <span class="badge bg-light text-dark rounded-pill">14</span> *@
+@*                             </a> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+
+@*                 <div class="card border-0 shadow-sm mb-4"> *@
+@*                     <div class="card-body"> *@
+@*                         <h5 class="card-title mb-3">Cena</h5> *@
+@*                         <div class="mb-3"> *@
+@*                             <label for="priceMin" class="form-label">Od</label> *@
+@*                             <input type="number" class="form-control" id="priceMin" placeholder="0"> *@
+@*                         </div> *@
+@*                         <div class="mb-3"> *@
+@*                             <label for="priceMax" class="form-label">Do</label> *@
+@*                             <input type="number" class="form-control" id="priceMax" placeholder="500"> *@
+@*                         </div> *@
+@*                         <button class="btn btn-primary w-100">Zastosuj</button> *@
+@*                     </div> *@
+@*                 </div> *@
+
+@*                 <div class="card border-0 shadow-sm mb-4"> *@
+@*                     <div class="card-body"> *@
+@*                         <h5 class="card-title mb-3">Rozmiar</h5> *@
+@*                         <div class="d-flex flex-wrap gap-2"> *@
+@*                             <input type="checkbox" class="btn-check" id="size-xs" autocomplete="off"> *@
+@*                             <label class="btn btn-outline-secondary btn-sm" for="size-xs">XS</label> *@
+
+@*                             <input type="checkbox" class="btn-check" id="size-s" autocomplete="off"> *@
+@*                             <label class="btn btn-outline-secondary btn-sm" for="size-s">S</label> *@
+
+@*                             <input type="checkbox" class="btn-check" id="size-m" autocomplete="off" checked> *@
+@*                             <label class="btn btn-outline-secondary btn-sm" for="size-m">M</label> *@
+
+@*                             <input type="checkbox" class="btn-check" id="size-l" autocomplete="off"> *@
+@*                             <label class="btn btn-outline-secondary btn-sm" for="size-l">L</label> *@
+
+@*                             <input type="checkbox" class="btn-check" id="size-xl" autocomplete="off"> *@
+@*                             <label class="btn btn-outline-secondary btn-sm" for="size-xl">XL</label> *@
+
+@*                             <input type="checkbox" class="btn-check" id="size-xxl" autocomplete="off"> *@
+@*                             <label class="btn btn-outline-secondary btn-sm" for="size-xxl">XXL</label> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+
+@*                 <div class="card border-0 shadow-sm mb-4"> *@
+@*                     <div class="card-body"> *@
+@*                         <h5 class="card-title mb-3">Kolor</h5> *@
+@*                         <div class="d-flex flex-wrap gap-2"> *@
+@*                             <input type="checkbox" class="btn-check" id="color-black" autocomplete="off" checked> *@
+@*                             <label class="btn btn-outline-dark btn-sm" for="color-black">Czarny</label> *@
+
+@*                             <input type="checkbox" class="btn-check" id="color-white" autocomplete="off"> *@
+@*                             <label class="btn btn-outline-secondary btn-sm" for="color-white">Biały</label> *@
+
+@*                             <input type="checkbox" class="btn-check" id="color-blue" autocomplete="off"> *@
+@*                             <label class="btn btn-outline-primary btn-sm" for="color-blue">Niebieski</label> *@
+
+@*                             <input type="checkbox" class="btn-check" id="color-red" autocomplete="off"> *@
+@*                             <label class="btn btn-outline-danger btn-sm" for="color-red">Czerwony</label> *@
+
+@*                             <input type="checkbox" class="btn-check" id="color-green" autocomplete="off"> *@
+@*                             <label class="btn btn-outline-success btn-sm" for="color-green">Zielony</label> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+
+@*                 <div class="d-grid"> *@
+@*                     <button class="btn btn-outline-secondary">Wyczyść filtry</button> *@
+@*                 </div> *@
+@*             </div> *@
+
+@*             <div class="col-lg-9"> *@
+@*                 <div class="d-flex justify-content-between align-items-center bg-light p-3 rounded mb-4"> *@
+@*                     <div> *@
+@*                         <span class="text-muted">Znaleziono 24 produkty</span> *@
+@*                     </div> *@
+@*                     <div class="d-flex gap-2 align-items-center"> *@
+@*                         <label for="sort" class="form-label mb-0 me-2">Sortuj:</label> *@
+@*                         <select class="form-select form-select-sm" id="sort" style="width: auto;"> *@
+@*                             <option selected>Popularność</option> *@
+@*                             <option>Cena: od najniższej</option> *@
+@*                             <option>Cena: od najwyższej</option> *@
+@*                             <option>Nazwa: A-Z</option> *@
+@*                             <option>Nazwa: Z-A</option> *@
+@*                         </select> *@
+
+@*                         <div class="btn-group ms-2" role="group" aria-label="Widok"> *@
+@*                             <button type="button" class="btn btn-outline-secondary btn-sm active"> *@
+@*                                 <i class="bi bi-grid-3x3-gap-fill"></i> *@
+@*                             </button> *@
+@*                             <button type="button" class="btn btn-outline-secondary btn-sm"> *@
+@*                                 <i class="bi bi-list"></i> *@
+@*                             </button> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+
+@*                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"> *@
+@*                     <div class="col"> *@
+@*                         <div class="card h-100 border-0 shadow-sm product-card"> *@
+@*                             <div class="position-relative"> *@
+@*                                 <img src="/images/place-holder.jpg" class="card-img-top" alt="Sweter z wełną" style="height: 250px; object-fit: cover;"> *@
+@*                                 <div class="position-absolute top-0 end-0 bg-danger text-white m-2 px-2 py-1 rounded-pill"> *@
+@*                                     <small>-20%</small> *@
+@*                                 </div> *@
+@*                                 <div class="product-actions position-absolute bottom-0 start-0 end-0 p-3 bg-white bg-opacity-75 d-flex justify-content-between"> *@
+@*                                     <button class="btn btn-sm btn-outline-dark"> *@
+@*                                         <i class="bi bi-eye"></i> *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-primary"> *@
+@*                                         <i class="bi bi-cart-plus me-1"></i> Dodaj *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-outline-danger"> *@
+@*                                         <i class="bi bi-heart"></i> *@
+@*                                     </button> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             <div class="card-body"> *@
+@*                                 <h5 class="card-title">Sweter z wełną</h5> *@
+@*                                 <div class="d-flex justify-content-between align-items-center mt-2"> *@
+@*                                     <div> *@
+@*                                         <span class="text-decoration-line-through text-muted me-2">199,00 zł</span> *@
+@*                                         <span class="fw-bold">159,00 zł</span> *@
+@*                                     </div> *@
+@*                                     <div class="text-warning"> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star"></i> *@
+@*                                     </div> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </div> *@
+
+@*                     <div class="col"> *@
+@*                         <div class="card h-100 border-0 shadow-sm product-card"> *@
+@*                             <div class="position-relative"> *@
+@*                                 <img src="/images/place-holder.jpg" class="card-img-top" alt="Jeansy slim fit" style="height: 250px; object-fit: cover;"> *@
+@*                                 <div class="product-actions position-absolute bottom-0 start-0 end-0 p-3 bg-white bg-opacity-75 d-flex justify-content-between"> *@
+@*                                     <button class="btn btn-sm btn-outline-dark"> *@
+@*                                         <i class="bi bi-eye"></i> *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-primary"> *@
+@*                                         <i class="bi bi-cart-plus me-1"></i> Dodaj *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-outline-danger"> *@
+@*                                         <i class="bi bi-heart"></i> *@
+@*                                     </button> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             <div class="card-body"> *@
+@*                                 <h5 class="card-title">Jeansy slim fit</h5> *@
+@*                                 <div class="d-flex justify-content-between align-items-center mt-2"> *@
+@*                                     <div> *@
+@*                                         <span class="fw-bold">149,00 zł</span> *@
+@*                                     </div> *@
+@*                                     <div class="text-warning"> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-half"></i> *@
+@*                                         <i class="bi bi-star"></i> *@
+@*                                     </div> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </div> *@
+
+@*                     <div class="col"> *@
+@*                         <div class="card h-100 border-0 shadow-sm product-card"> *@
+@*                             <div class="position-relative"> *@
+@*                                 <img src="/images/place-holder.jpg" class="card-img-top" alt="Kurtka przejściowa" style="height: 250px; object-fit: cover;"> *@
+@*                                 <div class="position-absolute top-0 end-0 bg-success text-white m-2 px-2 py-1 rounded-pill"> *@
+@*                                     <small>Nowość</small> *@
+@*                                 </div> *@
+@*                                 <div class="product-actions position-absolute bottom-0 start-0 end-0 p-3 bg-white bg-opacity-75 d-flex justify-content-between"> *@
+@*                                     <button class="btn btn-sm btn-outline-dark"> *@
+@*                                         <i class="bi bi-eye"></i> *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-primary"> *@
+@*                                         <i class="bi bi-cart-plus me-1"></i> Dodaj *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-outline-danger"> *@
+@*                                         <i class="bi bi-heart"></i> *@
+@*                                     </button> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             <div class="card-body"> *@
+@*                                 <h5 class="card-title">Kurtka przejściowa</h5> *@
+@*                                 <div class="d-flex justify-content-between align-items-center mt-2"> *@
+@*                                     <div> *@
+@*                                         <span class="fw-bold">299,00 zł</span> *@
+@*                                     </div> *@
+@*                                     <div class="text-warning"> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                     </div> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </div> *@
+
+@*                     <div class="col"> *@
+@*                         <div class="card h-100 border-0 shadow-sm product-card"> *@
+@*                             <div class="position-relative"> *@
+@*                                 <img src="/images/place-holder.jpg" class="card-img-top" alt="Sukienka z wiskozy" style="height: 250px; object-fit: cover;"> *@
+@*                                 <div class="product-actions position-absolute bottom-0 start-0 end-0 p-3 bg-white bg-opacity-75 d-flex justify-content-between"> *@
+@*                                     <button class="btn btn-sm btn-outline-dark"> *@
+@*                                         <i class="bi bi-eye"></i> *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-primary"> *@
+@*                                         <i class="bi bi-cart-plus me-1"></i> Dodaj *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-outline-danger"> *@
+@*                                         <i class="bi bi-heart"></i> *@
+@*                                     </button> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             <div class="card-body"> *@
+@*                                 <h5 class="card-title">Sukienka z wiskozy</h5> *@
+@*                                 <div class="d-flex justify-content-between align-items-center mt-2"> *@
+@*                                     <div> *@
+@*                                         <span class="fw-bold">179,00 zł</span> *@
+@*                                     </div> *@
+@*                                     <div class="text-warning"> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star"></i> *@
+@*                                     </div> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </div> *@
+
+
+
+@*                     <div class="col"> *@
+@*                         <div class="card h-100 border-0 shadow-sm product-card"> *@
+@*                             <div class="position-relative"> *@
+@*                                 <img src="/images/place-holder.jpg" class="card-img-top" alt="Koszula w kratę" style="height: 250px; object-fit: cover;"> *@
+@*                                 <div class="product-actions position-absolute bottom-0 start-0 end-0 p-3 bg-white bg-opacity-75 d-flex justify-content-between"> *@
+@*                                     <button class="btn btn-sm btn-outline-dark"> *@
+@*                                         <i class="bi bi-eye"></i> *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-primary"> *@
+@*                                         <i class="bi bi-cart-plus me-1"></i> Dodaj *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-outline-danger"> *@
+@*                                         <i class="bi bi-heart"></i> *@
+@*                                     </button> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             <div class="card-body"> *@
+@*                                 <h5 class="card-title">Koszula w kratę</h5> *@
+@*                                 <div class="d-flex justify-content-between align-items-center mt-2"> *@
+@*                                     <div> *@
+@*                                         <span class="fw-bold">129,00 zł</span> *@
+@*                                     </div> *@
+@*                                     <div class="text-warning"> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star"></i> *@
+@*                                         <i class="bi bi-star"></i> *@
+@*                                     </div> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </div> *@
+
+@*                     <div class="col"> *@
+@*                         <div class="card h-100 border-0 shadow-sm product-card"> *@
+@*                             <div class="position-relative"> *@
+@*                                 <img src="/images/place-holder.jpg" class="card-img-top" alt="Bluza z kapturem" style="height: 250px; object-fit: cover;"> *@
+@*                                 <div class="position-absolute top-0 end-0 bg-danger text-white m-2 px-2 py-1 rounded-pill"> *@
+@*                                     <small>-15%</small> *@
+@*                                 </div> *@
+@*                                 <div class="product-actions position-absolute bottom-0 start-0 end-0 p-3 bg-white bg-opacity-75 d-flex justify-content-between"> *@
+@*                                     <button class="btn btn-sm btn-outline-dark"> *@
+@*                                         <i class="bi bi-eye"></i> *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-primary"> *@
+@*                                         <i class="bi bi-cart-plus me-1"></i> Dodaj *@
+@*                                     </button> *@
+@*                                     <button class="btn btn-sm btn-outline-danger"> *@
+@*                                         <i class="bi bi-heart"></i> *@
+@*                                     </button> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             <div class="card-body"> *@
+@*                                 <h5 class="card-title">Bluza z kapturem</h5> *@
+@*                                 <div class="d-flex justify-content-between align-items-center mt-2"> *@
+@*                                     <div> *@
+@*                                         <span class="text-decoration-line-through text-muted me-2">139,00 zł</span> *@
+@*                                         <span class="fw-bold">118,00 zł</span> *@
+@*                                     </div> *@
+@*                                     <div class="text-warning"> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-fill"></i> *@
+@*                                         <i class="bi bi-star-half"></i> *@
+@*                                     </div> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+
+@*                 <nav class="mt-5" aria-label="Nawigacja po stronach"> *@
+@*                     <ul class="pagination justify-content-center"> *@
+@*                         <li class="page-item disabled"> *@
+@*                             <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Poprzednia</a> *@
+@*                         </li> *@
+@*                         <li class="page-item active"><a class="page-link" href="#">1</a></li> *@
+@*                         <li class="page-item"><a class="page-link" href="#">2</a></li> *@
+@*                         <li class="page-item"><a class="page-link" href="#">3</a></li> *@
+@*                         <li class="page-item"> *@
+@*                             <a class="page-link" href="#">Następna</a> *@
+@*                         </li> *@
+@*                     </ul> *@
+@*                 </nav> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </section> *@
+
+@* <style> *@
+@*     .product-card .product-actions { *@
+@*         opacity: 0; *@
+@*         transition: opacity 0.3s ease; *@
+@*     } *@
+
+@*     .product-card:hover .product-actions { *@
+@*         opacity: 1; *@
+@*     } *@
+@* </style> *@

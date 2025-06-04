@@ -1,0 +1,156 @@
+﻿@model Intranet.Controllers.HarmonogramViewModel
+@using System
+@using System.Linq
+@using System.Globalization
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Harmonogram pracy";
+
+    int year = Model.Year;
+    int month = Model.Month;
+    int daysInMonth = DateTime.DaysInMonth(year, month);
+    DateTime firstOfMonth = new DateTime(year, month, 1);
+
+    // Sunday = 0 … Saturday = 6, chcemy Monday = 0 … Sunday = 6
+    int startOffset = ((int)firstOfMonth.DayOfWeek + 6) % 7;
+    int totalCells = ((daysInMonth + startOffset + 6) / 7) * 7;
+
+    DateTime prev = firstOfMonth.AddMonths(-1);
+    DateTime next = firstOfMonth.AddMonths(1);
+
+    string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
+}
+
+@functions {
+    public string BadgeClass(string typ) => typ switch
+    {
+        "Zmiana poranna" => "bg-primary",
+        "Zmiana popołudniowa" => "bg-success",
+        "Urlop" => "bg-danger",
+        "Szkolenie" => "bg-warning text-dark",
+        _ => "bg-secondary"
+    };
+}
+
+<div class="container-fluid py-4">
+    <!-- Nagłówek i przycisk -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0">Harmonogram pracy</h1>
+            <p class="text-muted">Twoje zmiany i grafik pracy</p>
+        </div>
+        <div>
+            <a asp-controller="Harmonogram" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-calendar-plus"></i> Dodaj zmianę
+            </a>
+        </div>
+    </div>
+
+    <!-- Kalendarz -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">@monthName @year</h5>
+            <div>
+                <a asp-action="Index" asp-route-month="@prev.Month" asp-route-year="@prev.Year"
+                   class="btn btn-sm btn-outline-secondary me-2">
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+                <a asp-action="Index" asp-route-month="@next.Month" asp-route-year="@next.Year"
+                   class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="card-body p-3">
+            <div class="table-responsive">
+                <table class="table table-bordered text-center mb-0">
+                    <thead>
+                        <tr>
+                            <th>Pon</th>
+                            <th>Wt</th>
+                            <th>Śr</th>
+                            <th>Czw</th>
+                            <th>Pt</th>
+                            <th>Sob</th>
+                            <th>Nd</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int weeks = totalCells / 7;
+                            for (int week = 0; week < weeks; week++)
+                            {
+                                <tr>
+                                    @for (int dow = 0; dow < 7; dow++)
+                                    {
+                                        int cell = week * 7 + dow;
+                                        int dayNumber = cell - startOffset + 1;
+
+                                        if (dayNumber < 1 || dayNumber > daysInMonth)
+                                        {
+                                            <td class="text-muted"></td>
+                                        }
+                                        else
+                                        {
+                                            var date = new DateTime(year, month, dayNumber);
+                                            var shifts = Model.Zmiany
+                                            .Where(z => z.DataZmiany == DateOnly.FromDateTime(date));
+
+                                            <td>
+                                                <strong>@dayNumber</strong>
+                                                @foreach (var z in shifts)
+                                                {
+                                                    <div class="mt-1">
+                                                        <span class="badge @BadgeClass(z.TypZmiany)">
+                                                            @* WARUNEK WYŚWIETLANIA *@
+                                                            @if (z.TypZmiany == "Urlop")
+                                                            {
+                                                                @("Urlop") @* Lub po prostu: Urlop *@
+                                                            }
+                                                            else if (z.TypZmiany == "Szkolenie")
+                                                            {
+                                                                @("Szkolenie") @* Lub po prostu: Szkolenie *@
+                                                            }
+                                                            else
+                                                            {
+                                                                @z.GodzRozpoczecia @* Dla innych typów zmian wyświetl godzinę *@
+                                                            }
+                                                        </span>
+                                                    </div>
+                                                }
+                                            </td>
+                                        }
+                                    }
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Legenda -->
+            <div class="mt-3">
+                <div class="d-flex flex-wrap gap-3">
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-primary me-2">8:00–16:00</span>
+                        <span class="small">Zmiana poranna</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-success me-2">12:00–20:00</span>
+                        <span class="small">Zmiana popołudniowa</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-danger me-2">Urlop</span>
+                        <span class="small">Dzień wolny</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-warning text-dark me-2">Szkolenie</span>
+                        <span class="small">Dzień szkoleniowy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

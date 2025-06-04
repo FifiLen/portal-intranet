@@ -1,0 +1,38 @@
+﻿# Dependencies
+**/[Bb]in/
+**/[Oo]bj/
+**/[Dd]ebug/
+**/[Rr]elease/
+*.nupkg
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio code coverage results
+*.coverage
+*.coveragexml
+
+# Rider
+.idea/
+*.iml
+
+# Build results
+[Bb]uild/
+[Tt]est[Rr]esults/
+
+# User-specific files
+*.DotSettings.user
+*.secrets.json
+appsettings.Development.json # Jeśli nie chcesz commitować ustawień deweloperskich
+
+# Environment variables
+.env
+
+# Cache files
+*.pyc
+*.pyo
+__pycache__/
+
+# IDE files
+.vscode/

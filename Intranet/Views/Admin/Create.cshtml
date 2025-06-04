@@ -1,0 +1,44 @@
+﻿@model Intranet.Models.Pracownicy // LUB @model Intranet.Models.Pracownicies, jeśli tak nazywa się Twoja klasa
+
+@{
+    ViewData["Title"] = "Dodaj użytkownika";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Imie" class="form-label"></label>
+        <input asp-for="Imie" class="form-control" />
+        <span asp-validation-for="Imie" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Nazwisko" class="form-label"></label>
+        <input asp-for="Nazwisko" class="form-control" />
+        <span asp-validation-for="Nazwisko" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Rola" class="form-label"></label>
+        <input asp-for="Rola" class="form-control" />
+        <span asp-validation-for="Rola" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="HasloHash" class="form-label">Hasło</label>
+        <input asp-for="HasloHash" type="password" class="form-control" />
+        <span asp-validation-for="HasloHash" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Zapisz</button>
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

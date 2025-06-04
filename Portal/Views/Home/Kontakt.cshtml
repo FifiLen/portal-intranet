@@ -1,0 +1,113 @@
+﻿@page
+@{
+    ViewData["Title"] = "Kontakt";
+}
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="fw-bold mb-3">Skontaktuj się z nami</h2>
+                <p class="text-muted">Masz pytania? Jesteśmy tutaj, aby pomóc. Wypełnij formularz lub skorzystaj z danych kontaktowych poniżej.</p>
+            </div>
+        </div>
+
+        <div class="row g-5">
+
+            <div class="col-lg-7">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4 p-md-5">
+                        <h4 class="card-title mb-4">Wyślij wiadomość</h4>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Imię i nazwisko</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Twoje imię i nazwisko">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Adres e-mail</label>
+                                    <input type="email" class="form-control" id="email" placeholder="adres@email.com">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Temat</label>
+                                <input type="text" class="form-control" id="subject" placeholder="Temat wiadomości">
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Wiadomość</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Napisz wiadomość..."></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="button" class="btn btn-primary btn-lg">Wyślij wiadomość</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 p-md-5">
+                        <h4 class="card-title mb-4">Dane kontaktowe</h4>
+
+                        <div class="d-flex mb-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-circle">
+                                    <i class="bi bi-geo-alt text-primary fs-4"></i>
+                                </div>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="fs-5">Adres</h5>
+                                <p class="text-muted mb-0">
+                                    Ciuchy Sp. z o.o.<br>
+                                    ul. Modna 123<br>
+                                    00-000 Stylowo<br>
+                                    Polska
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-circle">
+                                    <i class="bi bi-envelope text-primary fs-4"></i>
+                                </div>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="fs-5">Email</h5>
+                                <p class="text-muted mb-0">kontakt@ciuchy.pl</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-4">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-circle">
+                                    <i class="bi bi-telephone text-primary fs-4"></i>
+                                </div>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="fs-5">Telefon</h5>
+                                <p class="text-muted mb-0">+48 123 456 789</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <h5 class="fs-5 mb-3">Godziny pracy</h5>
+                            <p class="text-muted mb-1">Poniedziałek - Piątek: 9:00 - 17:00</p>
+                            <p class="text-muted mb-0">Sobota - Niedziela: Zamknięte</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-0">
+    <div class="container-fluid p-0">
+        <div class="ratio ratio-21x9" style="max-height: 400px;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d156388.35409416403!2d20.92111263441579!3d52.233065146693576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471ecc669a869f01%3A0x72f0be2a88ead3fc!2sWarszawa!5e0!3m2!1spl!2spl!4v1681396256486!5m2!1spl!2spl"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,49 @@
+﻿
+
+@* @{ *@
+@*     ViewData["Title"] = "Wnioski urlopowe"; *@
+@* } *@
+
+@* <h1>@ViewData["Title"]</h1> *@
+
+@* <p> *@
+@*     <a asp-action="Create" class="btn btn-success"> *@
+@*         <i class="bi bi-plus-circle"></i> Nowy wniosek *@
+@*     </a> *@
+@* </p> *@
+
+@* <table class="table table-striped"> *@
+@*     <thead> *@
+@*         <tr> *@
+@*             <th>Od</th> *@
+@*             <th>Do</th> *@
+@*             <th>Powód</th> *@
+@*             <th>Status</th> *@
+@*             <th></th> *@
+@*         </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@*         @foreach (var u in Model) *@
+@*         { *@
+@*             <tr> *@
+@*                 <td>@u.DataOd:yyyy-MM-dd</td> *@
+@*                 <td>@u.DataDo:yyyy-MM-dd</td> *@
+@*                 <td>@u.Powod</td> *@
+@*                 <td>@u.Status</td> *@
+@*                 <td> *@
+@*                     @if (User.IsInRole("Admin") && u.Status == UrlopStatus.Oczekuje) *@
+@*                     { *@
+@*                         <form asp-action="Approve" method="post" class="d-inline"> *@
+@*                             @Html.AntiForgeryToken() *@
+@*                             <button asp-route-id="@u.Id" class="btn btn-sm btn-primary">Akceptuj</button> *@
+@*                         </form> *@
+@*                         <form asp-action="Reject" method="post" class="d-inline ms-1"> *@
+@*                             @Html.AntiForgeryToken() *@
+@*                             <button asp-route-id="@u.Id" class="btn btn-sm btn-danger">Odrzuć</button> *@
+@*                         </form> *@
+@*                     } *@
+@*                 </td> *@
+@*             </tr> *@
+@*         } *@
+@*     </tbody> *@
+@* </table> *@

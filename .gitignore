@@ -1,0 +1,19 @@
+## Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+
+## Ignore build results
+bin/
+obj/
+
+## Ignore publish files
+*.Publish.xml
+
+## Ignore config
+appsettings.*.json
+
+## Others
+*.log
+*.tmp
+*.cache

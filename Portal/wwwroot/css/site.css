@@ -1,0 +1,305 @@
+/* Podstawowe style */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* Animacje */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease forwards;
+}
+
+.hero-title {
+    opacity: 0;
+    animation-delay: 0.3s;
+}
+
+.hero-subtitle {
+    opacity: 0;
+    animation-delay: 0.6s;
+}
+
+.hero-button {
+    opacity: 0;
+    animation-delay: 0.9s;
+}
+
+/* Efekt parallax dla hero image */
+.hero-image {
+    transform: scale(1.1);
+    transition: transform 0.5s ease-out;
+}
+
+/* Hover efekty dla kart produktów */
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Animacja dla kategorii */
+.category-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Styl dla nag³ówka przy przewijaniu */
+#main-header {
+    color: white;
+}
+
+    #main-header.bg-white {
+        color: black;
+    }
+
+/* Animacja dla przycisku scroll down */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-bounce {
+    animation: bounce 2s infinite;
+}
+
+
+.women-category-page .product-card {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+    .women-category-page .product-card.animate-fade-in {
+        animation: fadeIn 0.8s ease forwards;
+    }
+
+/* Asymetryczna siatka produktów */
+.asymmetric-grid {
+    position: relative;
+}
+
+/* Dodatkowe style dla strony kategorii */
+.women-category-page .hero-title {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.women-category-page .hero-subtitle {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.6s;
+}
+
+/* Efekt hover dla przycisków filtrów */
+#filter-toggle:hover svg {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+
+/* Stylizacja checkboxów */
+.form-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #000;
+    position: relative;
+    cursor: pointer;
+}
+
+    .form-checkbox:checked {
+        background-color: #000;
+    }
+
+        .form-checkbox:checked::after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+/* Animacja dla panelu filtrów */
+#filter-panel {
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+    max-height: 0;
+    overflow: hidden;
+}
+
+/* Stylizacja dla sekcji trendu sezonu */
+.women-category-page .trend-section {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Stylizacja dla paginacji */
+.women-category-page .pagination a:hover {
+    background-color: #f3f4f6;
+}
+
+.women-category-page .pagination a.active {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+/* Dodatkowe style dla strony kategorii mê¿czyzn */
+.men-category-page .hero-title {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.men-category-page .hero-subtitle {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.6s;
+}
+
+/* Efekt hover dla przycisków filtrów */
+#filter-toggle:hover svg {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+
+/* Stylizacja checkboxów */
+.form-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #000;
+    position: relative;
+    cursor: pointer;
+}
+
+    .form-checkbox:checked {
+        background-color: #000;
+    }
+
+        .form-checkbox:checked::after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+/* Animacja dla panelu filtrów */
+#filter-panel {
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+    max-height: 0;
+    overflow: hidden;
+}
+
+/* Stylizacja dla paginacji */
+.men-category-page .pagination a:hover {
+    background-color: #f3f4f6;
+}
+
+.men-category-page .pagination a.active {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+
+
+/* Animacja dla produktów w koszyku */
+.cart-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease, height 0.5s ease, margin 0.5s ease;
+}
+
+    .cart-item.animate-fade-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+/* Stylizacja inputów iloœci */
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.quantity-input {
+    -moz-appearance: textfield;
+}
+
+/* Efekt hover dla przycisków */
+.quantity-decrease:hover,
+.quantity-increase:hover {
+    background-color: #f3f4f6;
+}
+
+/* Asymetryczny uk³ad dla sekcji rekomendacji */
+@media (min-width: 768px) {
+    .product-card:nth-child(odd) {
+        transform: translateY(20px);
+    }
+}
+
+/* Animacja dla przycisku zastosuj kod rabatowy */
+#apply-discount {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Stylizacja dla sticky podsumowania */
+.sticky {
+    position: sticky;
+    top: 120px;
+}
+
+/* Animacja dla hero sekcji */
+.hero-title {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.hero-subtitle {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.6s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

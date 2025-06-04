@@ -1,0 +1,77 @@
+﻿@model Intranet.Models.Zamowienie
+@using Intranet.Models // Dla dostępu do enuma StatusZamowienia
+
+@{
+    ViewData["Title"] = "Edytuj Zamówienie #" + Model.Id;
+    Layout = "_Layout";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" /> @* Ważne, aby przekazać Id *@
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ImieZamawiajacego" class="form-label"></label>
+                    <input asp-for="ImieZamawiajacego" class="form-control" />
+                    <span asp-validation-for="ImieZamawiajacego" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="NazwiskoZamawiajacego" class="form-label"></label>
+                    <input asp-for="NazwiskoZamawiajacego" class="form-control" />
+                    <span asp-validation-for="NazwiskoZamawiajacego" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="EmailZamawiajacego" class="form-label"></label>
+                <input asp-for="EmailZamawiajacego" type="email" class="form-control" />
+                <span asp-validation-for="EmailZamawiajacego" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DataZlozenia" class="form-label"></label>
+                    @* Data złożenia może być tylko do odczytu, jeśli nie chcesz jej zmieniać *@
+                    <input asp-for="DataZlozenia" class="form-control" readonly />
+                    <span asp-validation-for="DataZlozenia" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="LacznaWartosc" class="form-label"></label>
+                    @* Łączna wartość też może być tylko do odczytu, jeśli jest obliczana *@
+                    <input asp-for="LacznaWartosc" class="form-control" readonly />
+                    <span asp-validation-for="LacznaWartosc" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Status" class="form-label"></label>
+                @* Używamy Html.GetEnumSelectList do wygenerowania opcji dla enuma *@
+                <select asp-for="Status" asp-items="Html.GetEnumSelectList<StatusZamowienia>()" class="form-select">
+                    <option value="">-- Wybierz status --</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            @* Tutaj można by dodać sekcję do edycji PozycjiZamowien, ale to bardziej skomplikowane *@
+            @* <h4>Pozycje zamówienia</h4> *@
+            @* ... logika wyświetlania i edycji pozycji ... *@
+
+
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+                <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

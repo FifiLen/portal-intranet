@@ -1,0 +1,63 @@
+﻿@model Intranet.Models.Harmonogramy
+
+@{
+    ViewData["Title"] = "Dodaj nową zmianę";
+    Layout = "_Layout"; // Lub inny layout, jeśli masz
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @* PracownikId będzie ustawiane automatycznie w kontrolerze, więc nie potrzebujemy tu pola *@
+            @* <input type="hidden" asp-for="PracownikId" /> *@
+
+            <div class="mb-3">
+                <label asp-for="DataZmiany" class="form-label"></label>
+                <input asp-for="DataZmiany" type="date" class="form-control" />
+                <span asp-validation-for="DataZmiany" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GodzRozpoczecia" class="form-label"></label>
+                <input asp-for="GodzRozpoczecia" type="time" class="form-control" />
+                <span asp-validation-for="GodzRozpoczecia" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GodzZakonczenia" class="form-label"></label>
+                <input asp-for="GodzZakonczenia" type="time" class="form-control" />
+                <span asp-validation-for="GodzZakonczenia" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="TypZmiany" class="form-label"></label>
+                @* Możesz użyć pola tekstowego lub listy rozwijanej (select) dla TypZmiany *@
+                <input asp-for="TypZmiany" class="form-control" />
+                @* Przykład z listą rozwijaną, jeśli masz predefiniowane typy:
+                <select asp-for="TypZmiany" class="form-select">
+                    <option value="">-- Wybierz typ --</option>
+                    <option value="Zmiana poranna">Zmiana poranna</option>
+                    <option value="Zmiana popołudniowa">Zmiana popołudniowa</option>
+                    <option value="Urlop">Urlop</option>
+                    <option value="Szkolenie">Szkolenie</option>
+                </select>
+                *@
+                <span asp-validation-for="TypZmiany" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Zapisz zmianę</button>
+                <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</div>
+@*
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+*@
