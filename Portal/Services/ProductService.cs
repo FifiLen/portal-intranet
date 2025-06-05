@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Portal.Services;
 
-public class ProductService
+public class ProductService : IProductService
 {
     private readonly IntranetContext _context;
 

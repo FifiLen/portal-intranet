@@ -8,7 +8,10 @@ builder.Services.AddDbContext<Intranet.Models.IntranetContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("IntranetDb")));
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<Portal.Services.PortalTextService>();
-builder.Services.AddScoped<Portal.Services.ProductService>();
+builder.Services.AddScoped<Portal.Services.IProductService, Portal.Services.ProductService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
+builder.Services.AddScoped<Portal.Services.ICartService, Portal.Services.CartService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews(); // ZMIANA: Rejestracja usług dla MVC
@@ -32,6 +35,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization(); // Pozostaje, jeśli używasz autoryzacji
 
