@@ -35,6 +35,7 @@ public partial class IntranetContext : DbContext
     }
 
     public virtual DbSet<PortalText> PortalTexts { get; set; }
+    public virtual DbSet<Uzytkownik> Uzytkownicy { get; set; }
 
     // METODA ONCONFIGURING ZOSTAŁA USUNIĘTA LUB JEJ ZAWARTOŚĆ ZAKOMENTOWANA
     // Poniżej przykład z całkowicie usuniętą metodą:
@@ -131,6 +132,11 @@ public partial class IntranetContext : DbContext
             entity.Property(e => e.Section)
                   .HasMaxLength(100);
             entity.HasIndex(e => new { e.Key, e.Section }).IsUnique();
+        });
+
+        modelBuilder.Entity<Uzytkownik>(entity =>
+        {
+            entity.HasIndex(e => e.Email).IsUnique();
         });
 
         OnModelCreatingPartial(modelBuilder);

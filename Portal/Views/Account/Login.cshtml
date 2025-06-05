@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Logowanie";
+}
+<div class="py-16 px-6 md:px-12 lg:px-24">
+    <div class="max-w-md mx-auto bg-white p-6 shadow">
+        <form method="post">
+            <div class="mb-4">
+                <label class="block mb-1">Email</label>
+                <input type="email" name="email" class="w-full border px-3 py-2" required />
+            </div>
+            <div class="mb-4">
+                <label class="block mb-1">Hasło</label>
+                <input type="password" name="password" class="w-full border px-3 py-2" required />
+            </div>
+            <button type="submit" class="bg-black text-white px-4 py-2">Zaloguj</button>
+        </form>
+        @foreach (var err in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div class="text-red-600 mt-2">@err.ErrorMessage</div>
+        }
+    </div>
+</div>

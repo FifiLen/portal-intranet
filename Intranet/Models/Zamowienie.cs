@@ -41,6 +41,11 @@ namespace Intranet.Models
         [StringLength(150)]
         public string EmailZamawiajacego { get; set; } = string.Empty;
 
+        public int? UzytkownikId { get; set; }
+
+        [ForeignKey(nameof(UzytkownikId))]
+        public virtual Uzytkownik? Uzytkownik { get; set; }
+
         [Column(TypeName = "decimal(18, 2)")]
         public decimal LacznaWartosc { get; set; } // Obliczana na podstawie pozycji
 
