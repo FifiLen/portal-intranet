@@ -1,45 +1,57 @@
+using System.Reflection;
 using Intranet.Models;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
 using Portal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ────────────── SERWISY ──────────────
 builder.Services.AddDbContext<IntranetContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("IntranetDb")));
+
 builder.Services.AddMemoryCache();
-builder.Services.AddScoped<PortalTextService>();
-builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
+
+builder.Services.AddScoped<PortalTextService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();
 
-// Add services to the container.
-builder.Services.AddControllersWithViews(); // ZMIANA: Rejestracja usług dla MVC
+// ────────────── MVC  (wycinamy kontrolery Intranet) ──────────────
+builder.Services.AddControllersWithViews()
+    .ConfigureApplicationPartManager(apm =>
+    {
+        var intranetParts = apm.ApplicationParts
+            .OfType<AssemblyPart>()
+            .Where(p => p.Assembly.GetName().Name == "Intranet")
+            .ToList();
+
+        foreach (var part in intranetParts)
+            apm.ApplicationParts.Remove(part);
+    });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ────────────── PIPELINE ──────────────
 if (!app.Environment.IsDevelopment())
 {
-    // ZMIANA (zalecana): Wskazanie konkretnej akcji kontrolera dla błędu
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 else
 {
-    app.UseDeveloperExceptionPage(); // Przydatne w trybie deweloperskim
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseSession();
 
-app.UseAuthorization(); // Pozostaje, jeśli używasz autoryzacji
+app.UseSession();       // sesje przed autoryzacją
+app.UseAuthorization();
 
-// ZMIANA: Mapowanie domyślnej trasy dla kontrolerów MVC
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
