@@ -1,35 +1,46 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using FashionStore.Models;
-using Intranet.Models;
-using Portal.Services;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using FashionStore.Models;                    // CartPageViewModel, CheckoutFormModel
+using Intranet.Models;                        // Zamowienie, PozycjaZamowienia, StatusZamowienia, IntranetContext
+using Portal.Services;                        // ICartService, IProductService
 
 namespace FashionStore.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ICartService _cartService;
+        private readonly ICartService    _cartService;
         private readonly IntranetContext _context;
         private readonly IProductService _productService;
 
-        public CartController(ICartService cartService, IntranetContext context, IProductService productService)
+        public CartController(
+            ICartService cartService,
+            IntranetContext context,
+            IProductService productService)
         {
-            _cartService = cartService;
-            _context = context;
+            _cartService    = cartService;
+            _context        = context;
             _productService = productService;
         }
 
+        /* ────────────── KOSZYK ────────────── */
         public async Task<IActionResult> Index()
         {
-            var cartItems = await _cartService.GetItemsAsync();
+            var cartItems   = await _cartService.GetItemsAsync();
             var recommended = await _productService.GetRandomAsync(4);
+
             var vm = new CartPageViewModel
             {
-                Items = cartItems,
+                Items       = cartItems,
                 Recommended = recommended
             };
+
             return View(vm);
         }
 
+        /* ────────────── OPERACJE AJAX ────────────── */
         [HttpPost]
         public async Task<IActionResult> Add(int productId, int quantity = 1)
         {
@@ -58,20 +69,24 @@ namespace FashionStore.Controllers
             return Json(new { success = true });
         }
 
+        /* ────────────── CHECKOUT ────────────── */
         public IActionResult Checkout()
         {
             var model = new CheckoutFormModel();
+
+            // Prefill, jeśli użytkownik zalogowany
             var uid = HttpContext.Session.GetInt32("UserId");
-            if (uid != null)
+            if (uid is not null)
             {
                 var user = _context.Uzytkownicy.Find(uid.Value);
-                if (user != null)
+                if (user is not null)
                 {
                     model.FirstName = user.Imie;
-                    model.LastName = user.Nazwisko;
-                    model.Email = user.Email;
+                    model.LastName  = user.Nazwisko;
+                    model.Email     = user.Email;
                 }
             }
+
             return View(model);
         }
 
@@ -79,31 +94,31 @@ namespace FashionStore.Controllers
         public async Task<IActionResult> Checkout(CheckoutFormModel model)
         {
             var items = await _cartService.GetItemsAsync();
+
             if (!items.Any())
-            {
                 ModelState.AddModelError(string.Empty, "Koszyk jest pusty");
-            }
+
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
 
             var order = new Zamowienie
             {
-                DataZlozenia = DateTime.UtcNow,
-                ImieZamawiajacego = model.FirstName,
+                DataZlozenia          = DateTime.UtcNow,
+                ImieZamawiajacego     = model.FirstName,
                 NazwiskoZamawiajacego = model.LastName,
-                EmailZamawiajacego = model.Email,
-                UzytkownikId = HttpContext.Session.GetInt32("UserId"),
-                Status = StatusZamowienia.Nowe,
-                PozycjeZamowien = items.Select(i => new PozycjaZamowienia
+                EmailZamawiajacego    = model.Email,
+                UzytkownikId          = HttpContext.Session.GetInt32("UserId"),
+                Status                = StatusZamowienia.Nowe,
+                PozycjeZamowien       = items.Select(i => new PozycjaZamowienia
                 {
-                    ProduktId = i.Id,
-                    Ilosc = i.Quantity,
+                    ProduktId       = i.Id,
+                    Ilosc           = i.Quantity,
                     CenaJednostkowa = i.Price
                 }).ToList()
             };
-            order.LacznaWartosc = order.PozycjeZamowien.Sum(p => p.Ilosc * p.CenaJednostkowa);
+
+            order.LacznaWartosc = order.PozycjeZamowien
+                                      .Sum(p => p.Ilosc * p.CenaJednostkowa);
 
             _context.Zamowienia.Add(order);
             await _context.SaveChangesAsync();
@@ -112,10 +127,12 @@ namespace FashionStore.Controllers
             return RedirectToAction(nameof(Success), new { id = order.Id });
         }
 
+        /* ────────────── ZAMÓWIENIE ZŁOŻONE ────────────── */
         public async Task<IActionResult> Success(int id)
         {
             var order = await _context.Zamowienia.FindAsync(id);
-            if (order == null) return RedirectToAction(nameof(Index));
+            if (order is null) return RedirectToAction(nameof(Index));
+
             return View(order);
         }
     }
