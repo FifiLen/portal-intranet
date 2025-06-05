@@ -130,7 +130,7 @@ public partial class IntranetContext : DbContext
         {
             entity.Property(e => e.Section)
                   .HasMaxLength(100);
-            entity.HasIndex(e => new { e.Key, e.Language }).IsUnique();
+            entity.HasIndex(e => new { e.Key, e.Section }).IsUnique();
         });
 
         OnModelCreatingPartial(modelBuilder);
