@@ -1,4 +1,4 @@
-﻿@model Intranet.Models.DashboardViewModel
+@model Intranet.Models.DashboardViewModel
 @using Intranet.Models
 @using System.Linq
 @using System.Security.Claims
@@ -17,12 +17,12 @@
                    ?? "Użytkownik";
     }
 
-    /* przykładowa data ostatniego logowania — podstaw realną, jeśli przechowujesz */
+    /* przykładowa data ostatniego logowania — podmień, jeśli ją przechowujesz */
     var lastLoginDateString = User.Identity?.IsAuthenticated == true ? "13.04.2025, 08:15" : "";
 }
 
 <div class="container-fluid py-4">
-    <!-- Nagłówek -->
+    <!-- ============================== NAGŁÓWEK ============================== -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="h3 mb-0">@ViewData["Title"]</h1>
@@ -51,47 +51,335 @@
         </div>
     </div>
 
-    <!-- Kafle statystyk -->
+    <!-- ============================== STATYSTYKI =========================== -->
     <div class="row g-3 mb-4">
-        @* Dzisiejsza sprzedaż *@
-        <partial name="_StatTile" model="(@Model.DzisiejszaSprzedaz, 'Dzisiejsza sprzedaż', 'bi-cart', 'text-success', '12% więcej niż wczoraj')" />
-
-        @* Zamówienia do realizacji *@
-        <partial name="_StatTile" model="(@Model.ZamowieniaDoRealizacji, 'Zamówienia do realizacji', 'bi-box-seam', 'text-danger', '3 nowe od wczoraj')" />
-
-        @* Produkty na wyczerpaniu *@
-        <partial name="_StatTile" model="(@Model.ProduktyNaWyczerpaniu, 'Produkty na wyczerpaniu', 'bi-archive', 'text-danger', 'Wymaga uwagi')" />
-
-        @* Dzisiejsi klienci *@
-        <partial name="_StatTile" model="(@Model.DzisiejsiKlienci, 'Dzisiejsi klienci', 'bi-people', 'text-success', '8% więcej niż wczoraj')" />
-    </div>
-
-    <div class="row g-4">
-        <!-- Lewa kolumna -->
-        <div class="col-lg-8">
-            @* Ostatnie zamówienia *@
-            <partial name="_LastOrders" model="Model.OstatnieZamowienia" />
-
-            @* Wykres sprzedaży tygodniowej *@
-            <partial name="_SalesChart" model="Model.SprzedazTygodniowaChartData" />
+        <!-- Dzisiejsza sprzedaż -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-1">Dzisiejsza sprzedaż</h6>
+                        <h3 class="mb-0">@Model.DzisiejszaSprzedaz</h3>
+                        <small class="text-success"><i class="bi bi-arrow-up"></i> 12% więcej niż wczoraj</small>
+                    </div>
+                    <div class="bg-primary bg-opacity-10 p-3 rounded">
+                        <i class="bi bi-cart text-primary fs-3"></i>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Prawa kolumna -->
+        <!-- Zamówienia do realizacji -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-1">Zamówienia do realizacji</h6>
+                        <h3 class="mb-0">@Model.ZamowieniaDoRealizacji</h3>
+                        <small class="text-danger"><i class="bi bi-arrow-up"></i> 3 nowe od wczoraj</small>
+                    </div>
+                    <div class="bg-warning bg-opacity-10 p-3 rounded">
+                        <i class="bi bi-box-seam text-warning fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Produkty na wyczerpaniu -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-1">Produkty na wyczerpaniu</h6>
+                        <h3 class="mb-0">@Model.ProduktyNaWyczerpaniu</h3>
+                        <small class="text-danger"><i class="bi bi-exclamation-triangle"></i> Wymaga uwagi</small>
+                    </div>
+                    <div class="bg-danger bg-opacity-10 p-3 rounded">
+                        <i class="bi bi-archive text-danger fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dzisiejsi klienci -->
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-1">Dzisiejsi klienci</h6>
+                        <h3 class="mb-0">@Model.DzisiejsiKlienci</h3>
+                        <small class="text-success"><i class="bi bi-arrow-up"></i> 8% więcej niż wczoraj</small>
+                    </div>
+                    <div class="bg-success bg-opacity-10 p-3 rounded">
+                        <i class="bi bi-people text-success fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================= ŚRODKOWA CZĘŚĆ (2 kolumny) ================== -->
+    <div class="row g-4">
+        <!-- ===== LEWA: ostatnie zamówienia + wykres ===== -->
+        <div class="col-lg-8">
+            <!-- Ostatnie zamówienia -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Ostatnie zamówienia</h5>
+                    <a asp-controller="Zamowienia" asp-action="Index" class="btn btn-sm btn-outline-primary">Zobacz wszystkie</a>
+                </div>
+                <div class="card-body p-0">
+                    @if (Model.OstatnieZamowienia?.Any() == true)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Klient</th>
+                                        <th>Status</th>
+                                        <th>Data</th>
+                                        <th>Wartość</th>
+                                        <th>Akcje</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var z in Model.OstatnieZamowienia)
+                                    {
+                                        var badge = z.Status switch
+                                        {
+                                            StatusZamowienia.Nowe or StatusZamowienia.PrzyjeteDoRealizacji => "bg-info text-dark",
+                                            StatusZamowienia.WRealizacji      => "bg-warning text-dark",
+                                            StatusZamowienia.Wyslane          => "bg-primary",
+                                            StatusZamowienia.Zrealizowane     => "bg-success",
+                                            StatusZamowienia.Anulowane        => "bg-danger",
+                                            _                                 => "bg-secondary"
+                                        };
+                                        <tr>
+                                            <td>#ORD-@z.Id</td>
+                                            <td>@z.ImieZamawiajacego @z.NazwiskoZamawiajacego</td>
+                                            <td><span class="badge @badge">@Html.DisplayFor(_ => z.Status)</span></td>
+                                            <td>@z.DataZlozenia.ToString("dd.MM.yyyy")</td>
+                                            <td class="text-end">@z.LacznaWartosc.ToString("C", new System.Globalization.CultureInfo("pl-PL"))</td>
+                                            <td>
+                                                <a asp-controller="Zamowienia" asp-action="Details" asp-route-id="@z.Id"
+                                                   class="btn btn-sm btn-outline-secondary" title="Szczegóły">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a asp-controller="Zamowienia" asp-action="Edit" asp-route-id="@z.Id"
+                                                   class="btn btn-sm btn-outline-primary ms-1" title="Edytuj">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="p-3 text-center text-muted">Brak ostatnich zamówień do wyświetlenia.</div>
+                    }
+                </div>
+            </div>
+
+            <!-- Wykres sprzedaży tygodniowej -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0">Sprzedaż w ostatnim tygodniu</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.SprzedazTygodniowaChartData?.Labels.Any() == true)
+                    {
+                        <div style="position:relative;height:300px;width:100%">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 300px;">
+                            <div class="text-center text-muted">
+                                <i class="bi bi-bar-chart-line fs-1"></i>
+                                <p class="mt-2">Brak danych do wyświetlenia wykresu sprzedaży tygodniowej.</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PRAWA: ogłoszenia, zadania, wydarzenia ===== -->
         <div class="col-lg-4">
-            @* Ogłoszenia *@
-            <partial name="_Announcements" model="Model.Ogloszenia" />
+            <!-- Ogłoszenia -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Ogłoszenia</h5>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Ogloszenia" asp-action="Create" class="btn btn-sm btn-outline-success">
+                            <i class="bi bi-plus-circle"></i> Dodaj nowe
+                        </a>
+                    }
+                </div>
+                <div class="card-body">
+                    @if (Model.Ogloszenia?.Any() == true)
+                    {
+                        @foreach (var og in Model.Ogloszenia)
+                        {
+                            var cls = og.Typ switch
+                            {
+                                TypOgloszenia.Informacja       => "alert-info",
+                                TypOgloszenia.Sukces           => "alert-success",
+                                TypOgloszenia.Ostrzezenie       => "alert-warning",
+                                TypOgloszenia.Niebezpieczenstwo => "alert-danger",
+                                _                               => "alert-secondary"
+                            };
+                            <div class="alert @cls @(og == Model.Ogloszenia.Last() ? "mb-0" : "mb-3")">
+                                <h6 class="alert-heading">@og.Tytul</h6>
+                                <p class="mb-0">@og.Tresc</p>
+                                <small class="text-muted">@og.DataPublikacji:dd.MM.yyyy – @og.Dzial</small>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted">Brak aktualnych ogłoszeń.</p>
+                    }
+                </div>
+            </div>
 
-            @* Moje zadania *@
-            <partial name="_Tasks" model="Model.MojeZadania" />
+            <!-- Moje zadania -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Moje zadania</h5>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-controller="Zadania" asp-action="Create" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-plus"></i> Dodaj
+                        </a>
+                    }
+                </div>
+                <div class="card-body">
+                    @if (Model.MojeZadania?.Any() == true)
+                    {
+                        @foreach (var zad in Model.MojeZadania)
+                        {
+                            var today  = DateTime.Today;
+                            var term   = zad.TerminWykonania;
 
-            @* Nadchodzące wydarzenia *@
-            <partial name="_Events" model="Model.NadchodzaceWydarzenia" />
+                            string termText  = term?.ToString("dd.MM.yyyy") ?? "";
+                            string termColor = "text-muted";
+
+                            if (term.HasValue && !zad.CzyWykonane)
+                            {
+                                if      (term.Value.Date < today            ) termColor = "text-danger fw-bold";
+                                else if (term.Value.Date == today           ) { termText = "Dziś";  termColor = "text-danger";  }
+                                else if (term.Value.Date == today.AddDays(1)) { termText = "Jutro"; termColor = "text-warning"; }
+                            }
+
+                            <div class="form-check mb-3 d-flex align-items-center justify-content-between">
+                                <div class="flex-grow-1">
+                                    <form asp-controller="Zadania" asp-action="ToggleWykonane" asp-route-id="@zad.Id"
+                                          method="post" class="d-inline me-2" onchange="this.submit()">
+                                        @Html.AntiForgeryToken()
+                                        <input class="form-check-input" type="checkbox" id="task-@zad.Id"
+                                               name="czyWykonane" value="true" checked="@zad.CzyWykonane" />
+                                        <label class="form-check-label @(zad.CzyWykonane ? "text-muted text-decoration-line-through" : "")"
+                                               for="task-@zad.Id">@zad.Tytul</label>
+                                    </form>
+                                </div>
+                                <div class="text-nowrap">
+                                    @if (term.HasValue)
+                                    {
+                                        <small class="@termColor me-2">@termText</small>
+                                    }
+                                    @if (zad.CzyWykonane || User.IsInRole("Admin"))
+                                    {
+                                        <form asp-controller="Zadania" asp-action="Delete" asp-route-id="@zad.Id"
+                                              method="post" class="d-inline"
+                                              onsubmit="return confirm('Czy na pewno chcesz usunąć to zadanie?');">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-danger p-0 px-1" title="Usuń zadanie">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted">Brak przypisanych zadań do wykonania.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Nadchodzące wydarzenia -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0">Nadchodzące wydarzenia</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.NadchodzaceWydarzenia?.Any() == true)
+                    {
+                        @foreach (var w in Model.NadchodzaceWydarzenia)
+                        {
+                            var bg = w.Typ switch
+                            {
+                                TypWydarzenia.Szkolenie      => "bg-primary",
+                                TypWydarzenia.Inwentaryzacja => "bg-danger",
+                                TypWydarzenia.Spotkanie      => "bg-success",
+                                TypWydarzenia.Konferencja    => "bg-info",
+                                TypWydarzenia.Firmowe        => "bg-purple",
+                                _                            => "bg-secondary"
+                            };
+
+                            <div class="d-flex @(w == Model.NadchodzaceWydarzenia.Last() ? "" : "mb-3")">
+                                <div class="flex-shrink-0 @bg bg-opacity-10 p-2 rounded text-center" style="width:60px;">
+                                    <div class="fw-bold">@w.DataRozpoczecia.ToString("dd")</div>
+                                    <small>@w.DataRozpoczecia.ToString("MMM", new System.Globalization.CultureInfo("pl-PL")).ToUpper()</small>
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-1">@w.Nazwa</h6>
+                                    <p class="text-muted small mb-0">
+                                        @w.DataRozpoczecia.ToString("HH:mm")
+                                        @if (w.DataZakonczenia.HasValue)
+                                        {
+                                            if (w.DataZakonczenia.Value.Date == w.DataRozpoczecia.Date)
+                                            {
+                                                @: - @w.DataZakonczenia.Value.ToString("HH:mm")
+                                            }
+                                            else
+                                            {
+                                                @: - @w.DataZakonczenia.Value.ToString("dd.MM HH:mm")
+                                            }
+                                        }
+                                        @if (!string.IsNullOrEmpty(w.Lokalizacja))
+                                        {
+                                            @:, @w.Lokalizacja
+                                        }
+                                    </p>
+                                    @if (!string.IsNullOrEmpty(w.Opis))
+                                    {
+                                        <p class="text-muted small fst-italic mb-0">@w.Opis</p>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted">Brak nadchodzących wydarzeń.</p>
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @* tylko gdy są dane do wykresu *@
     @if (Model.SprzedazTygodniowaChartData?.Labels.Any() == true)
     {
         <script>
