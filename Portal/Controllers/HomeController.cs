@@ -1,10 +1,10 @@
-﻿using System.Diagnostics;
-
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Portal.Models; // Poprawna przestrzeń nazw dla modeli
+using Portal.Models;
 using Portal.Services;
 
-namespace Portal.Controllers // Poprawna przestrzeń nazw dla kontrolera
+namespace Portal.Controllers
 {
     public class HomeController : Controller
     {
@@ -28,18 +28,13 @@ namespace Portal.Controllers // Poprawna przestrzeń nazw dla kontrolera
             return View();
         }
 
-        // Inne akcje, które masz, np. Kontakt, Koszyk, Sklep
-        // public IActionResult Kontakt() { return View(); }
-        // public IActionResult Koszyk() { return View(); }
-        // public IActionResult Sklep() { return View(); }
-
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            // Tutaj ErrorViewModel jest już poprawnie używany z przestrzeni nazw Portal.Models
-            // dzięki dyrektywie 'using Portal.Models;' na górze pliku.
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            });
         }
     }
 }

@@ -1,14 +1,16 @@
 @model IList<FashionStore.Models.ProductModel>
-﻿@{
+
+@{
     ViewData["Title"] = "CIUCHY";
 }
 
 <div class="relative overflow-hidden">
-    <!-- Hero section z efektem parallax -->
+    <!-- ────────────── HERO ────────────── -->
     <div class="relative h-screen overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30 z-10"></div>
-            <div class="hero-image absolute inset-0 bg-cover bg-center" style="background-image: url('/images/hero.png');"></div>
+            <div class="hero-image absolute inset-0 bg-cover bg-center"
+                 style="background-image: url('/images/hero.png');"></div>
         </div>
 
         <div class="relative z-10 flex flex-col justify-center h-full px-6 md:px-12 lg:px-24">
@@ -17,8 +19,12 @@
                     <span class="block">@PortalTextService.Get("Home_HeroTop")</span>
                     <span class="block font-bold">@PortalTextService.Get("Home_HeroBottom")</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-white/80 mb-8 hero-subtitle">@PortalTextService.Get("Home_HeroSubtitle")</p>
-                <a href="#categories" class="inline-block px-8 py-4 bg-white text-black font-medium text-lg tracking-wide hover:bg-black hover:text-white transition-all duration-300 hero-button">
+                <p class="text-xl md:text-2xl text-white/80 mb-8 hero-subtitle">
+                    @PortalTextService.Get("Home_HeroSubtitle")
+                </p>
+                <a href="#categories"
+                   class="inline-block px-8 py-4 bg-white text-black font-medium text-lg tracking-wide
+                          hover:bg-black hover:text-white transition-all duration-300 hero-button">
                     @PortalTextService.Get("Home_HeroButton")
                 </a>
             </div>
@@ -26,46 +32,49 @@
 
         <div class="absolute bottom-8 left-0 right-0 flex justify-center z-10">
             <a href="#categories" class="animate-bounce cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
             </a>
         </div>
     </div>
 
-    <!-- Kategorie z efektem hover -->
+    <!-- ────────────── KATEGORIE ────────────── -->
     <section id="categories" class="py-20 px-6 md:px-12 lg:px-24 bg-white relative z-10">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col items-center mb-16">
                 <div class="w-16 h-1 bg-black mb-6"></div>
-                <h2 class="text-4xl md:text-5xl font-light tracking-tight text-center">@PortalTextService.Get("Home_CategoriesTitle")</h2>
-                <p class="text-gray-500 mt-4 text-center max-w-2xl">@PortalTextService.Get("Home_CategoriesSubtitle")</p>
+                <h2 class="text-4xl md:text-5xl font-light tracking-tight text-center">
+                    @PortalTextService.Get("Home_CategoriesTitle")
+                </h2>
+                <p class="text-gray-500 mt-4 text-center max-w-2xl">
+                    @PortalTextService.Get("Home_CategoriesSubtitle")
+                </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 @{
-                    // Nazwy kategorii tekstowe
-                    string[] categoriesText = { "KOBIETY", "MĘŻCZYŹNI", "DZIECI", "AKCESORIA" };
-                    // Odpowiadające im nazwy plików obrazów
-                    string[] categoryImageFiles = {
-                "category-women.jpg",
-                "category-man.jpg", // Upewnij się, że nazwa pliku to "category-man.jpg" a nie "category-men.jpg"
-                "category-kids.jpg",
-                "category-accessories.jpg"
-                        };
+                    string[] categoriesText =
+                        { "KOBIETY", "MĘŻCZYŹNI", "DZIECI", "AKCESORIA" };
+                    string[] categoryImageFiles =
+                        { "category-women.jpg", "category-man.jpg", "category-kids.jpg", "category-accessories.jpg" };
 
                     for (int i = 0; i < categoriesText.Length; i++)
                     {
                         <div class="category-card group relative overflow-hidden aspect-[3/4] cursor-pointer">
                             <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-500 z-10"></div>
-                            <img src="/images/@categoryImageFiles[i]"
-                                 alt="@categoriesText[i]"
-                                 class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110" />
+                            <img src="/images/@categoryImageFiles[i]" alt="@categoriesText[i]"
+                                 class="absolute inset-0 w-full h-full object-cover object-center
+                                        transition-transform duration-700 group-hover:scale-110" />
                             <div class="absolute inset-0 flex items-center justify-center z-20">
                                 <div class="text-center">
                                     <h3 class="text-white text-2xl font-medium tracking-wider">@categoriesText[i]</h3>
                                     <div class="mt-4 overflow-hidden h-0 group-hover:h-10 transition-all duration-500">
-                                        <a href="#" class="inline-block px-6 py-2 border border-white text-white hover:bg-white hover:text-black transition-colors duration-300">
+                                        <a href="#"
+                                           class="inline-block px-6 py-2 border border-white text-white
+                                                  hover:bg-white hover:text-black transition-colors duration-300">
                                             ODKRYJ
                                         </a>
                                     </div>
@@ -78,14 +87,17 @@
         </div>
     </section>
 
-    <!-- Pozostałe sekcje bez zmian -->
-    <!-- Wyróżnione produkty z animacją -->
+    <!-- ────────────── WYRÓŻNIONE PRODUKTY ────────────── -->
     <section id="featured" class="py-20 px-6 md:px-12 lg:px-24 bg-gray-50 relative z-10">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col items-center mb-16">
                 <div class="w-16 h-1 bg-black mb-6"></div>
-                <h2 class="text-4xl md:text-5xl font-light tracking-tight text-center">@PortalTextService.Get("Home_FeaturedTitle")</h2>
-                <p class="text-gray-500 mt-4 text-center max-w-2xl">@PortalTextService.Get("Home_FeaturedSubtitle")</p>
+                <h2 class="text-4xl md:text-5xl font-light tracking-tight text-center">
+                    @PortalTextService.Get("Home_FeaturedTitle")
+                </h2>
+                <p class="text-gray-500 mt-4 text-center max-w-2xl">
+                    @PortalTextService.Get("Home_FeaturedSubtitle")
+                </p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -93,10 +105,11 @@
                 {
                     <div class="product-card group">
                         <div class="relative overflow-hidden aspect-[3/4] mb-4">
-                            <img src="@product.ImageUrl"
-                                 alt="@product.Name"
-                                 class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" />
+                            <img src="@product.ImageUrl" alt="@product.Name"
+                                 class="w-full h-full object-cover object-center
+                                        transition-transform duration-700 group-hover:scale-105" />
 
+                            <!-- Badge -->
                             @if (product.IsNew)
                             {
                                 <div class="absolute top-4 right-4 bg-black text-white text-xs px-3 py-1 font-medium">
@@ -110,8 +123,10 @@
                                 </div>
                             }
 
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                <button class="bg-white text-black px-6 py-3 font-medium transform -translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300
+                                        flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                <button class="bg-white text-black px-6 py-3 font-medium transform -translate-y-4
+                                               group-hover:translate-y-0 transition-all duration-300">
                                     DODAJ DO KOSZYKA
                                 </button>
                             </div>
@@ -121,12 +136,18 @@
                         <div class="flex items-center mt-1">
                             @if (product.OldPrice.HasValue)
                             {
-                                <span class="text-gray-400 line-through mr-2">@product.OldPrice.Value.ToString("0.00") zł</span>
-                                <span class="text-red-600 font-medium">@product.Price.ToString("0.00") zł</span>
+                                <span class="text-gray-400 line-through mr-2">
+                                    @product.OldPrice.Value.ToString("0.00") zł
+                                </span>
+                                <span class="text-red-600 font-medium">
+                                    @product.Price.ToString("0.00") zł
+                                </span>
                             }
                             else
                             {
-                                <span class="font-medium">@product.Price.ToString("0.00") zł</span>
+                                <span class="font-medium">
+                                    @product.Price.ToString("0.00") zł
+                                </span>
                             }
                         </div>
                     </div>
@@ -134,42 +155,59 @@
             </div>
 
             <div class="flex justify-center mt-12">
-                <a href="#" class="inline-block px-8 py-4 border border-black text-black hover:bg-black hover:text-white transition-colors duration-300">
+                <a href="#"
+                   class="inline-block px-8 py-4 border border-black text-black
+                          hover:bg-black hover:text-white transition-colors duration-300">
                     @PortalTextService.Get("Home_ShowMore")
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Lookbook z efektem parallax -->
+    <!-- ────────────── LOOKBOOK ────────────── -->
     <section id="lookbook" class="relative h-screen flex items-center overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center lookbook-bg" style="background-image: url('/images/lookbook.jpg');"></div>
+        <div class="absolute inset-0 bg-cover bg-center lookbook-bg"
+             style="background-image: url('/images/lookbook.jpg');"></div>
         <div class="absolute inset-0 bg-black/40"></div>
 
         <div class="relative z-10 text-center px-6 md:px-12 lg:px-24 max-w-4xl mx-auto">
-            <h2 class="text-5xl md:text-6xl font-light text-white mb-6">@PortalTextService.Get("Home_LookbookTitle")</h2>
-            <p class="text-xl text-white/80 mb-8">@PortalTextService.Get("Home_LookbookSubtitle")</p>
-            <a href="#" class="inline-block px-8 py-4 bg-white text-black font-medium hover:bg-black hover:text-white transition-all duration-300">
+            <h2 class="text-5xl md:text-6xl font-light text-white mb-6">
+                @PortalTextService.Get("Home_LookbookTitle")
+            </h2>
+            <p class="text-xl text-white/80 mb-8">
+                @PortalTextService.Get("Home_LookbookSubtitle")
+            </p>
+            <a href="#"
+               class="inline-block px-8 py-4 bg-white text-black font-medium
+                      hover:bg-black hover:text-white transition-all duration-300">
                 @PortalTextService.Get("Home_LookbookButton")
             </a>
         </div>
     </section>
 
-    <!-- Newsletter -->
+    <!-- ────────────── NEWSLETTER ────────────── -->
     <section id="newsletter" class="py-20 px-6 md:px-12 lg:px-24 bg-black text-white relative z-10">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div class="mb-8 md:mb-0 md:w-1/2">
-                    <h2 class="text-3xl md:text-4xl font-light mb-4">@PortalTextService.Get("Home_NewsletterTitle")</h2>
-                    <p class="text-white/70">@PortalTextService.Get("Home_NewsletterSubtitle")</p>
+                    <h2 class="text-3xl md:text-4xl font-light mb-4">
+                        @PortalTextService.Get("Home_NewsletterTitle")
+                    </h2>
+                    <p class="text-white/70">
+                        @PortalTextService.Get("Home_NewsletterSubtitle")
+                    </p>
                 </div>
 
                 <div class="md:w-1/2">
                     <form class="flex flex-col sm:flex-row">
-                        <input type="email" placeholder="@PortalTextService.Get("Home_NewsletterPlaceholder")" required
-                               class="bg-transparent border-b border-white/30 py-3 px-4 text-white placeholder-white/50 focus:outline-none focus:border-white flex-grow" />
+                        <input type="email"
+                               placeholder="@PortalTextService.Get("Home_NewsletterPlaceholder")"
+                               required
+                               class="bg-transparent border-b border-white/30 py-3 px-4 text-white
+                                      placeholder-white/50 focus:outline-none focus:border-white flex-grow" />
                         <button type="submit"
-                                class="mt-4 sm:mt-0 sm:ml-4 px-8 py-3 bg-white text-black font-medium hover:bg-gray-200 transition-colors duration-300 whitespace-nowrap">
+                                class="mt-4 sm:mt-0 sm:ml-4 px-8 py-3 bg-white text-black font-medium
+                                       hover:bg-gray-200 transition-colors duration-300 whitespace-nowrap">
                             @PortalTextService.Get("Home_NewsletterButton")
                         </button>
                     </form>
@@ -178,31 +216,34 @@
         </div>
     </section>
 
-    <!-- Instagram feed -->
+    <!-- ────────────── INSTAGRAM FEED ────────────── -->
     <section id="instagram" class="py-20 px-6 md:px-12 lg:px-24 bg-white relative z-10">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col items-center mb-16">
                 <div class="w-16 h-1 bg-black mb-6"></div>
-                <h2 class="text-4xl md:text-5xl font-light tracking-tight text-center">@PortalTextService.Get("Home_InstagramTitle")</h2>
-                <p class="text-gray-500 mt-4 text-center">@PortalTextService.Get("Home_InstagramSubtitle")</p>
+                <h2 class="text-4xl md:text-5xl font-light tracking-tight text-center">
+                    @PortalTextService.Get("Home_InstagramTitle")
+                </h2>
+                <p class="text-gray-500 mt-4 text-center">
+                    @PortalTextService.Get("Home_InstagramSubtitle")
+                </p>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
                 @for (int i = 1; i <= 6; i++)
                 {
-                    // Sprawdzamy, czy obraz istnieje, jeśli nie, używamy place-holder.jpg
                     string instagramImage = $"/images/instagram-{i}.jpg";
-                    // Prosta logika do obsługi brakujących obrazów
-                    if (i > 4) // Zakładając, że masz tylko instagram-1 do instagram-4
-                    {
-                        instagramImage = "/images/place-holder.jpg"; // Użyj place-holder.jpg dla brakujących
-                    }
+                    if (i > 4) instagramImage = "/images/place-holder.jpg";
 
                     <div class="instagram-item group relative aspect-square overflow-hidden">
-                        <img src="@instagramImage" alt="Instagram post @i" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        <img src="@instagramImage" alt="Instagram post @i"
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300
+                                    flex items-center justify-center opacity-0 group-hover:opacity-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
                         </div>
                     </div>
