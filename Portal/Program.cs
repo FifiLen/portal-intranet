@@ -8,6 +8,7 @@ builder.Services.AddDbContext<Intranet.Models.IntranetContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("IntranetDb")));
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<Portal.Services.PortalTextService>();
+builder.Services.AddScoped<Portal.Services.ProductService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews(); // ZMIANA: Rejestracja usług dla MVC

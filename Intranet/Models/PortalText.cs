@@ -15,6 +15,9 @@ public class PortalText
     [Required]
     public string Value { get; set; } = string.Empty;
 
+    [StringLength(100)]
+    public string Section { get; set; } = string.Empty;
+
     [StringLength(10)]
     public string? Language { get; set; }
 }
