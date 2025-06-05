@@ -1,14 +1,23 @@
+using Intranet.Models;
+using Microsoft.EntityFrameworkCore;
+using Portal.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<Intranet.Models.IntranetContext>(opts =>
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("IntranetDb")));
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<Portal.Services.PortalTextService>();
+
 // Add services to the container.
-builder.Services.AddControllersWithViews(); // ZMIANA: Rejestracja us≥ug dla MVC
+builder.Services.AddControllersWithViews(); // ZMIANA: Rejestracja us≈Çug dla MVC
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    // ZMIANA (zalecana): Wskazanie konkretnej akcji kontrolera dla b≥Ídu
+    // ZMIANA (zalecana): Wskazanie konkretnej akcji kontrolera dla b≈Çƒôdu
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
@@ -23,9 +32,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization(); // Pozostaje, jeúli uøywasz autoryzacji
+app.UseAuthorization(); // Pozostaje, je≈õli u≈ºywasz autoryzacji
 
-// ZMIANA: Mapowanie domyúlnej trasy dla kontrolerÛw MVC
+// ZMIANA: Mapowanie domy≈õlnej trasy dla kontroler√≥w MVC
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

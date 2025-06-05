@@ -34,6 +34,8 @@ public partial class IntranetContext : DbContext
         get; set;
     }
 
+    public virtual DbSet<PortalText> PortalTexts { get; set; }
+
     // METODA ONCONFIGURING ZOSTAŁA USUNIĘTA LUB JEJ ZAWARTOŚĆ ZAKOMENTOWANA
     // Poniżej przykład z całkowicie usuniętą metodą:
     // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -122,6 +124,11 @@ public partial class IntranetContext : DbContext
             entity.Property(e => e.Typ)
                   .HasConversion<string>() // Przechowuj enum TypWydarzenia jako string
                   .HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<PortalText>(entity =>
+        {
+            entity.HasIndex(e => new { e.Key, e.Language }).IsUnique();
         });
 
         OnModelCreatingPartial(modelBuilder);
