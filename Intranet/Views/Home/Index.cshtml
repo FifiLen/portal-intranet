@@ -1,23 +1,23 @@
 ﻿@model Intranet.Models.DashboardViewModel
-@using Intranet.Models // Dla dostępu do enuma StatusZamowienia
-@using System.Linq    // Dla .Any()
-@using System.Security.Claims // Dla ClaimTypes
+@using Intranet.Models 
+@using System.Linq    
+@using System.Security.Claims 
 
 @{
     ViewData["Title"] = "Dashboard";
-    Layout = "_Layout"; // Upewnij się, że to jest Twój główny plik layoutu
+    Layout = "_Layout"; 
 
-    // Informacje o użytkowniku - pobierane z Claims, jeśli użytkownik jest zalogowany
+    
     var userName = "Gość";
-    var userEmail = ""; // Możesz chcieć wyświetlić email lub inną informację
+    var userEmail = ""; 
     if (User.Identity?.IsAuthenticated == true)
     {
         userName = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value ?? User.Identity.Name ?? "Użytkownik";
-        // Możesz dodać pobieranie innych claimów, np. email, jeśli są dostępne
-        // userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+        
+        
     }
-    // Data ostatniego logowania - to wymagałoby osobnej logiki zapisu i odczytu tej informacji
-    var lastLoginDateString = User.Identity?.IsAuthenticated == true ? "13.04.2023, 08:15" : ""; // Placeholder
+    
+    var lastLoginDateString = User.Identity?.IsAuthenticated == true ? "13.04.2023, 08:15" : "";
 }
 
 <div class="container-fluid py-4">
@@ -36,14 +36,20 @@
             }
         </div>
         <div>
-            <span class="badge bg-primary me-2">Sklep: Warszawa Centrum</span> @* Placeholder *@
+            <span class="badge bg-primary me-2">Sklep: Warszawa Centrum</span> 
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="PortalTexts" asp-action="Index" class="btn btn-sm btn-dark me-2">
+                    <i class="bi bi-pencil-square"></i> Teksty
+                </a>
+            }
             <button class="btn btn-sm btn-outline-secondary">
                 <i class="bi bi-gear"></i> Ustawienia
             </button>
         </div>
     </div>
 
-    @* Sekcja statystyk *@
+    
     <div class="row g-3 mb-4">
         <div class="col-md-3">
             <div class="card border-0 shadow-sm h-100">
@@ -53,7 +59,7 @@
                             <h6 class="text-muted mb-1">Dzisiejsza sprzedaż</h6>
                             <h3 class="mb-0">@Model.DzisiejszaSprzedaz</h3>
                             <small class="text-success">
-                                <i class="bi bi-arrow-up"></i> 12% więcej niż wczoraj @* Placeholder *@
+                                <i class="bi bi-arrow-up"></i> 12% więcej niż wczoraj 
                             </small>
                         </div>
                         <div class="bg-primary bg-opacity-10 p-3 rounded">
@@ -71,7 +77,7 @@
                             <h6 class="text-muted mb-1">Zamówienia do realizacji</h6>
                             <h3 class="mb-0">@Model.ZamowieniaDoRealizacji</h3>
                             <small class="text-danger">
-                                <i class="bi bi-arrow-up"></i> 3 nowe od wczoraj @* Placeholder *@
+                                <i class="bi bi-arrow-up"></i> 3 nowe od wczoraj 
                             </small>
                         </div>
                         <div class="bg-warning bg-opacity-10 p-3 rounded">
@@ -107,7 +113,7 @@
                             <h6 class="text-muted mb-1">Dzisiejsi klienci</h6>
                             <h3 class="mb-0">@Model.DzisiejsiKlienci</h3>
                             <small class="text-success">
-                                <i class="bi bi-arrow-up"></i> 8% więcej niż wczoraj @* Placeholder *@
+                                <i class="bi bi-arrow-up"></i> 8% więcej niż wczoraj 
                             </small>
                         </div>
                         <div class="bg-success bg-opacity-10 p-3 rounded">
@@ -119,7 +125,7 @@
         </div>
     </div>
 
-    @* Sekcja ostatnich zamówień i wykresu *@
+    
     <div class="row g-4">
         <div class="col-lg-8">
             <div class="card border-0 shadow-sm mb-4">
@@ -200,12 +206,12 @@
             </div>
         </div>
 
-        @* Sekcja ogłoszeń, zadań, wydarzeń (na razie statyczne) *@
+        
         <div class="col-lg-4">
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
     <h5 class="mb-0">Ogłoszenia</h5>
-    @if (User.IsInRole("Admin")) // Pokaż przycisk tylko adminowi
+    @if (User.IsInRole("Admin")) 
     {
         <a asp-controller="Ogloszenia" asp-action="Create" class="btn btn-sm btn-outline-success">
             <i class="bi bi-plus-circle"></i> Dodaj nowe
@@ -257,7 +263,7 @@
                             <div class="form-check mb-3 d-flex align-items-center justify-content-between">
                                 <div class="flex-grow-1">
                                     <form asp-controller="Zadania" asp-action="ToggleWykonane" asp-route-id="@zadanie.Id" method="post" class="d-inline me-2" onchange="this.submit()">
-                                        @Html.AntiForgeryToken() @* Ważne dla POST *@
+                                        @Html.AntiForgeryToken() 
                                         <input class="form-check-input" type="checkbox" id="task-@zadanie.Id" name="czyWykonane" value="true" checked="@zadanie.CzyWykonane" />
                                         <label class="form-check-label @(zadanie.CzyWykonane ? "text-muted text-decoration-line-through" : "")" for="task-@zadanie.Id">
                                             @zadanie.Tytul
@@ -269,14 +275,14 @@
                                     {
                                         var termin = zadanie.TerminWykonania.Value;
                                         var dzis = DateTime.Today;
-                                        string terminText = termin.ToString("dd.MM.yyyy"); // <--- INICJALIZACJA DOMYŚLNA
+                                        string terminText = termin.ToString("dd.MM.yyyy"); 
                                         string terminColor = "text-muted";
 
                                         if (termin.Date < dzis && !zadanie.CzyWykonane)
                                         {
                                             terminColor = "text-danger fw-bold";
-                                            // terminText pozostaje sformatowaną datą, ale można dodać np. "(Po terminie)"
-                                            // terminText = $"{termin.ToString("dd.MM.yyyy")} (Po terminie)";
+                                            
+                                            
                                         }
                                         else if (termin.Date == dzis)
                                         {
@@ -291,9 +297,9 @@
                                         else if (termin.Date == dzis.AddDays(-1))
                                         {
                                             terminText = "Wczoraj";
-                                            // Kolor pozostaje text-muted lub możesz go zmienić
+                                            
                                         }
-                                        // Dla innych dat (starszych niż wczoraj lub dalszych niż jutro) terminText już jest ustawiony na sformatowaną datę
+                                        
 
                                         <small class="@terminColor me-2">@terminText</small>
                                     }
@@ -332,10 +338,10 @@
                                 TypWydarzenia.Inwentaryzacja => "bg-danger",
                                 TypWydarzenia.Spotkanie => "bg-success",
                                 TypWydarzenia.Konferencja => "bg-info",
-                                TypWydarzenia.Firmowe => "bg-purple", // Potrzebujesz zdefiniować klasę .bg-purple w CSS
+                                TypWydarzenia.Firmowe => "bg-purple", 
                                 _ => "bg-secondary"
                             };
-                            var textColorClass = (wydarzenie.Typ == TypWydarzenia.Szkolenie || wydarzenie.Typ == TypWydarzenia.Spotkanie || wydarzenie.Typ == TypWydarzenia.Firmowe) ? "text-blue" : "text-dark"; // Dostosuj kolory tekstu
+                            var textColorClass = (wydarzenie.Typ == TypWydarzenia.Szkolenie || wydarzenie.Typ == TypWydarzenia.Spotkanie || wydarzenie.Typ == TypWydarzenia.Firmowe) ? "text-blue" : "text-dark"; 
 
                             <div class="d-flex @(wydarzenie == Model.NadchodzaceWydarzenia.Last() ? "" : "mb-3")">
                                 <div class="flex-shrink-0 @bgColorClass @textColorClass bg-opacity-10 p-2 rounded text-center" style="width: 60px;">
@@ -352,7 +358,7 @@
                                         }
                                         else if (wydarzenie.DataZakonczenia.HasValue)
                                         {
-                                            @: - @wydarzenie.DataZakonczenia.Value.ToString("dd.MM HH:mm") // Jeśli kończy się innego dnia
+                                            @: - @wydarzenie.DataZakonczenia.Value.ToString("dd.MM HH:mm") 
                                         }
                                         @if (!string.IsNullOrEmpty(wydarzenie.Lokalizacja))
                                         {
@@ -379,17 +385,13 @@
 </div>
 
 @section Scripts {
-    @* Jeśli używasz _ValidationScriptsPartial dla innych formularzy na tej stronie (choć tu nie ma), możesz go zostawić.
-       Dla samego wykresu nie jest on bezpośrednio potrzebny.
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    *@
 
     @if (Model.SprzedazTygodniowaChartData != null && Model.SprzedazTygodniowaChartData.Labels.Any())
     {
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const salesChartCtx = document.getElementById('salesChart');
-                if (salesChartCtx) { // Dodatkowe sprawdzenie, czy element canvas istnieje
+                if (salesChartCtx) { 
                     const salesChart = new Chart(salesChartCtx.getContext('2d'), {
                         type: 'line',
                         data: {
@@ -400,7 +402,7 @@
                                 borderColor: 'rgba(75, 192, 192, 1)',
                                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                 borderWidth: 2,
-                                tension: 0.2, // Lekkie wygładzenie linii
+                                tension: 0.2, 
                                 fill: false
                             }]
                         },

@@ -1,5 +1,5 @@
 ﻿@model Intranet.Models.Zamowienie
-@using Intranet.Models // Dla dostępu do enuma StatusZamowienia
+@using Intranet.Models 
 
 @{
     ViewData["Title"] = "Edytuj Zamówienie #" + Model.Id;
@@ -12,7 +12,7 @@
     <div class="col-md-8">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" /> @* Ważne, aby przekazać Id *@
+            <input type="hidden" asp-for="Id" /> 
 
             <div class="row">
                 <div class="col-md-6 mb-3">
@@ -36,13 +36,13 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label asp-for="DataZlozenia" class="form-label"></label>
-                    @* Data złożenia może być tylko do odczytu, jeśli nie chcesz jej zmieniać *@
+                    
                     <input asp-for="DataZlozenia" class="form-control" readonly />
                     <span asp-validation-for="DataZlozenia" class="text-danger"></span>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label asp-for="LacznaWartosc" class="form-label"></label>
-                    @* Łączna wartość też może być tylko do odczytu, jeśli jest obliczana *@
+                    
                     <input asp-for="LacznaWartosc" class="form-control" readonly />
                     <span asp-validation-for="LacznaWartosc" class="text-danger"></span>
                 </div>
@@ -50,16 +50,16 @@
 
             <div class="mb-3">
                 <label asp-for="Status" class="form-label"></label>
-                @* Używamy Html.GetEnumSelectList do wygenerowania opcji dla enuma *@
+                
                 <select asp-for="Status" asp-items="Html.GetEnumSelectList<StatusZamowienia>()" class="form-select">
                     <option value="">-- Wybierz status --</option>
                 </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
 
-            @* Tutaj można by dodać sekcję do edycji PozycjiZamowien, ale to bardziej skomplikowane *@
-            @* <h4>Pozycje zamówienia</h4> *@
-            @* ... logika wyświetlania i edycji pozycji ... *@
+            
+            
+            
 
 
             <div class="form-group mt-4">

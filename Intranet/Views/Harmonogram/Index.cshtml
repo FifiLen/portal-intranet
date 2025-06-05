@@ -12,7 +12,6 @@
     int daysInMonth = DateTime.DaysInMonth(year, month);
     DateTime firstOfMonth = new DateTime(year, month, 1);
 
-    // Sunday = 0 … Saturday = 6, chcemy Monday = 0 … Sunday = 6
     int startOffset = ((int)firstOfMonth.DayOfWeek + 6) % 7;
     int totalCells = ((daysInMonth + startOffset + 6) / 7) * 7;
 
@@ -104,18 +103,18 @@
                                                 {
                                                     <div class="mt-1">
                                                         <span class="badge @BadgeClass(z.TypZmiany)">
-                                                            @* WARUNEK WYŚWIETLANIA *@
+                                                            
                                                             @if (z.TypZmiany == "Urlop")
                                                             {
-                                                                @("Urlop") @* Lub po prostu: Urlop *@
+                                                                @("Urlop") 
                                                             }
                                                             else if (z.TypZmiany == "Szkolenie")
                                                             {
-                                                                @("Szkolenie") @* Lub po prostu: Szkolenie *@
+                                                                @("Szkolenie") 
                                                             }
                                                             else
                                                             {
-                                                                @z.GodzRozpoczecia @* Dla innych typów zmian wyświetl godzinę *@
+                                                                @z.GodzRozpoczecia 
                                                             }
                                                         </span>
                                                     </div>
