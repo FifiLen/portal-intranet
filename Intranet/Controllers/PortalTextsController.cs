@@ -1,0 +1,90 @@
+using Intranet.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace Intranet.Controllers;
+
+[Authorize(Roles = "Admin")]
+public class PortalTextsController : Controller
+{
+    private readonly IntranetContext _context;
+
+    public PortalTextsController(IntranetContext context)
+    {
+        _context = context;
+    }
+
+    // GET: PortalTexts
+    public async Task<IActionResult> Index()
+    {
+        var texts = await _context.PortalTexts.ToListAsync();
+        return View(texts);
+    }
+
+    // GET: PortalTexts/Create
+    public IActionResult Create()
+    {
+        return View(new PortalText());
+    }
+
+    // POST: PortalTexts/Create
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("Key,Value,Language")] PortalText text)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.PortalTexts.Add(text);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(text);
+    }
+
+    // GET: PortalTexts/Edit/5
+    public async Task<IActionResult> Edit(int id)
+    {
+        var text = await _context.PortalTexts.FindAsync(id);
+        if (text == null) return NotFound();
+        return View(text);
+    }
+
+    // POST: PortalTexts/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Key,Value,Language")] PortalText text)
+    {
+        if (id != text.Id) return BadRequest();
+
+        if (ModelState.IsValid)
+        {
+            _context.Update(text);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(text);
+    }
+
+    // GET: PortalTexts/Delete/5
+    public async Task<IActionResult> Delete(int id)
+    {
+        var text = await _context.PortalTexts.FindAsync(id);
+        if (text == null) return NotFound();
+        return View(text);
+    }
+
+    // POST: PortalTexts/Delete/5
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var text = await _context.PortalTexts.FindAsync(id);
+        if (text != null)
+        {
+            _context.PortalTexts.Remove(text);
+            await _context.SaveChangesAsync();
+        }
+        return RedirectToAction(nameof(Index));
+    }
+}

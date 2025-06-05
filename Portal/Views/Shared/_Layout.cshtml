@@ -25,13 +25,13 @@
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="main-header">
         <div class="container mx-auto px-6 md:px-12 lg:px-24">
             <div class="flex items-center justify-between py-6">
-                <a href="/" class="text-2xl font-bold tracking-tighter">CIUCHY</a>
+                <a href="/" class="text-2xl font-bold tracking-tighter">@PortalTextService.Get("Header_Brand")</a>
 
                 <nav class="hidden md:flex items-center space-x-8">
-                    <a href="/Category/Women" class="text-sm font-medium hover:opacity-70 transition-opacity">KOBIETY</a>
-                    <a href="/Category/Men" class="text-sm font-medium hover:opacity-70 transition-opacity">MĘŻCZYŹNI</a>
-                    <a href="/Category/Kids" class="text-sm font-medium hover:opacity-70 transition-opacity">DZIECI</a>
-                    <a href="/Category/Accessories" class="text-sm font-medium hover:opacity-70 transition-opacity">AKCESORIA</a>
+                    <a href="/Category/Women" class="text-sm font-medium hover:opacity-70 transition-opacity">@PortalTextService.Get("Nav_Women")</a>
+                    <a href="/Category/Men" class="text-sm font-medium hover:opacity-70 transition-opacity">@PortalTextService.Get("Nav_Men")</a>
+                    <a href="/Category/Kids" class="text-sm font-medium hover:opacity-70 transition-opacity">@PortalTextService.Get("Nav_Kids")</a>
+                    <a href="/Category/Accessories" class="text-sm font-medium hover:opacity-70 transition-opacity">@PortalTextService.Get("Nav_Accessories")</a>
                 </nav>
 
                 <div class="flex items-center space-x-6">

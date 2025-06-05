@@ -1,0 +1,15 @@
+@model Intranet.Models.PortalText
+@{
+    ViewData["Title"] = "Delete Portal Text";
+}
+<h1>@ViewData["Title"]</h1>
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>@Model.Key</h4>
+    <p>@Model.Value</p>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </form>
+</div>
