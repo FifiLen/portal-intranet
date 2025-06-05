@@ -17,7 +17,7 @@
         // userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
     }
     // Data ostatniego logowania - to wymagałoby osobnej logiki zapisu i odczytu tej informacji
-    var lastLoginDateString = User.Identity?.IsAuthenticated == true ? "13.04.2023, 08:15" : ""; // Placeholder
+    var lastLoginDateString = User.Identity?.IsAuthenticated == true ? "13.04.2023, 08:15" : "";
 }
 
 <div class="container-fluid py-4">
@@ -36,7 +36,13 @@
             }
         </div>
         <div>
-            <span class="badge bg-primary me-2">Sklep: Warszawa Centrum</span> @* Placeholder *@
+            <span class="badge bg-primary me-2">Sklep: Warszawa Centrum</span> 
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="PortalTexts" asp-action="Index" class="btn btn-sm btn-dark me-2">
+                    <i class="bi bi-pencil-square"></i> Teksty
+                </a>
+            }
             <button class="btn btn-sm btn-outline-secondary">
                 <i class="bi bi-gear"></i> Ustawienia
             </button>
@@ -53,7 +59,7 @@
                             <h6 class="text-muted mb-1">Dzisiejsza sprzedaż</h6>
                             <h3 class="mb-0">@Model.DzisiejszaSprzedaz</h3>
                             <small class="text-success">
-                                <i class="bi bi-arrow-up"></i> 12% więcej niż wczoraj @* Placeholder *@
+                                <i class="bi bi-arrow-up"></i> 12% więcej niż wczoraj 
                             </small>
                         </div>
                         <div class="bg-primary bg-opacity-10 p-3 rounded">
@@ -71,7 +77,7 @@
                             <h6 class="text-muted mb-1">Zamówienia do realizacji</h6>
                             <h3 class="mb-0">@Model.ZamowieniaDoRealizacji</h3>
                             <small class="text-danger">
-                                <i class="bi bi-arrow-up"></i> 3 nowe od wczoraj @* Placeholder *@
+                                <i class="bi bi-arrow-up"></i> 3 nowe od wczoraj 
                             </small>
                         </div>
                         <div class="bg-warning bg-opacity-10 p-3 rounded">
@@ -107,7 +113,7 @@
                             <h6 class="text-muted mb-1">Dzisiejsi klienci</h6>
                             <h3 class="mb-0">@Model.DzisiejsiKlienci</h3>
                             <small class="text-success">
-                                <i class="bi bi-arrow-up"></i> 8% więcej niż wczoraj @* Placeholder *@
+                                <i class="bi bi-arrow-up"></i> 8% więcej niż wczoraj 
                             </small>
                         </div>
                         <div class="bg-success bg-opacity-10 p-3 rounded">
