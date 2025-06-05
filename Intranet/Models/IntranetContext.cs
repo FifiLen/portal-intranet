@@ -128,6 +128,8 @@ public partial class IntranetContext : DbContext
 
         modelBuilder.Entity<PortalText>(entity =>
         {
+            entity.Property(e => e.Section)
+                  .HasMaxLength(100);
             entity.HasIndex(e => new { e.Key, e.Language }).IsUnique();
         });
 

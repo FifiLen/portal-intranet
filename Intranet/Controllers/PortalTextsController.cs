@@ -16,9 +16,22 @@ public class PortalTextsController : Controller
     }
 
     // GET: PortalTexts
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? section)
     {
-        var texts = await _context.PortalTexts.ToListAsync();
+        var sections = await _context.PortalTexts
+            .Select(t => t.Section)
+            .Distinct()
+            .OrderBy(s => s)
+            .ToListAsync();
+        ViewBag.Sections = sections;
+
+        var textsQuery = _context.PortalTexts.AsQueryable();
+        if (!string.IsNullOrEmpty(section))
+        {
+            textsQuery = textsQuery.Where(t => t.Section == section);
+            ViewBag.CurrentSection = section;
+        }
+        var texts = await textsQuery.ToListAsync();
         return View(texts);
     }
 
@@ -31,7 +44,7 @@ public class PortalTextsController : Controller
     // POST: PortalTexts/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Key,Value,Language")] PortalText text)
+    public async Task<IActionResult> Create([Bind("Key,Value,Section,Language")] PortalText text)
     {
         if (ModelState.IsValid)
         {
@@ -53,7 +66,7 @@ public class PortalTextsController : Controller
     // POST: PortalTexts/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Key,Value,Language")] PortalText text)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Key,Value,Section,Language")] PortalText text)
     {
         if (id != text.Id) return BadRequest();
 
