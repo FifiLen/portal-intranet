@@ -15,7 +15,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddScoped<PortalTextService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
-// nowości z gałęzi Codex ↓
+// dodatki z gałęzi Codex
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
 builder.Services.AddScoped<ICartService, CartService>();
@@ -51,8 +51,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();       // (Codex) sesje muszą być przed autoryzacją
-app.UseAuthorization(); // zostawiamy, jeśli kiedyś dodasz autoryzację
+app.UseSession();       // sesja przed autoryzacją
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
