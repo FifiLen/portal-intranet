@@ -1,0 +1,8 @@
+@model Intranet.Models.Zamowienie
+@{
+    ViewData["Title"] = "Dziękujemy za zakupy";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>Numer zamówienia: @Model.Id</p>
+<a asp-controller="Home" asp-action="Index">Powrót do sklepu</a>
