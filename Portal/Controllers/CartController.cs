@@ -10,7 +10,7 @@ namespace FashionStore.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ICartService _cartService;
+        private readonly ICartService    _cartService;
         private readonly IntranetContext _context;
         private readonly IProductService _productService;
 
@@ -19,8 +19,8 @@ namespace FashionStore.Controllers
             IntranetContext context,
             IProductService productService)
         {
-            _cartService   = cartService;
-            _context       = context;
+            _cartService    = cartService;
+            _context        = context;
             _productService = productService;
         }
 
@@ -87,19 +87,18 @@ namespace FashionStore.Controllers
 
             var order = new Zamowienie
             {
-                DataZlozenia       = DateTime.UtcNow,
-                ImieZamawiajacego  = model.FirstName,
+                DataZlozenia          = DateTime.UtcNow,
+                ImieZamawiajacego     = model.FirstName,
                 NazwiskoZamawiajacego = model.LastName,
-                EmailZamawiajacego = model.Email,
-                Status             = StatusZamowienia.Nowe,
-                PozycjeZamowien    = items.Select(i => new PozycjaZamowienia
+                EmailZamawiajacego    = model.Email,
+                Status                = StatusZamowienia.Nowe,
+                PozycjeZamowien       = items.Select(i => new PozycjaZamowienia
                 {
-                    ProduktId        = i.Id,
-                    Ilosc            = i.Quantity,
-                    CenaJednostkowa  = i.Price
+                    ProduktId       = i.Id,
+                    Ilosc           = i.Quantity,
+                    CenaJednostkowa = i.Price
                 }).ToList()
             };
-
             order.LacznaWartosc = order.PozycjeZamowien.Sum(p => p.Ilosc * p.CenaJednostkowa);
 
             _context.Zamowienia.Add(order);

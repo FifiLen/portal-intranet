@@ -18,7 +18,7 @@ builder.Services.AddScoped<PortalTextService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();
 
-// ────────────── MVC (bez kontrolerów Intranet) ──────────────
+// ────────────── MVC  (wycinamy kontrolery Intranet) ──────────────
 builder.Services.AddControllersWithViews()
     .ConfigureApplicationPartManager(apm =>
     {

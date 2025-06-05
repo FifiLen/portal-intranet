@@ -3,22 +3,49 @@
     ViewData["Title"] = "Finalizacja zamówienia";
 }
 
-<h2>@ViewData["Title"]</h2>
-<form asp-action="Checkout" method="post" class="mt-4">
-    <div class="mb-3">
-        <label asp-for="FirstName" class="form-label"></label>
-        <input asp-for="FirstName" class="form-control" />
-        <span asp-validation-for="FirstName" class="text-danger"></span>
+<!-- ────────────── HERO ────────────── -->
+<div class="relative h-[40vh] overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30 z-10"></div>
+        <div class="hero-image absolute inset-0 bg-cover bg-center"
+             style="background-image: url('/images/place-holder.jpg');"></div>
     </div>
-    <div class="mb-3">
-        <label asp-for="LastName" class="form-label"></label>
-        <input asp-for="LastName" class="form-control" />
-        <span asp-validation-for="LastName" class="text-danger"></span>
+    <div class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-10">
+        <h1 class="text-6xl md:text-7xl font-light text-white tracking-tight hero-title text-center">
+            @ViewData["Title"]
+        </h1>
     </div>
-    <div class="mb-3">
-        <label asp-for="Email" class="form-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
+</div>
+
+<!-- ────────────── CHECKOUT FORM ────────────── -->
+<section class="py-16 px-6 md:px-12 lg:px-24 bg-white relative z-10">
+    <div class="max-w-xl mx-auto">
+        <form asp-action="Checkout" method="post" class="space-y-6">
+            <div>
+                <label asp-for="FirstName" class="block text-sm font-medium mb-1"></label>
+                <input asp-for="FirstName"
+                       class="w-full border border-gray-300 px-4 py-2 focus:outline-none" />
+                <span asp-validation-for="FirstName" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div>
+                <label asp-for="LastName" class="block text-sm font-medium mb-1"></label>
+                <input asp-for="LastName"
+                       class="w-full border border-gray-300 px-4 py-2 focus:outline-none" />
+                <span asp-validation-for="LastName" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div>
+                <label asp-for="Email" class="block text-sm font-medium mb-1"></label>
+                <input asp-for="Email"
+                       class="w-full border border-gray-300 px-4 py-2 focus:outline-none" />
+                <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-black text-white py-3 hover:bg-gray-800 transition-colors">
+                Złóż zamówienie
+            </button>
+        </form>
     </div>
-    <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
-</form>
+</section>
