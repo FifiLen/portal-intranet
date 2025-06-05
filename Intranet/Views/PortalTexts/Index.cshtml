@@ -8,7 +8,7 @@
         <option value="">All sections</option>
         @foreach (var s in (IEnumerable<string>)ViewBag.Sections)
         {
-            <option value="@s" selected="@(ViewBag.CurrentSection == s ? "selected" : null)">@s</option>
+            <option value="@s" selected="@(ViewBag.CurrentSection == s)">@s</option>
         }
     </select>
     <a asp-action="Create" class="btn btn-primary ms-2">Create New</a>
