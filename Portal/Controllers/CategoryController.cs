@@ -6,9 +6,9 @@ namespace FashionStore.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ProductService _productService;
+        private readonly IProductService _productService;
 
-        public CategoryController(ProductService productService)
+        public CategoryController(IProductService productService)
         {
             _productService = productService;
         }
