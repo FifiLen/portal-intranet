@@ -11,13 +11,16 @@ builder.Services.AddDbContext<IntranetContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("IntranetDb")));
 
 builder.Services.AddMemoryCache();
+
 builder.Services.AddScoped<PortalTextService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
-// ────────────── MVC ──────────────
-// !!! WAŻNE: NIE USUWAĆ !!!
-// Usuwamy ApplicationPart z assembly „Intranet”, aby Portal
-// nie ładował kontrolerów Intranet i nie powodował kolizji tras.
+// nowości z gałęzi Codex ↓
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
+builder.Services.AddScoped<ICartService, CartService>();
+
+// ────────────── MVC (bez kontrolerów Intranet) ──────────────
 builder.Services.AddControllersWithViews()
     .ConfigureApplicationPartManager(apm =>
     {
@@ -47,7 +50,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthorization();
+
+app.UseSession();       // (Codex) sesje muszą być przed autoryzacją
+app.UseAuthorization(); // zostawiamy, jeśli kiedyś dodasz autoryzację
 
 app.MapControllerRoute(
     name: "default",
