@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Dodaj nową zmianę";
-    Layout = "_Layout"; // Lub inny layout, jeśli masz
+    Layout = "_Layout"; 
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -12,8 +12,6 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            @* PracownikId będzie ustawiane automatycznie w kontrolerze, więc nie potrzebujemy tu pola *@
-            @* <input type="hidden" asp-for="PracownikId" /> *@
 
             <div class="mb-3">
                 <label asp-for="DataZmiany" class="form-label"></label>
@@ -35,9 +33,7 @@
 
             <div class="mb-3">
                 <label asp-for="TypZmiany" class="form-label"></label>
-                @* Możesz użyć pola tekstowego lub listy rozwijanej (select) dla TypZmiany *@
                 <input asp-for="TypZmiany" class="form-control" />
-                @* Przykład z listą rozwijaną, jeśli masz predefiniowane typy:
                 <select asp-for="TypZmiany" class="form-select">
                     <option value="">-- Wybierz typ --</option>
                     <option value="Zmiana poranna">Zmiana poranna</option>
@@ -45,7 +41,6 @@
                     <option value="Urlop">Urlop</option>
                     <option value="Szkolenie">Szkolenie</option>
                 </select>
-                *@
                 <span asp-validation-for="TypZmiany" class="text-danger"></span>
             </div>
 
@@ -56,8 +51,6 @@
         </form>
     </div>
 </div>
-@*
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-*@
