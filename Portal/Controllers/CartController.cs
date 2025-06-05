@@ -1,93 +1,109 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FashionStore.Models;
-using System.Collections.Generic;
+using Intranet.Models;
+using Portal.Services;
 
 namespace FashionStore.Controllers
 {
     public class CartController : Controller
     {
-        public IActionResult Index()
+        private readonly ICartService _cartService;
+        private readonly IntranetContext _context;
+        private readonly IProductService _productService;
+
+        public CartController(ICartService cartService, IntranetContext context, IProductService productService)
         {
-            // Przykładowe dane koszyka - w rzeczywistej aplikacji byłyby pobierane z sesji lub bazy danych
-            var cartItems = new List<CartItemModel>
+            _cartService = cartService;
+            _context = context;
+            _productService = productService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var cartItems = await _cartService.GetItemsAsync();
+            var recommended = await _productService.GetRandomAsync(4);
+            var vm = new CartPageViewModel
             {
-                new CartItemModel {
-                    Id = 1,
-                    Name = "Oversized Blazer",
-                    Price = 599.00m,
-                    Quantity = 1,
-                    ImageUrl = "/images/product-1.jpg",
-                    Size = "M",
-                    Color = "Czarny"
-                },
-                new CartItemModel {
-                    Id = 2,
-                    Name = "Minimalist Shirt",
-                    Price = 299.00m,
-                    Quantity = 2,
-                    ImageUrl = "/images/product-2.jpg",
-                    Size = "L",
-                    Color = "Biały"
-                },
-                new CartItemModel {
-                    Id = 3,
-                    Name = "Leather Boots",
-                    Price = 799.00m,
-                    Quantity = 1,
-                    ImageUrl = "/images/place-holder.jpg",
-                    Size = "42",
-                    Color = "Brązowy"
-                }
+                Items = cartItems,
+                Recommended = recommended
             };
-
-            // Przekazanie danych do widoku
-            return View(cartItems);
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult UpdateQuantity(int id, int quantity)
+        public async Task<IActionResult> Add(int productId, int quantity = 1)
         {
-            // Tutaj kod do aktualizacji ilości produktu w koszyku
-            // W rzeczywistej aplikacji aktualizowałby dane w sesji lub bazie danych
+            await _cartService.AddItemAsync(productId, quantity);
+            return RedirectToAction(nameof(Index));
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuantity(int id, int quantity)
+        {
+            await _cartService.UpdateQuantityAsync(id, quantity);
             return Json(new { success = true });
         }
 
         [HttpPost]
-        public IActionResult RemoveItem(int id)
+        public async Task<IActionResult> RemoveItem(int id)
         {
-            // Tutaj kod do usunięcia produktu z koszyka
-            // W rzeczywistej aplikacji usuwałby produkt z sesji lub bazy danych
-
+            await _cartService.RemoveItemAsync(id);
             return Json(new { success = true });
         }
 
         [HttpPost]
-        public IActionResult ClearCart()
+        public async Task<IActionResult> ClearCart()
         {
-            // Tutaj kod do wyczyszczenia koszyka
-            // W rzeczywistej aplikacji czyściłby koszyk w sesji lub bazie danych
-
+            await _cartService.ClearAsync();
             return Json(new { success = true });
         }
 
-        [HttpPost]
-        public IActionResult ApplyDiscount(string code)
+        public IActionResult Checkout()
         {
-            // Tutaj kod do weryfikacji i zastosowania kodu rabatowego
-            // W rzeczywistej aplikacji sprawdzałby kod w bazie danych i stosował odpowiedni rabat
+            return View(new CheckoutFormModel());
+        }
 
-            decimal discount = 0;
-
-            // Przykładowa logika dla kodu rabatowego "WELCOME10"
-            if (code == "WELCOME10")
+        [HttpPost]
+        public async Task<IActionResult> Checkout(CheckoutFormModel model)
+        {
+            var items = await _cartService.GetItemsAsync();
+            if (!items.Any())
             {
-                discount = 50.00m;
-                TempData["Discount"] = discount;
-                return Json(new { success = true, discount = discount });
+                ModelState.AddModelError(string.Empty, "Koszyk jest pusty");
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(model);
             }
 
-            return Json(new { success = false, message = "Nieprawidłowy kod rabatowy" });
+            var order = new Zamowienie
+            {
+                DataZlozenia = DateTime.UtcNow,
+                ImieZamawiajacego = model.FirstName,
+                NazwiskoZamawiajacego = model.LastName,
+                EmailZamawiajacego = model.Email,
+                Status = StatusZamowienia.Nowe,
+                PozycjeZamowien = items.Select(i => new PozycjaZamowienia
+                {
+                    ProduktId = i.Id,
+                    Ilosc = i.Quantity,
+                    CenaJednostkowa = i.Price
+                }).ToList()
+            };
+            order.LacznaWartosc = order.PozycjeZamowien.Sum(p => p.Ilosc * p.CenaJednostkowa);
+
+            _context.Zamowienia.Add(order);
+            await _context.SaveChangesAsync();
+            await _cartService.ClearAsync();
+
+            return RedirectToAction(nameof(Success), new { id = order.Id });
+        }
+
+        public async Task<IActionResult> Success(int id)
+        {
+            var order = await _context.Zamowienia.FindAsync(id);
+            if (order == null) return RedirectToAction(nameof(Index));
+            return View(order);
         }
     }
 }
