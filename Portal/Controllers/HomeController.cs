@@ -9,9 +9,9 @@ namespace Portal.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ProductService _productService;
+        private readonly IProductService _productService;
 
-        public HomeController(ILogger<HomeController> logger, ProductService productService)
+        public HomeController(ILogger<HomeController> logger, IProductService productService)
         {
             _logger = logger;
             _productService = productService;
