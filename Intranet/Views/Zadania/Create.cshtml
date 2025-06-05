@@ -1,5 +1,5 @@
 ﻿@model Intranet.Models.Zadanie
-@using Intranet.Models // Dla enuma PriorytetZadania
+@using Intranet.Models 
 
 @{
     ViewData["Title"] = "Dodaj nowe zadanie";
@@ -14,12 +14,6 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            @* PracownikId będzie ustawiane automatycznie w kontrolerze dla zalogowanego użytkownika,
-               ale jeśli admin dodaje zadanie dla kogoś innego, potrzebowalibyśmy tu listy rozwijanej pracowników.
-               Na razie zakładamy, że użytkownik dodaje zadanie dla siebie lub admin ustawia to w logice.
-               Jeśli PracownikId jest w [Bind] w kontrolerze, to to ukryte pole jest potrzebne, jeśli
-               PracownikId jest ustawiane w akcji GET Create.
-            *@
             <input type="hidden" asp-for="PracownikId" />
 
 
@@ -50,7 +44,6 @@
                 </div>
             </div>
 
-            @* DataUtworzenia i CzyWykonane będą ustawiane automatycznie w kontrolerze *@
 
             <div class="form-group mt-4">
                 <button type="submit" class="btn btn-primary">Dodaj zadanie</button>

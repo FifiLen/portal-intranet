@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Intranet.Models.Zamowienie>
-@using Intranet.Models // <--- DODAJ TEN USING
+@using Intranet.Models 
 @{
     ViewData["Title"] = "Lista Zamówień";
     Layout = "_Layout";
@@ -50,7 +50,7 @@
                     @item.LacznaWartosc.ToString("C", new System.Globalization.CultureInfo("pl-PL"))
                     </td>
                     <td>
-                    @* Teraz StatusZamowienia.Nowe itp. będzie rozpoznawane *@
+                    
                         <span class="badge
                         @((item.Status == StatusZamowienia.Nowe || item.Status == StatusZamowienia.PrzyjeteDoRealizacji) ? "bg-info text-dark" :
                            item.Status == StatusZamowienia.WRealizacji ? "bg-warning text-dark" :
