@@ -44,7 +44,7 @@ public class PortalTextsController : Controller
     // POST: PortalTexts/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Key,Value,Section,Language")] PortalText text)
+    public async Task<IActionResult> Create([Bind("Key,Value,Section")] PortalText text)
     {
         if (ModelState.IsValid)
         {
@@ -66,7 +66,7 @@ public class PortalTextsController : Controller
     // POST: PortalTexts/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Key,Value,Section,Language")] PortalText text)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Key,Value,Section")] PortalText text)
     {
         if (id != text.Id) return BadRequest();
 

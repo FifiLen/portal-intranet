@@ -17,7 +17,4 @@ public class PortalText
 
     [StringLength(100)]
     public string Section { get; set; } = string.Empty;
-
-    [StringLength(10)]
-    public string? Language { get; set; }
 }

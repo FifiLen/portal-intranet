@@ -2,21 +2,25 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Portal.Models; // Poprawna przestrzeń nazw dla modeli
+using Portal.Services;
 
 namespace Portal.Controllers // Poprawna przestrzeń nazw dla kontrolera
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ProductService _productService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ProductService productService)
         {
             _logger = logger;
+            _productService = productService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _productService.GetByCategoryAsync("Women");
+            return View(products.Take(4).ToList());
         }
 
         public IActionResult Privacy()

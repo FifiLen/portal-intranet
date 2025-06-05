@@ -1,3 +1,4 @@
+@model IList<FashionStore.Models.ProductModel>
 ﻿@{
     ViewData["Title"] = "CIUCHY";
 }
@@ -88,56 +89,47 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @{
-                    var products = new[] {
-                new { Name = "Oversized Blazer", Price = "599,00 zł", OldPrice = "799,00 zł", IsNew = false, Discount = true, ImageIndex = 1 },
-                new { Name = "Minimalist Shirt", Price = "299,00 zł", OldPrice = "", IsNew = true, Discount = false, ImageIndex = 2 },
-                new { Name = "Wool Blend Coat", Price = "899,00 zł", OldPrice = "", IsNew = false, Discount = false, ImageIndex = 3 },
-                new { Name = "Structured Bag", Price = "459,00 zł", OldPrice = "599,00 zł", IsNew = false, Discount = true, ImageIndex = 4 }
-                };
+                @foreach (var product in Model)
+                {
+                    <div class="product-card group">
+                        <div class="relative overflow-hidden aspect-[3/4] mb-4">
+                            <img src="@product.ImageUrl"
+                                 alt="@product.Name"
+                                 class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" />
 
-                    foreach (var product in products) // Zmieniono pętlę na foreach dla czytelności
-                    {
-                        <div class="product-card group">
-                            <div class="relative overflow-hidden aspect-[3/4] mb-4">
-                                <img src="/images/product-@(product.ImageIndex).jpg"
-                                     alt="@product.Name"
-                                     class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105" />
-
-                                @if (product.IsNew)
-                                {
-                                    <div class="absolute top-4 right-4 bg-black text-white text-xs px-3 py-1 font-medium">
-                                        NOWOŚĆ
-                                    </div>
-                                }
-                                else if (product.Discount)
-                                {
-                                    <div class="absolute top-4 right-4 bg-red-600 text-white text-xs px-3 py-1 font-medium">
-                                        PROMOCJA
-                                    </div>
-                                }
-
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                    <button class="bg-white text-black px-6 py-3 font-medium transform -translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                                        DODAJ DO KOSZYKA
-                                    </button>
+                            @if (product.IsNew)
+                            {
+                                <div class="absolute top-4 right-4 bg-black text-white text-xs px-3 py-1 font-medium">
+                                    NOWOŚĆ
                                 </div>
-                            </div>
+                            }
+                            else if (product.Discount.HasValue)
+                            {
+                                <div class="absolute top-4 right-4 bg-red-600 text-white text-xs px-3 py-1 font-medium">
+                                    -@product.Discount%
+                                </div>
+                            }
 
-                            <h3 class="text-lg font-medium">@product.Name</h3>
-                            <div class="flex items-center mt-1">
-                                @if (!string.IsNullOrEmpty(product.OldPrice))
-                                {
-                                    <span class="text-gray-400 line-through mr-2">@product.OldPrice</span>
-                                    <span class="text-red-600 font-medium">@product.Price</span>
-                                }
-                                else
-                                {
-                                    <span class="font-medium">@product.Price</span>
-                                }
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                <button class="bg-white text-black px-6 py-3 font-medium transform -translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                    DODAJ DO KOSZYKA
+                                </button>
                             </div>
                         </div>
-                    }
+
+                        <h3 class="text-lg font-medium">@product.Name</h3>
+                        <div class="flex items-center mt-1">
+                            @if (product.OldPrice.HasValue)
+                            {
+                                <span class="text-gray-400 line-through mr-2">@product.OldPrice.Value.ToString("0.00") zł</span>
+                                <span class="text-red-600 font-medium">@product.Price.ToString("0.00") zł</span>
+                            }
+                            else
+                            {
+                                <span class="font-medium">@product.Price.ToString("0.00") zł</span>
+                            }
+                        </div>
+                    </div>
                 }
             </div>
 
