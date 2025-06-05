@@ -59,4 +59,28 @@ public class ProductService : IProductService
             Featured = false
         }).ToList();
     }
+
+    public async Task<List<ProductModel>> GetRandomAsync(int count)
+    {
+        var products = await _context.Produkty
+            .AsNoTracking()
+            .OrderBy(p => Guid.NewGuid())
+            .Take(count)
+            .ToListAsync();
+
+        return products.Select(p => new ProductModel
+        {
+            Id = p.Id,
+            Name = p.Nazwa,
+            Price = p.Cena,
+            OldPrice = null,
+            Discount = null,
+            IsNew = false,
+            ImageUrl = "/images/place-holder.jpg",
+            Tags = new List<string>(),
+            Colors = new List<string>(),
+            Sizes = new List<string>(),
+            Featured = false
+        }).ToList();
+    }
 }

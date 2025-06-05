@@ -19,7 +19,6 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();
 
 // ────────────── MVC (bez kontrolerów Intranet) ──────────────
-// !!! WAŻNE: NIE USUWAĆ !!! – zapobiega AmbiguousMatchException
 builder.Services.AddControllersWithViews()
     .ConfigureApplicationPartManager(apm =>
     {
@@ -50,7 +49,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();       // Sesja przed autoryzacją
+app.UseSession();       // sesje przed autoryzacją
 app.UseAuthorization();
 
 app.MapControllerRoute(
