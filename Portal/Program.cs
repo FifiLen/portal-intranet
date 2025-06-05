@@ -11,16 +11,15 @@ builder.Services.AddDbContext<IntranetContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("IntranetDb")));
 
 builder.Services.AddMemoryCache();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
 
 builder.Services.AddScoped<PortalTextService>();
 builder.Services.AddScoped<IProductService, ProductService>();
-
-// dodatki z gałęzi Codex
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddSession();
 builder.Services.AddScoped<ICartService, CartService>();
 
 // ────────────── MVC (bez kontrolerów Intranet) ──────────────
+// !!! WAŻNE: NIE USUWAĆ !!! – zapobiega AmbiguousMatchException
 builder.Services.AddControllersWithViews()
     .ConfigureApplicationPartManager(apm =>
     {
@@ -51,7 +50,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();       // sesja przed autoryzacją
+app.UseSession();       // Sesja przed autoryzacją
 app.UseAuthorization();
 
 app.MapControllerRoute(

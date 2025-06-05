@@ -288,19 +288,25 @@
             const clearCartButton = document.getElementById('clear-cart');
             const applyDiscountButton = document.getElementById('apply-discount');
 
+            async function postCart(url, data) {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(data)
+                });
+            }
+
             // Funkcja aktualizująca ilość
-            function updateQuantity(input, newValue) {
+            async function updateQuantity(input, newValue) {
                 const min = parseInt(input.getAttribute('min'));
                 const max = parseInt(input.getAttribute('max'));
 
-                // Ograniczenie wartości do zakresu min-max
                 newValue = Math.max(min, Math.min(max, newValue));
-
-                // Aktualizacja wartości
                 input.value = newValue;
 
-                // Tutaj można dodać kod do aktualizacji ceny i sumy
-                // updateCartItem(itemId, newValue);
+                const itemId = input.closest('.cart-item').dataset.itemId;
+                await postCart('/Cart/UpdateQuantity', { id: itemId, quantity: newValue });
+                window.location.reload();
             }
 
             // Obsługa przycisków zmniejszania ilości
@@ -330,58 +336,20 @@
             });
 
             // Obsługa usuwania produktów
-            removeButtons.forEach((button, index) => {
-                button.addEventListener('click', function() {
-                    const cartItem = this.closest('.cart-item');
-
-                    // Animacja usuwania
-                    cartItem.style.transition = 'all 0.5s ease';
-                    cartItem.style.opacity = '0';
-                    cartItem.style.height = '0';
-                    cartItem.style.marginBottom = '0';
-                    cartItem.style.overflow = 'hidden';
-
-                    // Po zakończeniu animacji usuń element
-                    setTimeout(() => {
-                        cartItem.remove();
-
-                        // Sprawdź, czy koszyk jest pusty
-                        const remainingItems = document.querySelectorAll('.cart-item');
-                        if (remainingItems.length === 0) {
-                            // Odśwież stronę, aby pokazać pusty koszyk
-                            window.location.reload();
-                        }
-                    }, 500);
-
-                    // Tutaj można dodać kod do usunięcia produktu z koszyka
-                    // removeCartItem(itemId);
+            removeButtons.forEach((button) => {
+                button.addEventListener('click', async function() {
+                    const itemId = this.closest('.cart-item').dataset.itemId;
+                    await postCart('/Cart/RemoveItem', { id: itemId });
+                    window.location.reload();
                 });
             });
 
             // Obsługa czyszczenia koszyka
             if (clearCartButton) {
-                clearCartButton.addEventListener('click', function() {
+                clearCartButton.addEventListener('click', async function() {
                     if (confirm('Czy na pewno chcesz wyczyścić koszyk?')) {
-                        const cartItems = document.querySelectorAll('.cart-item');
-
-                        // Animacja usuwania wszystkich produktów
-                        cartItems.forEach((item, index) => {
-                            setTimeout(() => {
-                                item.style.transition = 'all 0.5s ease';
-                                item.style.opacity = '0';
-                                item.style.height = '0';
-                                item.style.marginBottom = '0';
-                                item.style.overflow = 'hidden';
-                            }, index * 100);
-                        });
-
-                        // Po zakończeniu animacji odśwież stronę
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, cartItems.length * 100 + 500);
-
-                        // Tutaj można dodać kod do wyczyszczenia koszyka
-                        // clearCart();
+                        await postCart('/Cart/ClearCart', {});
+                        window.location.reload();
                     }
                 });
             }
