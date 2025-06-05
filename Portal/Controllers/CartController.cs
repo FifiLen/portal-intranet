@@ -2,9 +2,10 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using FashionStore.Models;      // ProductModel, CartPageViewModel, CheckoutFormModel
-using Intranet.Models;          // Zamowienie, PozycjaZamowienia, StatusZamowienia, IntranetContext
-using Portal.Services;          // ICartService, IProductService
+using Microsoft.AspNetCore.Http;              // do sesji
+using FashionStore.Models;                    // CartPageViewModel, CheckoutFormModel
+using Intranet.Models;                        // Zamowienie, PozycjaZamowienia, StatusZamowienia, IntranetContext
+using Portal.Services;                        // ICartService, IProductService
 
 namespace FashionStore.Controllers
 {
@@ -71,7 +72,22 @@ namespace FashionStore.Controllers
         // ────────────── CHECKOUT ──────────────
         public IActionResult Checkout()
         {
-            return View(new CheckoutFormModel());
+            var model = new CheckoutFormModel();
+
+            // jeśli użytkownik zalogowany (Id w sesji) – wypełnij danymi
+            var uid = HttpContext.Session.GetInt32("UserId");
+            if (uid != null)
+            {
+                var user = _context.Uzytkownicy.Find(uid.Value);
+                if (user != null)
+                {
+                    model.FirstName = user.Imie;
+                    model.LastName  = user.Nazwisko;
+                    model.Email     = user.Email;
+                }
+            }
+
+            return View(model);
         }
 
         [HttpPost]
@@ -91,6 +107,7 @@ namespace FashionStore.Controllers
                 ImieZamawiajacego     = model.FirstName,
                 NazwiskoZamawiajacego = model.LastName,
                 EmailZamawiajacego    = model.Email,
+                UzytkownikId          = HttpContext.Session.GetInt32("UserId"),
                 Status                = StatusZamowienia.Nowe,
                 PozycjeZamowien       = items.Select(i => new PozycjaZamowienia
                 {
@@ -99,7 +116,9 @@ namespace FashionStore.Controllers
                     CenaJednostkowa = i.Price
                 }).ToList()
             };
-            order.LacznaWartosc = order.PozycjeZamowien.Sum(p => p.Ilosc * p.CenaJednostkowa);
+
+            order.LacznaWartosc = order.PozycjeZamowien
+                                      .Sum(p => p.Ilosc * p.CenaJednostkowa);
 
             _context.Zamowienia.Add(order);
             await _context.SaveChangesAsync();

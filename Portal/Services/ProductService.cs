@@ -1,86 +1,86 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Intranet.Models;
 using FashionStore.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Portal.Services;
-
-public class ProductService : IProductService
+namespace Portal.Services
 {
-    private readonly IntranetContext _context;
-
-    public ProductService(IntranetContext context)
+    public class ProductService : IProductService
     {
-        _context = context;
-    }
+        private readonly IntranetContext _context;
 
-    public async Task<List<ProductModel>> GetFeaturedAsync(int count = 4)
-    {
-        var products = await _context.Produkty
-            .AsNoTracking()
-            .OrderBy(p => p.Id)
-            .Take(count)
-            .ToListAsync();
-
-        return products.Select(p => new ProductModel
+        public ProductService(IntranetContext context)
         {
-            Id = p.Id,
-            Name = p.Nazwa,
-            Price = p.Cena,
-            OldPrice = null,
-            Discount = null,
-            IsNew = false,
-            ImageUrl = "/images/place-holder.jpg",
-            Tags = new List<string>(),
-            Colors = new List<string>(),
-            Sizes = new List<string>(),
-            Featured = false
-        }).ToList();
-    }
+            _context = context;
+        }
 
-    public async Task<List<ProductModel>> GetByCategoryAsync(string category)
-    {
-        var products = await _context.Produkty
-            .AsNoTracking()
-            .Where(p => p.Kategoria == category)
-            .ToListAsync();
-
-        return products.Select(p => new ProductModel
+        /* ────────────── WYRÓŻNIONE ────────────── */
+        public async Task<List<ProductModel>> GetFeaturedAsync(int count = 4)
         {
-            Id = p.Id,
-            Name = p.Nazwa,
-            Price = p.Cena,
-            OldPrice = null,
-            Discount = null,
-            IsNew = false,
-            ImageUrl = "/images/place-holder.jpg",
-            Tags = new List<string>(),
-            Colors = new List<string>(),
-            Sizes = new List<string>(),
-            Featured = false
-        }).ToList();
-    }
+            var products = await _context.Produkty
+                .AsNoTracking()
+                .OrderBy(p => p.Id)
+                .Take(count)
+                .ToListAsync();
 
-    public async Task<List<ProductModel>> GetRandomAsync(int count)
-    {
-        var products = await _context.Produkty
-            .AsNoTracking()
-            .OrderBy(p => Guid.NewGuid())
-            .Take(count)
-            .ToListAsync();
+            return Map(products);
+        }
 
-        return products.Select(p => new ProductModel
+        /* ────────────── WG KATEGORII ────────────── */
+        public async Task<List<ProductModel>> GetByCategoryAsync(string category)
         {
-            Id = p.Id,
-            Name = p.Nazwa,
-            Price = p.Cena,
-            OldPrice = null,
-            Discount = null,
-            IsNew = false,
-            ImageUrl = "/images/place-holder.jpg",
-            Tags = new List<string>(),
-            Colors = new List<string>(),
-            Sizes = new List<string>(),
-            Featured = false
-        }).ToList();
+            var products = await _context.Produkty
+                .AsNoTracking()
+                .Where(p => p.Kategoria == category)
+                .ToListAsync();
+
+            return Map(products);
+        }
+
+        /* ────────────── LOSOWE ────────────── */
+        public async Task<List<ProductModel>> GetRandomAsync(int count)
+        {
+            var products = await _context.Produkty
+                .AsNoTracking()
+                .OrderBy(p => Guid.NewGuid())
+                .Take(count)
+                .ToListAsync();
+
+            return Map(products);
+        }
+
+        /* ────────────── WYSZUKIWANIE (nowość Codex) ────────────── */
+        public async Task<List<ProductModel>> SearchAsync(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return new();
+
+            var products = await _context.Produkty
+                .AsNoTracking()
+                .Where(p => EF.Functions.Like(p.Nazwa, $"%{query}%"))
+                .ToListAsync();
+
+            return Map(products);
+        }
+
+        /* ────────────── MAPOWANIE ENTITY → VIEWMODEL ────────────── */
+        private static List<ProductModel> Map(IEnumerable<Produkt> products) =>
+            products.Select(p => new ProductModel
+            {
+                Id       = p.Id,
+                Name     = p.Nazwa,
+                Price    = p.Cena,
+                OldPrice = null,
+                Discount = null,
+                IsNew    = false,
+                ImageUrl = "/images/place-holder.jpg",
+                Tags     = new List<string>(),
+                Colors   = new List<string>(),
+                Sizes    = new List<string>(),
+                Featured = false
+            }).ToList();
     }
 }
