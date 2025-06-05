@@ -49,4 +49,19 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
     })
+
+    // Dodawanie produktów do koszyka
+    document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault()
+            const id = btn.getAttribute('data-product-id')
+            if (!id) return
+            await fetch('/Cart/Add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `productId=${id}&quantity=1`
+            })
+            window.location.href = '/Cart'
+        })
+    })
 })
