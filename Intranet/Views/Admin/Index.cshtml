@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Intranet.Models.Pracownicy> // LUB @model IEnumerable<Intranet.Models.Pracownicies>
+﻿@model IEnumerable<Intranet.Models.Pracownicy> 
 
 @{
     ViewData["Title"] = "Zarządzanie użytkownikami";
@@ -14,14 +14,14 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(model => model.First().Email)</th> @* Lepsze dla nagłówków *@
-                <th>Imię i nazwisko</th> @* Można też użyć DisplayNameFor dla Imie/Nazwisko *@
+                <th>@Html.DisplayNameFor(model => model.First().Email)</th> 
+                <th>Imię i nazwisko</th> 
                 <th>@Html.DisplayNameFor(model => model.First().Rola)</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        @foreach (var u in Model) @* Teraz 'u' będzie silnie typowane jako Intranet.Models.Pracownicy *@
+        @foreach (var u in Model) 
         {
                 <tr>
                     <td>@Html.DisplayFor(modelItem => u.Email)</td>
@@ -29,10 +29,10 @@
                     <td>@Html.DisplayFor(modelItem => u.Rola)</td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@u.Id" class="btn btn-sm btn-primary">
-                            <i class="bi bi-pencil"></i> Edytuj @* Dodanie tekstu dla lepszej dostępności *@
+                            <i class="bi bi-pencil"></i> Edytuj 
                         </a>
                         <a asp-action="Delete" asp-route-id="@u.Id" class="btn btn-sm btn-danger">
-                            <i class="bi bi-trash"></i> Usuń @* Dodanie tekstu dla lepszej dostępności *@
+                            <i class="bi bi-trash"></i> Usuń 
                         </a>
                     </td>
                 </tr>
