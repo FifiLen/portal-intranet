@@ -12,12 +12,9 @@ namespace Portal.Services
     {
         private readonly IntranetContext _context;
 
-        public ProductService(IntranetContext context)
-        {
-            _context = context;
-        }
+        public ProductService(IntranetContext context) => _context = context;
 
-        /* ────────────── WYRÓŻNIONE ────────────── */
+        /* ────────────── 1. WYRÓŻNIONE ────────────── */
         public async Task<List<ProductModel>> GetFeaturedAsync(int count = 4)
         {
             var products = await _context.Produkty
@@ -29,7 +26,7 @@ namespace Portal.Services
             return Map(products);
         }
 
-        /* ────────────── WG KATEGORII ────────────── */
+        /* ────────────── 2. WG KATEGORII ────────────── */
         public async Task<List<ProductModel>> GetByCategoryAsync(string category)
         {
             var products = await _context.Produkty
@@ -40,30 +37,53 @@ namespace Portal.Services
             return Map(products);
         }
 
-        /* ────────────── LOSOWE ────────────── */
+        /* ────────────── 3. LOSOWE ────────────── */
         public async Task<List<ProductModel>> GetRandomAsync(int count)
         {
             var products = await _context.Produkty
                 .AsNoTracking()
-                .OrderBy(p => Guid.NewGuid())
+                .OrderBy(_ => Guid.NewGuid())
                 .Take(count)
                 .ToListAsync();
 
             return Map(products);
         }
 
-        /* ────────────── WYSZUKIWANIE (nowość Codex) ────────────── */
-        public async Task<List<ProductModel>> SearchAsync(string query)
+        /* ────────────── 4. ROZSZERZONE WYSZUKIWANIE ────────────── */
+        public async Task<List<ProductModel>> SearchAsync(
+            string? query,
+            string? category = null,
+            decimal? minPrice = null,
+            decimal? maxPrice = null)
         {
-            if (string.IsNullOrWhiteSpace(query))
-                return new();
+            var q = _context.Produkty.AsNoTracking().AsQueryable();
 
-            var products = await _context.Produkty
-                .AsNoTracking()
-                .Where(p => EF.Functions.Like(p.Nazwa, $"%{query}%"))
-                .ToListAsync();
+            if (!string.IsNullOrWhiteSpace(query))
+                q = q.Where(p => EF.Functions.Like(p.Nazwa, $"%{query}%"));
 
+            if (!string.IsNullOrWhiteSpace(category))
+                q = q.Where(p => p.Kategoria == category);
+
+            if (minPrice.HasValue)
+                q = q.Where(p => p.Cena >= minPrice.Value);
+
+            if (maxPrice.HasValue)
+                q = q.Where(p => p.Cena <= maxPrice.Value);
+
+            var products = await q.ToListAsync();
             return Map(products);
+        }
+
+        /* ────────────── 5. LISTA KATEGORII ────────────── */
+        public async Task<List<string>> GetCategoriesAsync()
+        {
+            return await _context.Produkty
+                .AsNoTracking()
+                .Select(p => p.Kategoria!)
+                .Where(c => !string.IsNullOrEmpty(c))
+                .Distinct()
+                .OrderBy(c => c)
+                .ToListAsync();
         }
 
         /* ────────────── MAPOWANIE ENTITY → VIEWMODEL ────────────── */

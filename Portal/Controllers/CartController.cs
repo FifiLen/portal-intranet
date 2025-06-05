@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;              // do sesji
 using FashionStore.Models;                    // CartPageViewModel, CheckoutFormModel
 using Intranet.Models;                        // Zamowienie, PozycjaZamowienia, StatusZamowienia, IntranetContext
 using Portal.Services;                        // ICartService, IProductService
@@ -25,7 +25,7 @@ namespace FashionStore.Controllers
             _productService = productService;
         }
 
-        // ────────────── KOSZYK ──────────────
+        /* ────────────── KOSZYK ────────────── */
         public async Task<IActionResult> Index()
         {
             var cartItems   = await _cartService.GetItemsAsync();
@@ -40,7 +40,7 @@ namespace FashionStore.Controllers
             return View(vm);
         }
 
-        // ────────────── OPERACJE AJAX ──────────────
+        /* ────────────── OPERACJE AJAX ────────────── */
         [HttpPost]
         public async Task<IActionResult> Add(int productId, int quantity = 1)
         {
@@ -69,17 +69,17 @@ namespace FashionStore.Controllers
             return Json(new { success = true });
         }
 
-        // ────────────── CHECKOUT ──────────────
+        /* ────────────── CHECKOUT ────────────── */
         public IActionResult Checkout()
         {
             var model = new CheckoutFormModel();
 
-            // jeśli użytkownik zalogowany (Id w sesji) – wypełnij danymi
+            // Prefill, jeśli użytkownik zalogowany
             var uid = HttpContext.Session.GetInt32("UserId");
-            if (uid != null)
+            if (uid is not null)
             {
                 var user = _context.Uzytkownicy.Find(uid.Value);
-                if (user != null)
+                if (user is not null)
                 {
                     model.FirstName = user.Imie;
                     model.LastName  = user.Nazwisko;
@@ -127,11 +127,11 @@ namespace FashionStore.Controllers
             return RedirectToAction(nameof(Success), new { id = order.Id });
         }
 
-        // ────────────── ZAMÓWIENIE ZŁOŻONE ──────────────
+        /* ────────────── ZAMÓWIENIE ZŁOŻONE ────────────── */
         public async Task<IActionResult> Success(int id)
         {
             var order = await _context.Zamowienia.FindAsync(id);
-            if (order == null) return RedirectToAction(nameof(Index));
+            if (order is null) return RedirectToAction(nameof(Index));
 
             return View(order);
         }

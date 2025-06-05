@@ -18,7 +18,7 @@ builder.Services.AddScoped<PortalTextService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();
 
-// ────────────── MVC – wycinamy kontrolery z assembly „Intranet” ──────────────
+// ────────────── MVC – usuń kontrolery z assembly „Intranet” ──────────────
 builder.Services.AddControllersWithViews()
     .ConfigureApplicationPartManager(apm =>
     {
@@ -49,7 +49,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();       // sesje przed autoryzacją
+app.UseSession();   // sesje przed autoryzacją
 app.UseAuthorization();
 
 app.MapControllerRoute(

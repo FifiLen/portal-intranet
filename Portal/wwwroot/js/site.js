@@ -1,46 +1,41 @@
-// ────────────── PARALLAX & SCROLL ANIMATIONS ──────────────
+/* ────────────── PARALLAX & SCROLL ANIMATIONS ────────────── */
 function handleParallax() {
     const scrollPosition = window.pageYOffset;
 
-    /* Hero image parallax */
+    // Hero (główne zdjęcie)
     const heroImage = document.querySelector('.hero-image');
-    if (heroImage) {
+    if (heroImage)
         heroImage.style.transform = `scale(1.1) translateY(${scrollPosition * 0.1}px)`;
-    }
 
-    /* Lookbook parallax */
+    // Lookbook tło
     const lookbookBg = document.querySelector('#lookbook .bg-fixed');
-    if (lookbookBg) {
+    if (lookbookBg)
         lookbookBg.style.backgroundPositionY = `${-scrollPosition * 0.2}px`;
-    }
 
-    /* Fade-in animacje kart */
-    const animateElements = document.querySelectorAll('.product-card, .category-card');
-    animateElements.forEach((el) => {
+    // Fade-in elementów
+    document.querySelectorAll('.product-card, .category-card').forEach((el) => {
         const elementPosition = el.getBoundingClientRect().top;
         const windowHeight    = window.innerHeight;
-        if (elementPosition < windowHeight * 0.8) {
+
+        if (elementPosition < windowHeight * 0.8)
             el.classList.add('animate-fade-in');
-        }
     });
 }
 
 window.addEventListener('scroll', handleParallax);
 
-// ────────────── DOMContentLoaded ──────────────
+/* ────────────── DOMContentLoaded ────────────── */
 document.addEventListener('DOMContentLoaded', () => {
     handleParallax();
 
-    /* Smooth scroll dla kotwic */
+    /* Smooth-scroll kotwic */
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener('click', function (e) {
+        anchor.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
+            const targetId = anchor.getAttribute('href');
             if (targetId === '#') return;
             const targetEl = document.querySelector(targetId);
-            if (targetEl) {
-                targetEl.scrollIntoView({ behavior: 'smooth' });
-            }
+            if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
         });
     });
 
@@ -61,24 +56,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* ────────────── SEARCH OVERLAY (nowość) ────────────── */
+    /* ────────────── SEARCH OVERLAY ────────────── */
     const searchIcon  = document.getElementById('search-icon');
     const overlay     = document.getElementById('search-overlay');
     const searchInput = overlay ? overlay.querySelector('input[name="q"]') : null;
 
     if (searchIcon && overlay && searchInput) {
-        /* otwarcie */
+        // otwarcie
         searchIcon.addEventListener('click', (e) => {
             e.preventDefault();
             overlay.classList.remove('hidden');
             searchInput.focus();
         });
 
-        /* zamknięcie kliknięciem poza box-em */
+        // zamknięcie kliknięciem tła lub klawiszem ESC
         overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                overlay.classList.add('hidden');
-            }
+            if (e.target === overlay) overlay.classList.add('hidden');
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') overlay.classList.add('hidden');
         });
     }
 });
