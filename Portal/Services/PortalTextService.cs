@@ -15,14 +15,14 @@ public class PortalTextService
         _cache = cache;
     }
 
-    public string Get(string key, string? lang = null)
+    public string Get(string key)
     {
-        var cacheKey = $"PortalText-{key}-{lang}";
+        var cacheKey = $"PortalText-{key}";
         if (!_cache.TryGetValue(cacheKey, out string? value))
         {
             var text = _context.PortalTexts
                 .AsNoTracking()
-                .FirstOrDefault(t => t.Key == key && t.Language == lang);
+                .FirstOrDefault(t => t.Key == key);
             value = text?.Value ?? key;
             _cache.Set(cacheKey, value, TimeSpan.FromMinutes(10));
         }
