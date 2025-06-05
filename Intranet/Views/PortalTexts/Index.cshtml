@@ -1,24 +1,24 @@
 @model IEnumerable<Intranet.Models.PortalText>
 @{
-    ViewData["Title"] = "Portal Texts";
+    ViewData["Title"] = "Teksty portalu";
 }
 <h1>@ViewData["Title"]</h1>
 <form method="get" class="mb-3">
     <select name="section" onchange="this.form.submit()" class="form-select w-auto d-inline">
-        <option value="">All sections</option>
+        <option value="">Wszystkie sekcje</option>
         @foreach (var s in (IEnumerable<string>)ViewBag.Sections)
         {
             <option value="@s" selected="@(ViewBag.CurrentSection == s)">@s</option>
         }
     </select>
-    <a asp-action="Create" class="btn btn-primary ms-2">Create New</a>
+    <a asp-action="Create" class="btn btn-primary ms-2">Dodaj nowy</a>
 </form>
 <table class="table">
     <thead>
         <tr>
-            <th>Key</th>
-            <th>Value</th>
-            <th>Section</th>
+            <th>Klucz</th>
+            <th>Wartość</th>
+            <th>Sekcja</th>
             <th></th>
         </tr>
     </thead>
@@ -30,8 +30,8 @@
             <td>@item.Value</td>
             <td>@item.Section</td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
             </td>
         </tr>
 }
