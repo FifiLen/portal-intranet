@@ -9,5 +9,8 @@ BEGIN
     ALTER TABLE PortalTexts ADD Section NVARCHAR(100) NOT NULL DEFAULT '';
 END
 
-CREATE UNIQUE INDEX IX_PortalTexts_Key_Section ON PortalTexts(Key, Section);
+IF NOT EXISTS (
+    SELECT 1 FROM sys.indexes WHERE name = 'IX_PortalTexts_Key_Section'
+)
+    CREATE UNIQUE INDEX IX_PortalTexts_Key_Section ON PortalTexts([Key], [Section]);
 GO
