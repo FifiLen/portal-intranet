@@ -24,9 +24,9 @@ namespace Intranet.Models
         [Required]
         public DateTime DataZlozenia { get; set; } = DateTime.UtcNow;
 
-        // Możesz tu dodać IdKlienta, jeśli będziesz miał tabelę Klienci
-        // public int? KlientId { get; set; }
-        // public virtual Klient Klient { get; set; }
+        
+        
+        
 
         [Required(ErrorMessage = "Imię zamawiającego jest wymagane.")]
         [StringLength(100)]
@@ -47,12 +47,12 @@ namespace Intranet.Models
         public virtual Uzytkownik? Uzytkownik { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal LacznaWartosc { get; set; } // Obliczana na podstawie pozycji
+        public decimal LacznaWartosc { get; set; } 
 
         [Required]
         public StatusZamowienia Status { get; set; } = StatusZamowienia.Nowe;
 
-        // Właściwość nawigacyjna dla pozycji zamówień
+        
         public virtual ICollection<PozycjaZamowienia> PozycjeZamowien { get; set; } = new List<PozycjaZamowienia>();
     }
 }

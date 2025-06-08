@@ -1,16 +1,16 @@
-﻿// W Models/Ogloszenie.cs
+﻿
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Intranet.Models
 {
-    public enum TypOgloszenia // Enum dla różnych typów/kolorów alertów
+    public enum TypOgloszenia 
     {
-        Informacja, // np. alert-info (niebieski)
-        Sukces,     // np. alert-success (zielony)
-        Ostrzezenie, // np. alert-warning (żółty)
-        Niebezpieczenstwo // np. alert-danger (czerwony)
+        Informacja, 
+        Sukces,     
+        Ostrzezenie, 
+        Niebezpieczenstwo 
     }
 
     [Table("Ogloszenia")]
@@ -31,11 +31,11 @@ namespace Intranet.Models
         public DateTime DataPublikacji { get; set; } = DateTime.UtcNow;
 
         [StringLength(100)]
-        public string? Dzial { get; set; } // Np. "Dział Zarządzania", "Dział Marketingu"
+        public string? Dzial { get; set; } 
 
         [Required]
-        public TypOgloszenia Typ { get; set; } = TypOgloszenia.Informacja; // Domyślnie informacja
+        public TypOgloszenia Typ { get; set; } = TypOgloszenia.Informacja; 
 
-        public bool CzyWazne { get; set; } = false; // Można użyć do wyróżnienia ważnych ogłoszeń
+        public bool CzyWazne { get; set; } = false; 
     }
 }

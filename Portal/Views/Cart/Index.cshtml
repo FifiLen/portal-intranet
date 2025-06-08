@@ -19,7 +19,6 @@
 }
 
 <div class="cart-page">
-    <!-- Hero section z asymetrycznym układem -->
     <section class="relative h-[40vh] overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30 z-10"></div>
@@ -39,14 +38,12 @@
         </div>
     </section>
 
-    <!-- Zawartość koszyka -->
     <section class="py-16 px-6 md:px-12 lg:px-24 bg-white relative z-10">
         <div class="max-w-7xl mx-auto">
             @if (Model.Items.Count == 0)
             {
-                <!-- Pusty koszyk -->
                 <div class="flex flex-col items-center justify-center py-20">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-gray-300 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http:
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>
                     <h2 class="text-3xl font-light mb-4 text-center">TWÓJ KOSZYK JEST PUSTY</h2>
@@ -58,27 +55,22 @@
             }
             else
             {
-                <!-- Koszyk z produktami -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                    <!-- Lewa kolumna - lista produktów -->
                     <div class="lg:col-span-2">
                         <div class="mb-8 flex justify-between items-center">
                             <h2 class="text-3xl font-light">PRODUKTY</h2>
                             <span class="text-gray-500">@Model.Items.Count @(Model.Items.Count == 1 ? "produkt" : Model.Items.Count < 5 ? "produkty" : "produktów")</span>
                         </div>
 
-                        <!-- Lista produktów -->
                         <div class="space-y-8">
                             @foreach (var item in Model.Items)
                             {
                                 <div class="cart-item group relative overflow-hidden" data-item-id="@item.Id">
                                     <div class="grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
-                                        <!-- Zdjęcie produktu -->
                                         <div class="md:col-span-2 relative aspect-[3/2] overflow-hidden">
                                             <img src="@item.ImageUrl" alt="@item.Name" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105">
                                         </div>
 
-                                        <!-- Informacje o produkcie -->
                                         <div class="md:col-span-3 flex flex-col md:flex-row md:items-center md:justify-between w-full">
                                             <div class="mb-4 md:mb-0">
                                                 <h3 class="text-xl font-medium mb-1">@item.Name</h3>
@@ -91,24 +83,22 @@
                                             </div>
 
                                             <div class="flex items-center space-x-6">
-                                                <!-- Kontrolka ilości -->
                                                 <div class="flex items-center border border-gray-300">
                                                     <button class="quantity-decrease px-3 py-2 hover:bg-gray-100 transition-colors">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <svg xmlns="http:
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                                                         </svg>
                                                     </button>
                                                     <input type="number" value="@item.Quantity" min="1" max="99" class="quantity-input w-12 text-center py-2 border-x border-gray-300 focus:outline-none">
                                                     <button class="quantity-increase px-3 py-2 hover:bg-gray-100 transition-colors">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <svg xmlns="http:
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                                                         </svg>
                                                     </button>
                                                 </div>
 
-                                                <!-- Przycisk usuwania -->
                                                 <button class="remove-item text-gray-400 hover:text-black transition-colors">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <svg xmlns="http:
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                     </svg>
                                                 </button>
@@ -116,23 +106,21 @@
                                         </div>
                                     </div>
 
-                                    <!-- Linia oddzielająca -->
                                     <div class="mt-8 border-b border-gray-200"></div>
                                 </div>
                             }
                         </div>
 
-                        <!-- Przyciski nawigacyjne -->
                         <div class="mt-12 flex flex-col sm:flex-row justify-between items-center">
                             <a href="/" class="inline-flex items-center text-black hover:underline mb-4 sm:mb-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http:
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                                 </svg>
                                 KONTYNUUJ ZAKUPY
                             </a>
 
                             <button id="clear-cart" class="inline-flex items-center text-black hover:underline">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http:
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
                                 WYCZYŚĆ KOSZYK
@@ -140,19 +128,16 @@
                         </div>
                     </div>
 
-                    <!-- Prawa kolumna - podsumowanie -->
                     <div class="lg:col-span-1">
                         <div class="sticky top-32">
                             <div class="bg-gray-50 p-8">
                                 <h2 class="text-3xl font-light mb-8">PODSUMOWANIE</h2>
 
-                                <!-- Wartość produktów -->
                                 <div class="flex justify-between mb-4">
                                     <span class="text-gray-600">Wartość produktów</span>
                                     <span class="font-medium">@subtotal.ToString("0.00") zł</span>
                                 </div>
 
-                                <!-- Dostawa -->
                                 <div class="flex justify-between mb-4">
                                     <span class="text-gray-600">Dostawa</span>
                                     @if (shipping > 0)
@@ -165,7 +150,6 @@
                                     }
                                 </div>
 
-                                <!-- Rabat -->
                                 @if (discount > 0)
                                 {
                                     <div class="flex justify-between mb-4">
@@ -174,16 +158,13 @@
                                     </div>
                                 }
 
-                                <!-- Linia oddzielająca -->
                                 <div class="border-t border-gray-300 my-6"></div>
 
-                                <!-- Suma -->
                                 <div class="flex justify-between mb-8">
                                     <span class="text-xl font-medium">Suma</span>
                                     <span class="text-xl font-medium">@total.ToString("0.00") zł</span>
                                 </div>
 
-                                <!-- Kod rabatowy -->
                                 <div class="mb-8">
                                     <div class="flex">
                                         <input type="text" id="discount-code" placeholder="Kod rabatowy" class="flex-grow px-4 py-3 border border-gray-300 focus:outline-none focus:border-black">
@@ -193,19 +174,16 @@
                                     </div>
                                 </div>
 
-                                <!-- Przycisk do płatności -->
                                 <a href="/Cart/Checkout" class="block w-full px-8 py-4 bg-black text-white font-medium text-center hover:bg-gray-800 transition-colors">
                                     PRZEJDŹ DO PŁATNOŚCI
                                 </a>
 
-                                <!-- Informacje dodatkowe -->
                                 <div class="mt-6 text-sm text-gray-500">
                                     <p class="mb-2">Darmowa dostawa dla zamówień powyżej 500 zł.</p>
                                     <p>Możliwość zwrotu w ciągu 14 dni.</p>
                                 </div>
                             </div>
 
-                            <!-- Metody płatności -->
                             <div class="mt-8 flex justify-center space-x-4">
                                 <img src="/images/payment-visa.svg" alt="Visa" class="h-6">
                                 <img src="/images/payment-mastercard.svg" alt="Mastercard" class="h-6">
@@ -219,7 +197,6 @@
         </div>
     </section>
 
-    <!-- Sekcja z rekomendacjami -->
     <section class="py-16 px-6 md:px-12 lg:px-24 bg-gray-50">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-3xl font-light mb-12 text-center">MOŻE CIĘ ZAINTERESOWAĆ</h2>
@@ -252,7 +229,6 @@
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Obsługa zmiany ilości produktów
             const quantityInputs = document.querySelectorAll('.quantity-input');
             const decreaseButtons = document.querySelectorAll('.quantity-decrease');
             const increaseButtons = document.querySelectorAll('.quantity-increase');
@@ -268,7 +244,6 @@
                 });
             }
 
-            // Funkcja aktualizująca ilość
             async function updateQuantity(input, newValue) {
                 const min = parseInt(input.getAttribute('min'));
                 const max = parseInt(input.getAttribute('max'));
@@ -281,7 +256,6 @@
                 window.location.reload();
             }
 
-            // Obsługa przycisków zmniejszania ilości
             decreaseButtons.forEach((button, index) => {
                 button.addEventListener('click', function() {
                     const input = quantityInputs[index];
@@ -290,7 +264,6 @@
                 });
             });
 
-            // Obsługa przycisków zwiększania ilości
             increaseButtons.forEach((button, index) => {
                 button.addEventListener('click', function() {
                     const input = quantityInputs[index];
@@ -299,7 +272,6 @@
                 });
             });
 
-            // Obsługa bezpośredniej zmiany wartości w polu input
             quantityInputs.forEach(input => {
                 input.addEventListener('change', function() {
                     const newValue = parseInt(this.value);
@@ -307,7 +279,6 @@
                 });
             });
 
-            // Obsługa usuwania produktów
             removeButtons.forEach((button) => {
                 button.addEventListener('click', async function() {
                     const itemId = this.closest('.cart-item').dataset.itemId;
@@ -316,7 +287,6 @@
                 });
             });
 
-            // Obsługa czyszczenia koszyka
             if (clearCartButton) {
                 clearCartButton.addEventListener('click', async function() {
                     if (confirm('Czy na pewno chcesz wyczyścić koszyk?')) {
@@ -326,17 +296,13 @@
                 });
             }
 
-            // Obsługa kodu rabatowego
             if (applyDiscountButton) {
                 applyDiscountButton.addEventListener('click', function() {
                     const discountCodeInput = document.getElementById('discount-code');
                     const discountCode = discountCodeInput.value.trim();
 
                     if (discountCode) {
-                        // Tutaj można dodać kod do weryfikacji i zastosowania kodu rabatowego
-                        // applyDiscountCode(discountCode);
 
-                        // Przykładowa animacja potwierdzenia
                         applyDiscountButton.textContent = 'ZASTOSOWANO';
                         applyDiscountButton.classList.add('bg-green-600');
 
@@ -348,30 +314,23 @@
                 });
             }
 
-            // Efekt parallax dla hero image
             const handleParallax = function() {
                 const scrollPosition = window.pageYOffset;
                 const viewportHeight = window.innerHeight;
 
-                // Efekt parallax dla hero image - ograniczony do wysokości sekcji hero
                 const heroSection = document.querySelector(".hero-image");
                 if (heroSection) {
-                    // Ograniczamy efekt tylko do widoczności sekcji hero
                     if (scrollPosition < viewportHeight) {
-                        // Mniejszy współczynnik dla subtelniejszego efektu
                         const translateY = Math.min(scrollPosition * 0.05, viewportHeight * 0.2);
                         heroSection.style.transform = `scale(1.1) translateY(${translateY}px)`;
                     }
                 }
             };
 
-            // Nasłuchiwanie na przewijanie strony
             window.addEventListener('scroll', handleParallax);
 
-            // Inicjalne wywołanie
             handleParallax();
 
-            // Animacje przy przewijaniu
             const animateOnScroll = function() {
                 const elements = document.querySelectorAll('.product-card, .cart-item');
 
@@ -380,7 +339,6 @@
                     const windowHeight = window.innerHeight;
 
                     if (elementPosition < windowHeight * 0.9) {
-                        // Dodaj opóźnienie zależne od indeksu
                         setTimeout(() => {
                             element.classList.add('animate-fade-in');
                         }, index * 100);
@@ -388,10 +346,8 @@
                 });
             };
 
-            // Nasłuchiwanie na przewijanie dla animacji
             window.addEventListener('scroll', animateOnScroll);
 
-            // Inicjalne wywołanie
             animateOnScroll();
         });
     </script>
