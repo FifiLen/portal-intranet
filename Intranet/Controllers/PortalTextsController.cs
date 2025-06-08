@@ -15,7 +15,6 @@ public class PortalTextsController : Controller
         _context = context;
     }
 
-    // GET: PortalTexts/Sections
     public async Task<IActionResult> Sections()
     {
         var sections = await _context.PortalTexts
@@ -26,7 +25,6 @@ public class PortalTextsController : Controller
         return View(sections);
     }
 
-    // GET: PortalTexts
     public async Task<IActionResult> Index(string? section)
     {
         var sections = await _context.PortalTexts
@@ -46,13 +44,11 @@ public class PortalTextsController : Controller
         return View(texts);
     }
 
-    // GET: PortalTexts/Create
     public IActionResult Create()
     {
         return View(new PortalText());
     }
 
-    // POST: PortalTexts/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Key,Value,Section")] PortalText text)
@@ -66,7 +62,6 @@ public class PortalTextsController : Controller
         return View(text);
     }
 
-    // GET: PortalTexts/Edit/5
     public async Task<IActionResult> Edit(int id)
     {
         var text = await _context.PortalTexts.FindAsync(id);
@@ -74,7 +69,6 @@ public class PortalTextsController : Controller
         return View(text);
     }
 
-    // POST: PortalTexts/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("Id,Key,Value,Section")] PortalText text)
@@ -90,7 +84,6 @@ public class PortalTextsController : Controller
         return View(text);
     }
 
-    // GET: PortalTexts/Delete/5
     public async Task<IActionResult> Delete(int id)
     {
         var text = await _context.PortalTexts.FindAsync(id);
@@ -98,7 +91,6 @@ public class PortalTextsController : Controller
         return View(text);
     }
 
-    // POST: PortalTexts/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)

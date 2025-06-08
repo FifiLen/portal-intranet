@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-// using Microsoft.AspNetCore.Authorization;
 
 namespace Intranet.Controllers
 {
-    // [Authorize] 
     public class ZamowieniaController : Controller
     {
         private readonly IntranetContext _context;
@@ -78,9 +76,6 @@ namespace Intranet.Controllers
             {
                 try
                 {
-                    // Rozważ pobranie oryginalnego obiektu i aktualizację tylko wybranych pól,
-                    // jeśli nie wszystkie pola z [Bind] mają być edytowalne lub jeśli chcesz
-                    // zachować pewne wartości (np. oryginalną DataZlozenia, jeśli nie jest readonly w formularzu).
                     _context.Update(zamowienie);
                     await _context.SaveChangesAsync();
                     TempData["SuccessMessage"] = "Zamówienie zostało zaktualizowane.";
@@ -94,12 +89,12 @@ namespace Intranet.Controllers
                     else
                     {
                         ModelState.AddModelError(string.Empty, "Wystąpił błąd współbieżności. Spróbuj ponownie.");
-                        return View(zamowienie); // Wróć do widoku z błędem
+                        return View(zamowienie);
                     }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(zamowienie); // Wróć do widoku z błędami walidacji
+            return View(zamowienie);
         }
 
         private bool ZamowienieExists(int id)

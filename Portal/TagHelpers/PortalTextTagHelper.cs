@@ -19,6 +19,6 @@ public class PortalTextTagHelper : TagHelper
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
         var value = _service.Get(Key);
-        output.Content.SetContent(value);
+        output.Content.SetHtmlContent(value);
     }
 }
