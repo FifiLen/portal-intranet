@@ -1,0 +1,27 @@
+@model IEnumerable<Intranet.Models.SectionViewModel>
+@{
+    ViewData["Title"] = "Sekcje tekstów";
+}
+<h1>@ViewData["Title"]</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nazwa sekcji</th>
+        <th>Liczba tekstów</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Count</td>
+            <td>
+                <a asp-action="Index" asp-route-section="@item.Name">Pokaż teksty</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<a asp-action="Index" class="btn btn-secondary">Wszystkie teksty</a>

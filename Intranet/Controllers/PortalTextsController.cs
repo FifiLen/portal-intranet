@@ -15,6 +15,17 @@ public class PortalTextsController : Controller
         _context = context;
     }
 
+    // GET: PortalTexts/Sections
+    public async Task<IActionResult> Sections()
+    {
+        var sections = await _context.PortalTexts
+            .GroupBy(t => t.Section)
+            .Select(g => new SectionViewModel { Name = g.Key, Count = g.Count() })
+            .OrderBy(s => s.Name)
+            .ToListAsync();
+        return View(sections);
+    }
+
     // GET: PortalTexts
     public async Task<IActionResult> Index(string? section)
     {
