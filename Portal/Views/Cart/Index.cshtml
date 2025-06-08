@@ -43,7 +43,7 @@
             @if (Model.Items.Count == 0)
             {
                 <div class="flex flex-col items-center justify-center py-20">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-gray-300 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http:
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>
                     <h2 class="text-3xl font-light mb-4 text-center">TWÓJ KOSZYK JEST PUSTY</h2>
@@ -85,20 +85,20 @@
                                             <div class="flex items-center space-x-6">
                                                 <div class="flex items-center border border-gray-300">
                                                     <button class="quantity-decrease px-3 py-2 hover:bg-gray-100 transition-colors">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <svg xmlns="http:
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
                                                         </svg>
                                                     </button>
                                                     <input type="number" value="@item.Quantity" min="1" max="99" class="quantity-input w-12 text-center py-2 border-x border-gray-300 focus:outline-none">
                                                     <button class="quantity-increase px-3 py-2 hover:bg-gray-100 transition-colors">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <svg xmlns="http:
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                                                         </svg>
                                                     </button>
                                                 </div>
 
                                                 <button class="remove-item text-gray-400 hover:text-black transition-colors">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <svg xmlns="http:
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                     </svg>
                                                 </button>
@@ -113,14 +113,14 @@
 
                         <div class="mt-12 flex flex-col sm:flex-row justify-between items-center">
                             <a href="/" class="inline-flex items-center text-black hover:underline mb-4 sm:mb-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http:
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                                 </svg>
                                 KONTYNUUJ ZAKUPY
                             </a>
 
                             <button id="clear-cart" class="inline-flex items-center text-black hover:underline">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http:
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
                                 WYCZYŚĆ KOSZYK
@@ -229,7 +229,6 @@
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Obsługa zmiany ilości produktów
             const quantityInputs = document.querySelectorAll('.quantity-input');
             const decreaseButtons = document.querySelectorAll('.quantity-decrease');
             const increaseButtons = document.querySelectorAll('.quantity-increase');
@@ -245,7 +244,6 @@
                 });
             }
 
-            // Funkcja aktualizująca ilość
             async function updateQuantity(input, newValue) {
                 const min = parseInt(input.getAttribute('min'));
                 const max = parseInt(input.getAttribute('max'));
@@ -258,7 +256,6 @@
                 window.location.reload();
             }
 
-            // Obsługa przycisków zmniejszania ilości
             decreaseButtons.forEach((button, index) => {
                 button.addEventListener('click', function() {
                     const input = quantityInputs[index];
@@ -267,7 +264,6 @@
                 });
             });
 
-            // Obsługa przycisków zwiększania ilości
             increaseButtons.forEach((button, index) => {
                 button.addEventListener('click', function() {
                     const input = quantityInputs[index];
@@ -276,7 +272,6 @@
                 });
             });
 
-            // Obsługa bezpośredniej zmiany wartości w polu input
             quantityInputs.forEach(input => {
                 input.addEventListener('change', function() {
                     const newValue = parseInt(this.value);
@@ -284,7 +279,6 @@
                 });
             });
 
-            // Obsługa usuwania produktów
             removeButtons.forEach((button) => {
                 button.addEventListener('click', async function() {
                     const itemId = this.closest('.cart-item').dataset.itemId;
@@ -293,7 +287,6 @@
                 });
             });
 
-            // Obsługa czyszczenia koszyka
             if (clearCartButton) {
                 clearCartButton.addEventListener('click', async function() {
                     if (confirm('Czy na pewno chcesz wyczyścić koszyk?')) {
@@ -303,17 +296,13 @@
                 });
             }
 
-            // Obsługa kodu rabatowego
             if (applyDiscountButton) {
                 applyDiscountButton.addEventListener('click', function() {
                     const discountCodeInput = document.getElementById('discount-code');
                     const discountCode = discountCodeInput.value.trim();
 
                     if (discountCode) {
-                        // Tutaj można dodać kod do weryfikacji i zastosowania kodu rabatowego
-                        // applyDiscountCode(discountCode);
 
-                        // Przykładowa animacja potwierdzenia
                         applyDiscountButton.textContent = 'ZASTOSOWANO';
                         applyDiscountButton.classList.add('bg-green-600');
 
@@ -325,30 +314,23 @@
                 });
             }
 
-            // Efekt parallax dla hero image
             const handleParallax = function() {
                 const scrollPosition = window.pageYOffset;
                 const viewportHeight = window.innerHeight;
 
-                // Efekt parallax dla hero image - ograniczony do wysokości sekcji hero
                 const heroSection = document.querySelector(".hero-image");
                 if (heroSection) {
-                    // Ograniczamy efekt tylko do widoczności sekcji hero
                     if (scrollPosition < viewportHeight) {
-                        // Mniejszy współczynnik dla subtelniejszego efektu
                         const translateY = Math.min(scrollPosition * 0.05, viewportHeight * 0.2);
                         heroSection.style.transform = `scale(1.1) translateY(${translateY}px)`;
                     }
                 }
             };
 
-            // Nasłuchiwanie na przewijanie strony
             window.addEventListener('scroll', handleParallax);
 
-            // Inicjalne wywołanie
             handleParallax();
 
-            // Animacje przy przewijaniu
             const animateOnScroll = function() {
                 const elements = document.querySelectorAll('.product-card, .cart-item');
 
@@ -357,7 +339,6 @@
                     const windowHeight = window.innerHeight;
 
                     if (elementPosition < windowHeight * 0.9) {
-                        // Dodaj opóźnienie zależne od indeksu
                         setTimeout(() => {
                             element.classList.add('animate-fade-in');
                         }, index * 100);
@@ -365,10 +346,8 @@
                 });
             };
 
-            // Nasłuchiwanie na przewijanie dla animacji
             window.addEventListener('scroll', animateOnScroll);
 
-            // Inicjalne wywołanie
             animateOnScroll();
         });
     </script>

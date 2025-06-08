@@ -1,4 +1,4 @@
-﻿// W Models/Zadanie.cs
+﻿
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -28,20 +28,20 @@ namespace Intranet.Models
 
         public DateTime DataUtworzenia { get; set; } = DateTime.UtcNow;
 
-        public DateTime? TerminWykonania { get; set; } // Może być opcjonalny
+        public DateTime? TerminWykonania { get; set; } 
 
         public bool CzyWykonane { get; set; } = false;
 
-        public DateTime? DataWykonania { get; set; } // Kiedy faktycznie zostało wykonane
+        public DateTime? DataWykonania { get; set; } 
 
         [Required]
         public PriorytetZadania Priorytet { get; set; } = PriorytetZadania.Normalny;
 
-        // Klucz obcy i właściwość nawigacyjna do Pracownika
+        
         [Required(ErrorMessage = "Zadanie musi być przypisane do pracownika.")]
-        public int PracownikId { get; set; } // Do kogo przypisane jest zadanie
+        public int PracownikId { get; set; } 
 
         [ForeignKey("PracownikId")]
-        public virtual Pracownicy PrzypisanyPracownik { get; set; } = null!; // Pracownik, do którego zadanie jest przypisane
+        public virtual Pracownicy PrzypisanyPracownik { get; set; } = null!; 
     }
 }

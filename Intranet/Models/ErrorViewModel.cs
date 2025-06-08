@@ -1,7 +1,7 @@
-﻿// W pliku Models/ErrorViewModel.cs
-using System; // Potrzebne dla String.IsNullOrEmpty
+﻿
+using System; 
 
-namespace Intranet.Models // Upewnij się, że przestrzeń nazw jest poprawna
+namespace Intranet.Models 
 {
     public class ErrorViewModel
     {

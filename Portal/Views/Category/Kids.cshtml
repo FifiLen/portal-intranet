@@ -25,7 +25,7 @@
         <div class="absolute bottom-8 right-8 z-10 flex items-center text-white text-sm">
             <span class="mr-2" portal-text="Category_Kids_Scroll"></span>
             <div class="animate-bounce">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http:
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
             </div>
@@ -42,7 +42,7 @@
 
                 <div class="flex items-center gap-4">
                     <button id="filter-toggle" class="flex items-center gap-2 px-4 py-2 border border-black hover:bg-black hover:text-white transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http:
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                         </svg>
                         FILTRY
@@ -56,7 +56,7 @@
                             <option value="name-asc">NAZWA: A-Z</option>
                         </select>
                         <div class="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http:
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </div>
@@ -64,12 +64,12 @@
 
                     <div class="flex border border-black">
                         <button class="px-3 py-2 bg-black text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http:
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </button>
                         <button class="px-3 py-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http:
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
                             </svg>
                         </button>
@@ -159,9 +159,7 @@
 
             <div class="asymmetric-grid">
                 @{
-                    // Wyróżnione produkty (większe kafelki)
                     var featuredProducts = Model.Where(p => p.Featured).Take(4).ToList();
-                    // Pozostałe produkty
                     var regularProducts = Model.Where(p => !p.Featured || !featuredProducts.Contains(p)).ToList();
                 }
 
@@ -192,7 +190,7 @@
                                             DODAJ DO KOSZYKA
                                         </button>
                                         <button class="bg-transparent border border-white text-white px-3 py-2 font-medium transform -translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-white hover:text-black">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg xmlns="http:
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                             </svg>
                                         </button>
@@ -241,7 +239,7 @@
                                             DODAJ DO KOSZYKA
                                         </button>
                                         <button class="bg-transparent border border-white text-white px-3 py-2 font-medium transform -translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-white hover:text-black">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg xmlns="http:
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                             </svg>
                                         </button>
@@ -292,7 +290,7 @@
                                             DODAJ DO KOSZYKA
                                         </button>
                                         <button class="bg-transparent border border-white text-white px-3 py-2 font-medium transform -translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-white hover:text-black">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg xmlns="http:
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                             </svg>
                                         </button>
@@ -341,7 +339,7 @@
                                             DODAJ DO KOSZYKA
                                         </button>
                                         <button class="bg-transparent border border-white text-white px-3 py-2 font-medium transform -translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-white hover:text-black">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg xmlns="http:
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                             </svg>
                                         </button>
@@ -391,7 +389,7 @@
                                             DODAJ DO KOSZYKA
                                         </button>
                                         <button class="bg-transparent border border-white text-white px-3 py-2 font-medium transform -translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-white hover:text-black">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg xmlns="http:
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                             </svg>
                                         </button>
@@ -419,7 +417,7 @@
             <div class="mt-16 flex justify-center">
                 <div class="flex items-center space-x-2">
                     <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-300 hover:border-black transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http:
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
                     </a>
@@ -429,7 +427,7 @@
                     <span class="w-10 h-10 flex items-center justify-center">...</span>
                     <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-300 hover:border-black transition-colors">8</a>
                     <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-300 hover:border-black transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http:
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
@@ -490,7 +488,6 @@
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Obsługa panelu filtrów
             const filterToggle = document.getElementById('filter-toggle');
             const filterPanel = document.getElementById('filter-panel');
 
@@ -498,24 +495,19 @@
                 filterToggle.addEventListener('click', function() {
                     if (filterPanel.classList.contains('hidden')) {
                         filterPanel.classList.remove('hidden');
-                        // Animacja rozwijania
                         filterPanel.style.maxHeight = '0';
                         filterPanel.style.opacity = '0';
                         filterPanel.style.overflow = 'hidden';
                         filterPanel.style.transition = 'max-height 0.5s ease, opacity 0.3s ease';
 
-                        // Wymuszenie reflow
                         filterPanel.offsetHeight;
 
-                        // Animacja rozwijania
                         filterPanel.style.maxHeight = '1000px';
                         filterPanel.style.opacity = '1';
                     } else {
-                        // Animacja zwijania
                         filterPanel.style.maxHeight = '0';
                         filterPanel.style.opacity = '0';
 
-                        // Po zakończeniu animacji ukryj panel
                         setTimeout(function() {
                             filterPanel.classList.add('hidden');
                         }, 500);
@@ -523,30 +515,23 @@
                 });
             }
 
-            // Efekt parallax dla hero image
             const handleParallax = function() {
                 const scrollPosition = window.pageYOffset;
                 const viewportHeight = window.innerHeight;
 
-                // Efekt parallax dla hero image - ograniczony do wysokości sekcji hero
                 const heroSection = document.querySelector(".hero-image");
                 if (heroSection) {
-                    // Ograniczamy efekt tylko do widoczności sekcji hero
                     if (scrollPosition < viewportHeight) {
-                        // Mniejszy współczynnik dla subtelniejszego efektu
                         const translateY = Math.min(scrollPosition * 0.05, viewportHeight * 0.2);
                         heroSection.style.transform = `scale(1.1) translateY(${translateY}px)`;
                     }
                 }
             };
 
-            // Nasłuchiwanie na przewijanie strony
             window.addEventListener('scroll', handleParallax);
 
-            // Inicjalne wywołanie
             handleParallax();
 
-            // Animacje przy przewijaniu
             const animateOnScroll = function() {
                 const elements = document.querySelectorAll('.product-card');
 
@@ -555,7 +540,6 @@
                     const windowHeight = window.innerHeight;
 
                     if (elementPosition < windowHeight * 0.9) {
-                        // Dodaj opóźnienie zależne od indeksu
                         setTimeout(() => {
                             element.classList.add('animate-fade-in');
                         }, index * 100);
@@ -563,10 +547,8 @@
                 });
             };
 
-            // Nasłuchiwanie na przewijanie dla animacji
             window.addEventListener('scroll', animateOnScroll);
 
-            // Inicjalne wywołanie
             animateOnScroll();
         });
     </script>

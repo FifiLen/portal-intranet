@@ -23,6 +23,6 @@ namespace Intranet.Models
 
         [Required]
         [Column(TypeName = "decimal(18, 2)")]
-        public decimal CenaJednostkowa { get; set; } // Cena produktu w momencie zakupu
+        public decimal CenaJednostkowa { get; set; } 
     }
 }
