@@ -6,7 +6,6 @@ using Portal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ────────────── SERWISY ──────────────
 builder.Services.AddDbContext<IntranetContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("IntranetDb")));
 
@@ -18,7 +17,6 @@ builder.Services.AddScoped<PortalTextService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();
 
-// ────────────── MVC – usuń kontrolery z assembly „Intranet” ──────────────
 builder.Services.AddControllersWithViews()
     .ConfigureApplicationPartManager(apm =>
     {
@@ -33,7 +31,6 @@ builder.Services.AddControllersWithViews()
 
 var app = builder.Build();
 
-// ────────────── PIPELINE ──────────────
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -49,7 +46,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();   // sesje przed autoryzacją
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

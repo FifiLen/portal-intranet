@@ -1,19 +1,17 @@
-﻿using Intranet.Models; // Dla DashboardViewModel, Zamowienie, Produkt, StatusZamowienia, IntranetContext, ErrorViewModel
+﻿using Intranet.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore; // Dla Include, OrderByDescending, ToListAsync, CountAsync, SumAsync, Take
-using System.Diagnostics; // Dla ErrorViewModel
-using System.Linq;         // Dla OrderByDescending, Take, Count, GroupBy, Select, Distinct
-using System.Threading.Tasks;  // Dla async/await
-using Microsoft.Extensions.Logging; // Dla ILogger
-using System; // Dla DateTime
-using System.Collections.Generic; // Dla List<>
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.Security.Claims; // Dla CultureInfo
-// using Microsoft.AspNetCore.Authorization; // Odkomentuj, jeśli dashboard wymaga autoryzacji
+using System.Security.Claims;
 
 namespace Intranet.Controllers
 {
-    // [Authorize] // Odkomentuj, jeśli dashboard wymaga autoryzacji
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -29,47 +27,39 @@ namespace Intranet.Controllers
         {
             var viewModel = new DashboardViewModel();
             var today = DateTime.Today;
-            // var yesterday = today.AddDays(-1); // Możesz potrzebować do porównań "vs wczoraj"
 
-            // 1. Ostatnie zamówienia
             viewModel.OstatnieZamowienia = await _dbContext.Zamowienia
                 .OrderByDescending(z => z.DataZlozenia)
                 .Take(5)
                 .ToListAsync();
 
-            // 2. Obliczanie statystyk
 
-            // Dzisiejsza sprzedaż (zamówienia Zrealizowane lub Wyslane z dzisiaj)
             decimal dzisiejszaSprzedazDecimal = await _dbContext.Zamowienia
                 .Where(z => z.DataZlozenia.Date == today &&
                              (z.Status == StatusZamowienia.Zrealizowane || z.Status == StatusZamowienia.Wyslane))
                 .SumAsync(z => z.LacznaWartosc);
             viewModel.DzisiejszaSprzedaz = dzisiejszaSprzedazDecimal.ToString("C", new CultureInfo("pl-PL"));
 
-            // Zamówienia do realizacji
             viewModel.ZamowieniaDoRealizacji = await _dbContext.Zamowienia.CountAsync(z =>
                 z.Status == StatusZamowienia.Nowe ||
                 z.Status == StatusZamowienia.PrzyjeteDoRealizacji ||
                 z.Status == StatusZamowienia.WRealizacji);
 
-            // Produkty na wyczerpaniu (np. stan magazynowy < 10)
             viewModel.ProduktyNaWyczerpaniu = await _dbContext.Produkty
                                                     .CountAsync(p => p.StanMagazynowy < 3);
 
-            // Dzisiejsi klienci (unikalni klienci z zamówień złożonych dzisiaj)
             viewModel.DzisiejsiKlienci = await _dbContext.Zamowienia
                 .Where(z => z.DataZlozenia.Date == today)
                 .Select(z => z.EmailZamawiajacego)
                 .Distinct()
                 .CountAsync();
 
-            // Wykres sprzedaży tygodniowej
-            var startDateChart = today.AddDays(-6); // Ostatnie 7 dni
+            var startDateChart = today.AddDays(-6);
             var salesData = new SalesChartData();
 
             var dailySales = await _dbContext.Zamowienia
                 .Where(z => z.DataZlozenia.Date >= startDateChart && z.DataZlozenia.Date <= today &&
-                             z.Status != StatusZamowienia.Anulowane) // Sprzedaż to wszystkie nieanulowane zamówienia
+                             z.Status != StatusZamowienia.Anulowane)
                 .GroupBy(z => z.DataZlozenia.Date)
                 .Select(g => new { Date = g.Key, TotalSales = g.Sum(z => z.LacznaWartosc) })
                 .OrderBy(x => x.Date)
@@ -87,7 +77,7 @@ namespace Intranet.Controllers
 
             viewModel.Ogloszenia = await _dbContext.Ogloszenia
                                         .OrderByDescending(o => o.DataPublikacji)
-                                        .Take(4) // Możesz dostosować liczbę wyświetlanych ogłoszeń
+                                        .Take(4)
                                         .ToListAsync();
 
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -97,26 +87,24 @@ namespace Intranet.Controllers
                 currentUserId = parsedUserId;
             }
 
-            // ... (kod pobierania danych dla statystyk, ostatnich zamówień, wykresu, ogłoszeń) ...
             viewModel.Ogloszenia = await _dbContext.Ogloszenia
                                             .OrderByDescending(o => o.DataPublikacji)
                                             .Take(4)
                                             .ToListAsync();
 
-            // Pobierz zadania dla zalogowanego użytkownika (jeśli jest zalogowany)
             if (currentUserId.HasValue)
             {
                 viewModel.MojeZadania = await _dbContext.Zadania
-                                            .Where(z => z.PracownikId == currentUserId.Value && !z.CzyWykonane) // Tylko niewykonane zadania
-                                            .OrderBy(z => z.TerminWykonania ?? DateTime.MaxValue) // Sortuj po terminie (null na końcu)
-                                            .Take(5) // Pokaż np. 5 najbliższych zadań
+                                            .Where(z => z.PracownikId == currentUserId.Value && !z.CzyWykonane)
+                                            .OrderBy(z => z.TerminWykonania ?? DateTime.MaxValue)
+                                            .Take(5)
                                             .ToListAsync();
             }
 
             viewModel.NadchodzaceWydarzenia = await _dbContext.Wydarzenia
-                                        .Where(w => w.DataRozpoczecia >= today) // Wydarzenia od dzisiaj włącznie
+                                        .Where(w => w.DataRozpoczecia >= today)
                                         .OrderBy(w => w.DataRozpoczecia)
-                                        .Take(3) // Możesz dostosować liczbę wyświetlanych wydarzeń
+                                        .Take(3)
                                         .ToListAsync();
 
             return View(viewModel);

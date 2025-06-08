@@ -1,4 +1,4 @@
-﻿namespace Portal.Models // Poprawna przestrzeń nazw
+﻿namespace Portal.Models
 {
     public class ErrorViewModel
     {

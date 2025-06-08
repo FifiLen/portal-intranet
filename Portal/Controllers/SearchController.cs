@@ -10,9 +10,6 @@ namespace Portal.Controllers
 
         public SearchController(IProductService products) => _products = products;
 
-        /// <summary>
-        /// Pełnotekstowe wyszukiwanie produktów z opcjonalnym filtrowaniem
-        /// </summary>
         public async Task<IActionResult> Index(
             string? q,
             string? category,
