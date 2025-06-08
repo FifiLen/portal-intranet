@@ -4,7 +4,6 @@
 }
 
 <div class="category-page men-category-page">
-    <!-- Hero section z asymetrycznym układem -->
     <section class="relative h-[70vh] overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30 z-10"></div>
@@ -33,10 +32,8 @@
         </div>
     </section>
 
-    <!-- Filtry i produkty w asymetrycznym układzie -->
     <section class="py-16 px-6 md:px-12 lg:px-24 bg-white relative z-10">
         <div class="max-w-7xl mx-auto">
-            <!-- Nagłówek z licznikiem produktów i sortowaniem -->
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
                 <div class="mb-4 md:mb-0">
                     <h2 class="text-3xl font-light">KOLEKCJA</h2>
@@ -80,10 +77,8 @@
                 </div>
             </div>
 
-            <!-- Panel filtrów - domyślnie ukryty -->
             <div id="filter-panel" class="mb-12 hidden">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8 p-8 bg-gray-50">
-                    <!-- Kategorie -->
                     <div>
                         <h3 class="font-medium mb-4">KATEGORIE</h3>
                         <div class="space-y-2">
@@ -114,7 +109,6 @@
                         </div>
                     </div>
 
-                    <!-- Rozmiary -->
                     <div>
                         <h3 class="font-medium mb-4">ROZMIAR</h3>
                         <div class="grid grid-cols-3 gap-2">
@@ -127,7 +121,6 @@
                         </div>
                     </div>
 
-                    <!-- Kolory -->
                     <div>
                         <h3 class="font-medium mb-4">KOLOR</h3>
                         <div class="flex flex-wrap gap-3">
@@ -141,7 +134,6 @@
                         </div>
                     </div>
 
-                    <!-- Cena -->
                     <div>
                         <h3 class="font-medium mb-4">CENA</h3>
                         <div class="px-2">
@@ -165,7 +157,6 @@
                 </div>
             </div>
 
-            <!-- Asymetryczna siatka produktów -->
             <div class="asymmetric-grid">
                 @{
                     // Wyróżnione produkty (większe kafelki)
@@ -174,9 +165,7 @@
                     var regularProducts = Model.Where(p => !p.Featured || !featuredProducts.Contains(p)).ToList();
                 }
 
-                <!-- Pierwszy rząd - asymetryczny -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    <!-- Duży produkt po lewej -->
                     @if (featuredProducts.Count > 0)
                     {
                         var product = featuredProducts[0];
@@ -226,7 +215,6 @@
                         </div>
                     }
 
-                    <!-- Mniejszy produkt po prawej -->
                     @if (featuredProducts.Count > 1)
                     {
                         var product = featuredProducts[1];
@@ -277,9 +265,7 @@
                     }
                 </div>
 
-                <!-- Drugi rząd - asymetryczny w drugą stronę -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    <!-- Mniejszy produkt po lewej -->
                     @if (featuredProducts.Count > 2)
                     {
                         var product = featuredProducts[2];
@@ -329,7 +315,6 @@
                         </div>
                     }
 
-                    <!-- Duży produkt po prawej -->
                     @if (featuredProducts.Count > 3)
                     {
                         var product = featuredProducts[3];
@@ -380,7 +365,6 @@
                     }
                 </div>
 
-                <!-- Pozostałe produkty w asymetrycznej siatce -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     @foreach (var product in regularProducts)
                     {
@@ -432,7 +416,6 @@
                 </div>
             </div>
 
-            <!-- Paginacja -->
             <div class="mt-16 flex justify-center">
                 <div class="flex items-center space-x-2">
                     <a href="#" class="w-10 h-10 flex items-center justify-center border border-gray-300 hover:border-black transition-colors">
@@ -455,7 +438,6 @@
         </div>
     </section>
 
-    <!-- Sekcja z trendem sezonu - asymetryczna -->
     <section class="py-20 relative overflow-hidden">
         <div class="absolute top-0 left-0 w-1/2 h-full bg-gray-100 z-0"></div>
         <div class="absolute top-0 right-0 w-1/2 h-full bg-black z-0"></div>
@@ -483,7 +465,6 @@
         </div>
     </section>
 
-    <!-- Newsletter -->
     <section class="py-20 px-6 md:px-12 lg:px-24 bg-gray-100">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between">

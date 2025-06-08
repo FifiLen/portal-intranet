@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using FashionStore.Models;                    // CartPageViewModel, CheckoutFormModel
-using Intranet.Models;                        // Zamowienie, PozycjaZamowienia, StatusZamowienia, IntranetContext
-using Portal.Services;                        // ICartService, IProductService
+using FashionStore.Models;
+using Intranet.Models;
+using Portal.Services;
 
 namespace FashionStore.Controllers
 {
@@ -74,7 +74,6 @@ namespace FashionStore.Controllers
         {
             var model = new CheckoutFormModel();
 
-            // Prefill, jeśli użytkownik zalogowany
             var uid = HttpContext.Session.GetInt32("UserId");
             if (uid is not null)
             {

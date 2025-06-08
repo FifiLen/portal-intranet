@@ -1,18 +1,14 @@
-/* ────────────── PARALLAX & SCROLL ANIMATIONS ────────────── */
 function handleParallax() {
     const scrollPosition = window.pageYOffset;
 
-    // Hero (główne zdjęcie)
     const heroImage = document.querySelector('.hero-image');
     if (heroImage)
         heroImage.style.transform = `scale(1.1) translateY(${scrollPosition * 0.1}px)`;
 
-    // Lookbook tło
     const lookbookBg = document.querySelector('#lookbook .bg-fixed');
     if (lookbookBg)
         lookbookBg.style.backgroundPositionY = `${-scrollPosition * 0.2}px`;
 
-    // Fade-in elementów
     document.querySelectorAll('.product-card, .category-card').forEach((el) => {
         const elementPosition = el.getBoundingClientRect().top;
         const windowHeight    = window.innerHeight;
@@ -24,11 +20,9 @@ function handleParallax() {
 
 window.addEventListener('scroll', handleParallax);
 
-/* ────────────── DOMContentLoaded ────────────── */
 document.addEventListener('DOMContentLoaded', () => {
     handleParallax();
 
-    /* Smooth-scroll kotwic */
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener('click', (e) => {
             e.preventDefault();
@@ -39,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* Dodawanie do koszyka */
     document.querySelectorAll('.add-to-cart-btn').forEach((btn) => {
         btn.addEventListener('click', async (e) => {
             e.preventDefault();
@@ -56,20 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* ────────────── SEARCH OVERLAY ────────────── */
     const searchIcon  = document.getElementById('search-icon');
     const overlay     = document.getElementById('search-overlay');
     const searchInput = overlay ? overlay.querySelector('input[name="q"]') : null;
 
     if (searchIcon && overlay && searchInput) {
-        // otwarcie
         searchIcon.addEventListener('click', (e) => {
             e.preventDefault();
             overlay.classList.remove('hidden');
             searchInput.focus();
         });
 
-        // zamknięcie kliknięciem tła lub klawiszem ESC
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) overlay.classList.add('hidden');
         });

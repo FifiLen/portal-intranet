@@ -1,4 +1,4 @@
-﻿// Controllers/AuthController.cs
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +30,6 @@ namespace Intranet.Controllers
             if (!ModelState.IsValid)
                 return View(vm);
 
-            // dopasuj nazwę właściwości do swojego modelu, np. HasloHash
             var user = await _db.Pracownicies
                 .SingleOrDefaultAsync(u =>
                     u.Email == vm.Email &&
@@ -43,7 +42,6 @@ namespace Intranet.Controllers
                 return View(vm);
             }
 
-            // budujemy claims z dodatkowymi informacjami
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -55,7 +53,6 @@ namespace Intranet.Controllers
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
 
-            // logujemy i ustawiamy ciasteczko
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 principal,
@@ -66,7 +63,6 @@ namespace Intranet.Controllers
                 }
             );
 
-            // przekierowanie na stronę, z której przyszedł
             if (Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl!);
 

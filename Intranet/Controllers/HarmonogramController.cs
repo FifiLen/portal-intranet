@@ -27,10 +27,6 @@ namespace Intranet.Controllers
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userIdString) || !int.TryParse(userIdString, out var userId))
             {
-                // Rozważ odpowiednią obsługę błędu, np. return Unauthorized();
-                // lub przekierowanie do strony błędu/logowania.
-                // Na razie, dla uproszczenia, można rzucić wyjątek lub zwrócić błąd.
-                // W praktyce produkcyjnej lepiej obsłużyć to bardziej elegancko.
                 return BadRequest("Nie można zidentyfikować użytkownika.");
             }
 
